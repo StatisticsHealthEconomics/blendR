@@ -13,4 +13,4 @@ In addition, the corresponding [`Rmd`](Scripts/case_study_blend.Rmd) file is use
 
 ## 👂 Feedback
 
-Please open an issue in our [issue tracker](https://github.comtatisticsHealthEconomics/blendR/issues).
+Please open an issue in our [issue tracker](https://github.com/statisticsHealthEconomics/blendR/issues).
