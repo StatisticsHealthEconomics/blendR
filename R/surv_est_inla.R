@@ -55,7 +55,7 @@ surv_est_inla <- function(inla.formula = inla.surv(death_t, death) ~ -1,
     H0 <- (apply(exp(logh0) |>
                    select(.,1:length(interval.t)),1,cumsum))*interval.t[2]
 
-    tt <- interval.t+interval.t[2]
+    tt <- interval.t + interval.t[2]
 
   } else {
     h0 <-
@@ -80,7 +80,7 @@ surv_est_inla <- function(inla.formula = inla.surv(death_t, death) ~ -1,
   km <- survfit(Surv(death_t, death) ~ 1, data = data)
 
   list(
-    time = tt-tt[1],
+    time = tt - tt[1],
     S_obs = S_obs,
     KM = km)
 }

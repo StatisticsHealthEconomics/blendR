@@ -1,7 +1,12 @@
 
+#
+blendsurv <- function(obs_Surv, ...)
+  UseMethod("blendsurv", obs_Surv)
+
+
 #' Blend survival object
 #'
-#' @param obs_Surv Observed survival curve
+#' @param obs_Surv Observed data survival curve
 #' @param ext_Surv External survival curve
 #' @param blending_interval Maximum and minimum values
 #' @param beta_params coefficients of a beta distribution
@@ -9,15 +14,16 @@
 #' @return
 #' @export
 #'
-blendsurv <- function(obs_Surv, ext_Surv,
-                      blending_interval,
-                      beta_params = list(alpha = 3, beta = 3)) {
-
+blendsurv.default <- function(obs_Surv, ext_Surv,
+                              blending_interval,
+                              beta_params = list(alpha = 3, beta = 3)) {
   tp <- seq(0, 180)
 
   ## parameters for the weight function
-  wt_par <- list(a = blending_interval$min, b = blending_interval$max,
-                 shape1 = beta_params$alpha, shape2 = beta_params$beta)
+  wt_par <- list(a = blending_interval$min,
+                 b = blending_interval$max,
+                 shape1 = beta_params$alpha,
+                 shape2 = beta_params$beta)
 
   weight <- with(wt_par,
                  pbeta((tp - a)/(b - a), shape1, shape2))
