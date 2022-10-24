@@ -1,5 +1,5 @@
 
-# blendR <img src='man/figures/hexbadge.png' align="right" height="139" />
+# blendR: An R package for blending survival curves <img src='man/figures/hexbadge.png' align="right" height="139" />
 
 <!-- badges: start -->
 <!-- badges: end -->
