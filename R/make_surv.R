@@ -1,7 +1,7 @@
 
 #
 make_surv <- function(Surv, ...)
-  UseMethod("blendsurv", Surv)
+  UseMethod("make_surv", Surv)
 
 
 #
