@@ -1,8 +1,9 @@
 
-#' Create an external survival curve based on the expert opinion
+#' Create an external survival data based on expert opinion
 #'
 #' @param t_info  A vector of times for which expert opinion is elicited
-#' @param S_info  A vector of mean survival probabilities estimated by experts corresponding to timepoints in the t_pri
+#' @param S_info  A vector of mean survival probabilities estimated by experts
+#'                corresponding to time points in t_info
 #' @param T_max   The maximum survival time to be used
 #' @param n       The number of patients to construct the artificial external dataset; default 70
 #'
@@ -11,8 +12,8 @@
 #' dat <- ext_surv_sim(t_info = c(10,20,50),
 #'                     S_info = c(0.9, 0.8, 0.2),
 #'                     T_max = 100, n = 100)
-#' km_trt_fit <- survfit(Surv(time, event) ~ 1, data = dat)
-#' plot(km_trt_fit)
+#' km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
+#' plot(km_fit)
 #'
 ext_surv_sim <- function(t_info, S_info, T_max, n = 100) {
   set.seed(1996)
@@ -39,7 +40,6 @@ ext_surv_sim <- function(t_info, S_info, T_max, n = 100) {
 
   # Create survival times using uniform distribution
   time   <- runif(n_sim, min_unif, max_unif)
-
   status <- rep(1, n_sim)
 
   data.frame(time = time,
