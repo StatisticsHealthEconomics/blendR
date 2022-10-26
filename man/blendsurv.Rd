@@ -7,8 +7,10 @@
 blendsurv(
   obs_Surv,
   ext_Surv,
-  blend_interval,
-  beta_params = list(alpha = 3, beta = 3)
+  blend_interv,
+  beta_params = list(alpha = 3, beta = 3),
+  times_est = seq(0, 180),
+  nsim = 100
 )
 }
 \arguments{
@@ -16,13 +18,15 @@ blendsurv(
 
 \item{ext_Surv}{External survival curve}
 
-\item{blend_interval}{Maximum and minimum values}
+\item{blend_interv}{Maximum and minimum values}
 
 \item{beta_params}{coefficients of a beta distribution}
 
-\item{tp}{A vector of times for which the survival curves are to be computed}
+\item{times_est}{A vector of times for which the survival curves
+are to be computed}
 
-\item{nsim}{The number of simulations from the distribution of the survival curves; default 100}
+\item{nsim}{The number of simulations from the distribution of
+the survival curves; default 100}
 }
 \description{
 Blend survival object

@@ -1,10 +1,11 @@
 
-#
+#' @export
 make_surv <- function(Surv, ...)
   UseMethod("make_surv", Surv)
 
 
 #' @importFrom survHE make.surv
+#' @export
 #'
 make_surv.survHE <- function(Surv, t, nsim = 100) {
   extr <- survHE::make.surv(Surv, t = t, nsim = nsim)
@@ -13,6 +14,7 @@ make_surv.survHE <- function(Surv, t, nsim = 100) {
 
 
 #' @importFrom INLA inla.posterior.sample
+#' @export
 #'
 make_surv.inla <- function(Surv, t, nsim = 100) {
 

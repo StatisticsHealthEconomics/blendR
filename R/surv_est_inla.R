@@ -7,6 +7,7 @@
 #' @param nsim           The number of simulations from posteriors; default 100
 #'
 #' @return
+#' @export
 #'
 surv_est_inla <- function(inla.formula = inla.surv(death_t, death) ~ -1,
                           data,

@@ -8,6 +8,7 @@
 #' @param n       The number of patients to construct the artificial external dataset; default 70
 #'
 #' @return
+#' @export
 #' @examples
 #' dat <- ext_surv_sim(t_info = c(10,20,50),
 #'                     S_info = c(0.9, 0.8, 0.2),
