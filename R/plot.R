@@ -13,8 +13,6 @@ plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
   ble_Surv <- ble_Surv$S_ble
 
   ggplot() +
-    # geom_line(aes(obs_Surv$KM$time, obs_Surv$KM$surv, colour = "Kaplan-Meier"),
-    #           size = 1.25, linetype = "dashed") +
     xlim(0, 180) + ylim(0,1) +
     geom_line(aes(tp, rowMeans(obs_Surv), colour = "Data fitting"),
               size = 1, linetype = "twodash") +
@@ -38,8 +36,5 @@ plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
     xlab("Time (months)") + ylab("Survival") +
     scale_colour_manual(name = "model",
                         values = c("Data fitting"="#7CAE00", "External info"="#00BFC4",
-                                   "Blended curve"="#F8766D", "Kaplan-Meier"="brown")) +
-    annotate("text", x = 150, y = 0.9, label = "FCR arm",
-             colour = "orange", fontface = 2)
+                                   "Blended curve"="#F8766D", "Kaplan-Meier"="brown"))
 }
-

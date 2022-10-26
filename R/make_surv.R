@@ -12,7 +12,7 @@ make_surv.survHE <- function(Surv, t, nsim = 100) {
 
 
 #
-make_surv.inla <- function(Surv, nsim = 100) {
+make_surv.inla <- function(Surv, t, nsim = 100) {
 
   n_data <- Surv$model.matrix@Dim[1]
 

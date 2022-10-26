@@ -23,7 +23,7 @@ blendsurv <- function(obs_Surv, ext_Surv,
   S_ext <- make_surv(ext_Surv, t = times_est, nsim = nsim)
 
   # observed data survival curve
-  S_obs <- make_surv(obs_Surv, nsim = nsim)
+  S_obs <- make_surv(obs_Surv, t = times_est, nsim = nsim)
 
   ## parameters for the weight function
   wt_par <- list(a = blend_interv$min,
