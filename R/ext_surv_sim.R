@@ -16,7 +16,6 @@
 #' plot(km_fit)
 #'
 ext_surv_sim <- function(t_info, S_info, T_max, n = 100) {
-  set.seed(1996)
 
   ## length(t_info) == length(S_info)?
 

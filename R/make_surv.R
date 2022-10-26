@@ -5,32 +5,34 @@ make_surv <- function(Surv, ...)
 
 
 #
-make_surv.survHE <- function(Surv, t, nsim) {
+make_surv.survHE <- function(Surv, t, nsim = 100) {
   extr <- survHE::make.surv(Surv, t = t, nsim = nsim)
   as.matrix(extr$mat[[1]])[, -1]
 }
 
 
 #
-make_surv.inla <- function(p, m, nsim) {
+make_surv.inla <- function(Surv, nsim = 100) {
+
+  n_data <- Surv$model.matrix@Dim[1]
 
   # Draw samples from the joint posterior distribution
-  jp <-
+  joint_post <-
     INLA::inla.posterior.sample(
       n = nsim,
-      m,
+      result = Surv,
       selection = list(
-        Predictor = -c(1:nrow(p$data)),
-        baseline.hazard = c(1:(nrow(m$summary.random$baseline.hazard))))
+        Predictor = -c(1:n_data),
+        baseline.hazard = c(1:(nrow(Surv$summary.random$baseline.hazard))))
     )
 
   sim <-
-    lapply(jp, function(i) i$latent) |>
+    lapply(joint_post, function(x) x$latent) |>
     unlist() |>
-    matrix(nrow = nsim,byrow = TRUE) |>
-    as_tibble(.name_repair = ~vctrs::vec_as_names(rownames(jp[[1]]$latent), quiet = TRUE))
+    matrix(nrow = nsim, byrow = TRUE) |>
+    as_tibble(.name_repair = ~vctrs::vec_as_names(rownames(joint_post[[1]]$latent), quiet = TRUE))
 
-  interval.t <- m$summary.random$baseline.hazard$ID
+  interval.t <- Surv$summary.random$baseline.hazard$ID
 
   # Transform baseline hazard
   logh0 <- select(sim, contains("baseline"))
