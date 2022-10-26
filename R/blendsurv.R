@@ -5,8 +5,10 @@
 #' @param ext_Surv External survival curve
 #' @param blend_interv Maximum and minimum values
 #' @param beta_params coefficients of a beta distribution
-#' @param tp      A vector of times for which the survival curves are to be computed
-#' @param nsim    The number of simulations from the distribution of the survival curves; default 100
+#' @param times_est A vector of times for which the survival curves
+#'                  are to be computed
+#' @param nsim The number of simulations from the distribution of
+#'             the survival curves; default 100
 #'
 #' @return
 #' @export
@@ -25,22 +27,21 @@ blendsurv <- function(obs_Surv, ext_Surv,
   # observed data survival curve
   S_obs <- make_surv(obs_Surv, t = times_est, nsim = nsim)
 
-  ## parameters for the weight function
+  # parameters for the weight function
   wt_par <- list(a = blend_interv$min,
                  b = blend_interv$max,
                  shape1 = beta_params$alpha,
                  shape2 = beta_params$beta)
 
-  weight <- with(wt_par,
-                 pbeta((times_est - a)/(b - a), shape1, shape2))
+  w <- with(wt_par,
+            pbeta((times_est - a)/(b - a), shape1, shape2))
 
-  ## blended estimate
+  # blended estimate
   n_sim <- ncol(S_ext)
   S_ble <- matrix(NA, nrow = tmax, ncol = n_sim)
 
   for (i in seq_len(n_sim)) {
-    S_ble[, i] <-
-      S_obs[, i]^(1 - weight) * S_ext[, i]^weight
+    S_ble[, i] <- S_obs[, i]^(1 - w) * S_ext[, i]^w
   }
 
   structure(
