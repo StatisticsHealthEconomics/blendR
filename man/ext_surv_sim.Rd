@@ -16,6 +16,9 @@ corresponding to time points in t_info}
 
 \item{n}{The number of patients to construct the artificial external dataset; default 70}
 }
+\value{
+Dataframe of times and censoring status.
+}
 \description{
 Create an external survival data based on expert opinion
 }

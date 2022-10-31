@@ -20,6 +20,9 @@ surv_est_inla(
 
 \item{dat}{A dataframe for survival data with time (\code{death_t}) and event (\code{death})}
 }
+\value{
+INLA object
+}
 \description{
 Generate survival estimates with a piecewise Cox model (using INLA)
 }

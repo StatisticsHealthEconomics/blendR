@@ -28,6 +28,9 @@ are to be computed}
 \item{nsim}{The number of simulations from the distribution of
 the survival curves; default 100}
 }
+\value{
+List of S for observed, external and blended curves.
+}
 \description{
 Blend survival object
 }

@@ -3,7 +3,7 @@
 #'
 #' @param ble_Surv
 #'
-#' @return
+#' @return \code{ble_Sruv} invisibly
 #' @export
 #'
 plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
@@ -37,4 +37,5 @@ plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
     scale_colour_manual(name = "model",
                         values = c("Data fitting"="#7CAE00", "External info"="#00BFC4",
                                    "Blended curve"="#F8766D", "Kaplan-Meier"="brown"))
+  invisible(ble_Surv)
 }

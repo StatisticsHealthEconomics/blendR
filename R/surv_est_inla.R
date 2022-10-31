@@ -6,7 +6,7 @@
 #' @param cutpoints      A sequence of cut points for intervals in the baseline hazard
 #' @param nsim           The number of simulations from posteriors; default 100
 #'
-#' @return
+#' @return INLA object
 #' @export
 #'
 surv_est_inla <- function(inla.formula = inla.surv(death_t, death) ~ -1,

@@ -9,6 +9,9 @@
 \arguments{
 \item{ble_Surv}{}
 }
+\value{
+\code{ble_Sruv} invisibly
+}
 \description{
 Blended survival curve based on short-term data and external information
 }

@@ -10,7 +10,7 @@
 #' @param nsim The number of simulations from the distribution of
 #'             the survival curves; default 100
 #'
-#' @return
+#' @return List of S for observed, external and blended curves.
 #' @export
 #'
 blendsurv <- function(obs_Surv, ext_Surv,
