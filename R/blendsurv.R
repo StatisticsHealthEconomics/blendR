@@ -1,5 +1,5 @@
 
-#' Blend survival object
+#' Blended survival object
 #'
 #' @param obs_Surv Observed data survival curve
 #' @param ext_Surv External survival curve
