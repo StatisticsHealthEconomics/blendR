@@ -35,8 +35,8 @@ ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 plot(ble_Surv)
 
 
-#################################
-# alternative fitting functions
+####################################
+# two HMC survHE fits
 
 obs_Surv2 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         data = dat_FCR,
@@ -56,4 +56,22 @@ km <- survfit(Surv(death_t, death) ~ 1, data = dat_FCR)
 plot(ble_Surv2) +
   geom_line(aes(km$time, km$surv, colour = "Kaplan-Meier"),
             size = 1.25, linetype = "dashed")
+
+
+#######################################
+# flexsurv frequentist background fit
+
+obs_Surv3 <- fit.models(formula = Surv(death_t, death) ~ 1,
+                        data = dat_FCR,
+                        distr = "exponential",
+                        method = "hmc")
+
+##TODO: make.surv()
+ext_Surv3 <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       dist = "exponential")
+
+ble_Surv3 <- blendsurv(obs_Surv3, ext_Surv3, blend_interv, beta_params)
+
+plot(ble_Surv3)
 
