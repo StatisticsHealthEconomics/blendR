@@ -1,0 +1,11 @@
+Package: blendR
+Title: Blended survival curves
+Version: 0.0.0.9000
+Authors@R: 
+    person("Nathan", "Green", , "n.green@ucl.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Blended survival curves.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
