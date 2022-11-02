@@ -35,7 +35,8 @@ ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 plot(ble_Surv)
 
 
-############
+#################################
+# alternative fitting functions
 
 obs_Surv2 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         data = dat_FCR,

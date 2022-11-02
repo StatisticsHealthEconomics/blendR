@@ -3,14 +3,14 @@
 #'
 #' @param ble_Surv
 #'
-#' @return \code{ble_Sruv} invisibly
+#' @return ggplot2 object
 #' @export
 #'
 plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
 
   obs_Surv <- ble_Surv$S_obs
   ext_Surv <- ble_Surv$S_ext
-  ble_Surv <- ble_Surv$S_ble
+  ble_Surv <- ble_Surv$mat
 
   ggplot() +
     xlim(0, 180) + ylim(0,1) +
@@ -37,5 +37,4 @@ plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
     scale_colour_manual(name = "model",
                         values = c("Data fitting"="#7CAE00", "External info"="#00BFC4",
                                    "Blended curve"="#F8766D", "Kaplan-Meier"="brown"))
-  invisible(ble_Surv)
 }

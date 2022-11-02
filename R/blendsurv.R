@@ -37,17 +37,33 @@ blendsurv <- function(obs_Surv, ext_Surv,
             pbeta((times_est - a)/(b - a), shape1, shape2))
 
   # blended estimate
-  n_sim <- ncol(S_ext)
-  S_ble <- matrix(NA, nrow = tmax, ncol = n_sim)
+  mat <- matrix(NA, nrow = tmax, ncol = nsim)
 
-  for (i in seq_len(n_sim)) {
-    S_ble[, i] <- S_obs[, i]^(1 - w) * S_ext[, i]^w
+  for (i in seq_len(nsim)) {
+    mat[, i] <- S_obs[, i]^(1 - w) * S_ext[, i]^w
+  }
+
+  ## based on survHE::make.surv()
+  if (nsim == 1) {
+    # If nsim=1 then only save the point estimates of the survival curve
+    S <- data.frame(S = rowMeans(mat))
+  } else {
+    # If nsim > 1 then also give the lower and upper quartile of the
+    # underlying distribution
+    S <- data.frame(S = rowMeans(mat),
+                    low = apply(mat, 1, quantile, 0.025),
+                    upp = apply(mat, 1, quantile, 0.975))
   }
 
   structure(
-    list(S_obs = S_obs,
-         S_ext = S_ext,
-         S_ble = S_ble),
+    list(S = S,
+         sim = NA,
+         nsim = nsim,
+         mat = mat,
+         des.mat = NA,
+         times = times_est,
+         S_ext = S_ext,     ##TODO: mat_ext etc?
+         S_obs = S_obs),
     class = "blended")
 }
 
