@@ -6,7 +6,7 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID")),
       person("Che", "Zhaojing", , "zhaojing.che.19@ucl.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "")))
-Description: A package to created blended survival curves, see Che et al (2022) <10.1177/0272989X221134545>.
+Description: A package to create blended survival curves, see Che et al (2022) <10.1177/0272989X221134545>.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
