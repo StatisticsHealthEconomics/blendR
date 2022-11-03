@@ -17,7 +17,15 @@ make_surv.survHE <- function(Surv, t, nsim = 100) {
 #' @export
 #'
 make_surv.flexsurvreg <- function(Surv, t, nsim = 100) {
-  ##TODO:
+
+  # sample parameters
+  sim <- flexsurv::normboot.flexsurvreg(Surv, B = nsim)
+
+  distn_fn <- paste0("p", Surv$dlist$name)
+
+  apply(sim, 1, function(x) {
+    1 - do.call(distn_fn, args = c(list(q = t), as.list(x)))
+  })
 }
 
 
