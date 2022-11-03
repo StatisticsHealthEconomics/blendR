@@ -14,6 +14,7 @@ make_surv.survHE <- function(Surv, t, nsim = 100) {
 
 
 #' @importFrom survHE make.surv
+#' @importFrom flexsurv normboot.flexsurvreg
 #' @export
 #'
 make_surv.flexsurvreg <- function(Surv, t, nsim = 100) {
