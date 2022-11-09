@@ -66,10 +66,9 @@ obs_Surv3 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         distr = "exponential",
                         method = "hmc")
 
-##TODO: make.surv()
 ext_Surv3 <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
                        data = data_sim,
-                       dist = "exponential")
+                       dist = "gompertz")
 
 ble_Surv3 <- blendsurv(obs_Surv3, ext_Surv3, blend_interv, beta_params)
 

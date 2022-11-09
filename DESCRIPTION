@@ -2,9 +2,11 @@ Package: blendR
 Title: Blended survival curves
 Version: 0.0.0.9000
 Authors@R: 
-    person("Nathan", "Green", , "n.green@ucl.ac.uk", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Blended survival curves.
+    c(person("Nathan", "Green", , "n.green@ucl.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
+      person("Che", "Zhaojing", , "zhaojing.che.19@ucl.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "")))
+Description: A package to create blended survival curves, see Che et al (2022) <10.1177/0272989X221134545>.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -13,5 +15,9 @@ Depends:
     survHE
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+URL: https://github.com/StatisticsHealthEconomics/blendR/
+BugReports: https://github.com/StatisticsHealthEconomics/blendR/issues/
+Config/testthat/edition: 3
