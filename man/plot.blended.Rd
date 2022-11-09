@@ -10,7 +10,7 @@
 \item{ble_Surv}{}
 }
 \value{
-\code{ble_Sruv} invisibly
+ggplot2 object
 }
 \description{
 Blended survival curve based on short-term data and external information

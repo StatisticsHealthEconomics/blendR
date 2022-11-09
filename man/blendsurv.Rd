@@ -2,7 +2,7 @@
 % Please edit documentation in R/blendsurv.R
 \name{blendsurv}
 \alias{blendsurv}
-\title{Blend survival object}
+\title{Blended survival object}
 \usage{
 blendsurv(
   obs_Surv,
@@ -32,5 +32,5 @@ the survival curves; default 100}
 List of S for observed, external and blended curves.
 }
 \description{
-Blend survival object
+Blended survival object
 }
