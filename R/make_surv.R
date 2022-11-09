@@ -1,5 +1,11 @@
 
+#' Create survival probabilities
+#'
+#' @param Surv  survival analysis object
+#' @param ... Additional arguments
+#' @return matrix
 #' @export
+#'
 make_surv <- function(Surv, ...)
   UseMethod("make_surv", Surv)
 
