@@ -23,6 +23,7 @@ Dataframe of times and censoring status.
 Create an external survival data based on expert opinion
 }
 \examples{
+library(survival)
 dat <- ext_surv_sim(t_info = c(10,20,50),
                     S_info = c(0.9, 0.8, 0.2),
                     T_max = 100, n = 100)

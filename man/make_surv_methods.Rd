@@ -10,16 +10,20 @@
 \usage{
 make_surv(Surv, ...)
 
-\method{make_surv}{survHE}(Surv, t, nsim = 100)
+\method{make_surv}{survHE}(Surv, t, nsim = 100, ...)
 
-\method{make_surv}{flexsurvreg}(Surv, t, nsim = 100)
+\method{make_surv}{flexsurvreg}(Surv, t, nsim = 100, ...)
 
-\method{make_surv}{inla}(Surv, t, nsim = 100)
+\method{make_surv}{inla}(Surv, t, nsim = 100, ...)
 }
 \arguments{
 \item{Surv}{survival analysis object}
 
 \item{...}{Additional arguments}
+
+\item{t}{Time}
+
+\item{nsim}{Number of simulations}
 }
 \value{
 matrix of survival probabilities

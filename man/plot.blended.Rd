@@ -4,13 +4,17 @@
 \alias{plot.blended}
 \title{Blended survival curve based on short-term data and external information}
 \usage{
-\method{plot}{blended}(ble_Surv, tp = seq(0, 180))
+\method{plot}{blended}(x, tp = seq(0, 180), ...)
 }
 \arguments{
-\item{ble_Surv}{A blended survival curve object obtain from \code{blendsurv}}
+\item{x}{A blended survival curve object obtain from \code{blendsurv}}
+
+\item{tp}{Time points}
+
+\item{...}{Additional arguments}
 }
 \value{
-ggplot2 object
+\pkg{ggplot2} object
 }
 \description{
 Blended survival curve based on short-term data and external information
