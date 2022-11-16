@@ -1,16 +1,21 @@
 
 #' Blended survival curve based on short-term data and external information
 #'
-#' @param ble_Surv
+#' @param x A blended survival curve object obtain from \code{blendsurv}
+#' @param tp Time points
+#' @param ... Additional arguments
+#' @import ggplot2
+#' @importFrom stats quantile
 #'
-#' @return ggplot2 object
+#' @return \pkg{ggplot2} object
+#' @seealso \code{\link{blendsurv}}
 #' @export
 #'
-plot.blended <- function(ble_Surv, tp = seq(0, 180)) {
+plot.blended <- function(x, tp = seq(0, 180), ...) {
 
-  obs_Surv <- ble_Surv$S_obs
-  ext_Surv <- ble_Surv$S_ext
-  ble_Surv <- ble_Surv$mat
+  obs_Surv <- x$S_obs
+  ext_Surv <- x$S_ext
+  ble_Surv <- x$mat
 
   ggplot() +
     xlim(0, 180) + ylim(0,1) +

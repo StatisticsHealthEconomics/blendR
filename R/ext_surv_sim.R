@@ -6,10 +6,12 @@
 #'                corresponding to time points in t_info
 #' @param T_max   The maximum survival time to be used
 #' @param n       The number of patients to construct the artificial external dataset; default 70
-#'
+#' @importFrom stats runif
 #' @return Dataframe of times and censoring status.
 #' @export
+#'
 #' @examples
+#' library(survival)
 #' dat <- ext_surv_sim(t_info = c(10,20,50),
 #'                     S_info = c(0.9, 0.8, 0.2),
 #'                     T_max = 100, n = 100)

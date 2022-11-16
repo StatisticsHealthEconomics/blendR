@@ -14,11 +14,10 @@ blendsurv(
 )
 }
 \arguments{
-\item{obs_Surv}{Observed data survival curve}
+\item{obs_Surv, ext_Surv}{Observed and external data survival curves.
+These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.}
 
-\item{ext_Surv}{External survival curve}
-
-\item{blend_interv}{Maximum and minimum values}
+\item{blend_interv}{Maximum and minimum values for the blending interval.}
 
 \item{beta_params}{coefficients of a beta distribution}
 
@@ -32,5 +31,8 @@ the survival curves; default 100}
 List of S for observed, external and blended curves.
 }
 \description{
-Blended survival object
+This is the main function in the \pkg{blendR} package.
+Two survival curves are supplied and blended according to
+the blending distribution characterised by the blending interval and
+the beta distribution parameters.
 }

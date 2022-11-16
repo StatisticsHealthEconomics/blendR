@@ -2,7 +2,7 @@
 % Please edit documentation in R/surv_est_inla.R
 \name{surv_est_inla}
 \alias{surv_est_inla}
-\title{Generate survival estimates with a piecewise Cox model (using INLA)}
+\title{Generate survival estimates with a piecewise exponential Cox model (using INLA)}
 \usage{
 surv_est_inla(
   inla.formula = inla.surv(death_t, death) ~ -1,
@@ -12,17 +12,18 @@ surv_est_inla(
 )
 }
 \arguments{
-\item{inla.formula}{The formula for PEM which must be a \code{inla.surv} object}
+\item{inla.formula}{The formula for PEM which must be an \code{inla.surv} object}
 
 \item{cutpoints}{A sequence of cut points for intervals in the baseline hazard}
 
 \item{nsim}{The number of simulations from posteriors; default 100}
 
-\item{dat}{A dataframe for survival data with time (\code{death_t}) and event (\code{death})}
+\item{dat}{A dataframe for survival data with time (\code{death_t}) and
+event (\code{death})}
 }
 \value{
 INLA object
 }
 \description{
-Generate survival estimates with a piecewise Cox model (using INLA)
+Generate survival estimates with a piecewise exponential Cox model (using INLA)
 }

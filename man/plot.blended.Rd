@@ -7,11 +7,14 @@
 \method{plot}{blended}(ble_Surv, tp = seq(0, 180))
 }
 \arguments{
-\item{ble_Surv}{}
+\item{ble_Surv}{A blended survival curve object obtain from \code{blendsurv}}
 }
 \value{
 ggplot2 object
 }
 \description{
 Blended survival curve based on short-term data and external information
+}
+\seealso{
+\code{\link{blendsurv}}
 }

@@ -1,29 +1,39 @@
 
-#' Create survival probabilities
+#' @title Create survival probabilities
+#' @name make_surv_methods
+#'
+#' @description These function are version of the \code{make.surv} function
+#'    from \pkg{survHE}. These are needed prior to blending.
 #'
 #' @param Surv  survival analysis object
 #' @param ... Additional arguments
-#' @return matrix
+#' @return matrix of survival probabilities
 #' @export
 #'
 make_surv <- function(Surv, ...)
   UseMethod("make_surv", Surv)
 
 
+#' @rdname make_surv_methods
+#' @param t Time
+#' @param nsim Number of simulations
 #' @importFrom survHE make.surv
 #' @export
 #'
-make_surv.survHE <- function(Surv, t, nsim = 100) {
+make_surv.survHE <- function(Surv, t, nsim = 100, ...) {
   extr <- survHE::make.surv(Surv, t = t, nsim = nsim)
   as.matrix(extr$mat[[1]])[, -1]
 }
 
 
+#' @rdname make_surv_methods
+#' @param t Time
+#' @param nsim Number of simulations
 #' @importFrom survHE make.surv
 #' @importFrom flexsurv normboot.flexsurvreg
 #' @export
 #'
-make_surv.flexsurvreg <- function(Surv, t, nsim = 100) {
+make_surv.flexsurvreg <- function(Surv, t, nsim = 100, ...) {
 
   # sample parameters
   sim <- flexsurv::normboot.flexsurvreg(Surv, B = nsim)
@@ -36,10 +46,14 @@ make_surv.flexsurvreg <- function(Surv, t, nsim = 100) {
 }
 
 
+#' @rdname make_surv_methods
+#' @param t Time
+#' @param nsim Number of simulations
 #' @importFrom INLA inla.posterior.sample
+#' @importFrom vctrs vec_as_names
 #' @export
 #'
-make_surv.inla <- function(Surv, t, nsim = 100) {
+make_surv.inla <- function(Surv, t, nsim = 100, ...) {
 
   n_data <- Surv$model.matrix@Dim[1]
 
@@ -58,7 +72,7 @@ make_surv.inla <- function(Surv, t, nsim = 100) {
     unlist() |>
     matrix(nrow = nsim, byrow = TRUE) |>
     as_tibble(.name_repair =
-                ~vctrs::vec_as_names(rownames(joint_post[[1]]$latent),
+                ~ vctrs::vec_as_names(rownames(joint_post[[1]]$latent),
                                      quiet = TRUE))
 
   interval.t <- Surv$summary.random$baseline.hazard$ID

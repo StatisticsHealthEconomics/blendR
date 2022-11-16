@@ -1,9 +1,14 @@
 
 #' Blended survival object
 #'
-#' @param obs_Surv Observed data survival curve
-#' @param ext_Surv External survival curve
-#' @param blend_interv Maximum and minimum values
+#' This is the main function in the \pkg{blendR} package.
+#' Two survival curves are supplied and blended according to
+#' the blending distribution characterised by the blending interval and
+#' the beta distribution parameters.
+#'
+#' @param obs_Surv,ext_Surv Observed and external data survival curves.
+#'    These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.
+#' @param blend_interv Maximum and minimum values for the blending interval.
 #' @param beta_params coefficients of a beta distribution
 #' @param times_est A vector of times for which the survival curves
 #'                  are to be computed

@@ -1,5 +1,5 @@
 
-# blendR: An R package for blending survival curves <img src='man/figures/hexbadge.png' align="right" height="139" />
+# blendR: An R package for blending survival curves <img src='man/figures/hexbadge.png' style="float:right; height:200px;">
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml)
