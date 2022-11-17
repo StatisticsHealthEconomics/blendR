@@ -10,11 +10,11 @@ ext_surv_sim(t_info, S_info, T_max, n = 100)
 \item{t_info}{A vector of times for which expert opinion is elicited}
 
 \item{S_info}{A vector of mean survival probabilities estimated by experts
-corresponding to time points in t_info}
+corresponding to time points in \code{t_info}}
 
 \item{T_max}{The maximum survival time to be used}
 
-\item{n}{The number of patients to construct the artificial external dataset; default 70}
+\item{n}{The number of patients to construct the artificial external data set; default 70}
 }
 \value{
 Dataframe of times and censoring status.
@@ -23,11 +23,11 @@ Dataframe of times and censoring status.
 Create an external survival data based on expert opinion
 }
 \examples{
-library(survival)
 dat <- ext_surv_sim(t_info = c(10,20,50),
                     S_info = c(0.9, 0.8, 0.2),
                     T_max = 100, n = 100)
-km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
-plot(km_fit)
-
+if (require(survival)) {
+    km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
+    plot(km_fit)
+}
 }

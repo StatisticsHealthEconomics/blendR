@@ -3,21 +3,21 @@
 #'
 #' @param t_info  A vector of times for which expert opinion is elicited
 #' @param S_info  A vector of mean survival probabilities estimated by experts
-#'                corresponding to time points in t_info
+#'                corresponding to time points in \code{t_info}
 #' @param T_max   The maximum survival time to be used
-#' @param n       The number of patients to construct the artificial external dataset; default 70
+#' @param n       The number of patients to construct the artificial external data set; default 70
 #' @importFrom stats runif
 #' @return Dataframe of times and censoring status.
 #' @export
 #'
 #' @examples
-#' library(survival)
 #' dat <- ext_surv_sim(t_info = c(10,20,50),
 #'                     S_info = c(0.9, 0.8, 0.2),
 #'                     T_max = 100, n = 100)
-#' km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
-#' plot(km_fit)
-#'
+#' if (require(survival)) {
+#'     km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
+#'     plot(km_fit)
+#' }
 ext_surv_sim <- function(t_info, S_info, T_max, n = 100) {
 
   ## length(t_info) == length(S_info)?

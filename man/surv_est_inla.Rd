@@ -14,12 +14,12 @@ surv_est_inla(
 \arguments{
 \item{inla.formula}{The formula for PEM which must be an \code{inla.surv} object}
 
+\item{data}{A dataframe for survival data with time (\code{death_t}) and
+event (\code{death})}
+
 \item{cutpoints}{A sequence of cut points for intervals in the baseline hazard}
 
 \item{nsim}{The number of simulations from posteriors; default 100}
-
-\item{dat}{A dataframe for survival data with time (\code{death_t}) and
-event (\code{death})}
 }
 \value{
 INLA object

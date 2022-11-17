@@ -51,6 +51,8 @@ make_surv.flexsurvreg <- function(Surv, t, nsim = 100, ...) {
 #' @param nsim Number of simulations
 #' @importFrom INLA inla.posterior.sample
 #' @importFrom vctrs vec_as_names
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr select contains
 #' @export
 #'
 make_surv.inla <- function(Surv, t, nsim = 100, ...) {
@@ -83,7 +85,7 @@ make_surv.inla <- function(Surv, t, nsim = 100, ...) {
 
   if (interval_width < 1) {
     H0 <- (apply(exp(logh0) |>
-                   select(., 1:length(interval.t)), 1, cumsum))*interval_width
+                   select(1:length(interval.t)), 1, cumsum))*interval_width
 
     tt <- interval.t + interval_width
   } else {

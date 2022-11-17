@@ -1,20 +1,19 @@
 
 #' A function to generate survival estimates with a piecewise Cox model (using INLA)
 #'
-#' @param inla.formula   The formula for PEM which must be a inla.surv object
-#' @param time
-#' @param event
-#' @param dat            A dataframe for survival data with time (death_t) and event (death)
-#' @param cutpoints      A sequence of cutpoints for intervals in the baseline hazard
-#' @param nsim           The number of simulations from posteriors
+#' @param time Time name; string
+#' @param event Event name; string
+#' @param data A dataframe for survival data with time (\code{death_t}) and event (death)
+#' @param cutpoints A sequence of cutpoints for intervals in the baseline hazard
+#' @param nsim The number of simulations from posteriors; default 100
 #'
 #' @return
 #'
 surv_est_inla <- function(time, event, data,
                           cutpoints, nsim = 100){
 
-  inla.formula = as.formula(paste("inla.surv(", time, ",", event, ") ~ -1",
-                                  sep = ""))
+  inla.formula <-
+    as.formula(paste("inla.surv(", time, ",", event, ") ~ -1", sep = ""))
 
   # Convert a Cox proportional hazard model into Poisson regression
   p <- INLA::inla.coxph(
@@ -96,11 +95,13 @@ surv_est_inla <- function(time, event, data,
 
 
 
-#' A function to create an external survival curve based on the expert opinion
+#' Create an external survival curve based on the expert opinion
 #'
 #' @param t_info   A vector of times for which expert opinion is elicited
-#' @param S_info   A vector of mean survival probabilities estimated by experts corresponding to timepoints in the t_pri
+#' @param S_info   A vector of mean survival probabilities estimated by experts
+#'    corresponding to time points in the \code{t_pri}
 #' @param T_max   The maximum survival time to be used
+#' @param time_est Estimated time
 #' @param n       The number of patients to construct the artificial external dataset
 #' @param tp      A vector of times for which the survival curves are to be computed
 #' @param nsim    The number of simulations from the distribution of the survival curves
