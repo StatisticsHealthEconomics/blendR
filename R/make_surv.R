@@ -49,6 +49,7 @@ make_surv.flexsurvreg <- function(Surv, t, nsim = 100, ...) {
 #' @rdname make_surv_methods
 #' @param t Time
 #' @param nsim Number of simulations
+#' @import sn
 #' @importFrom INLA inla.posterior.sample
 #' @importFrom vctrs vec_as_names
 #' @importFrom tibble as_tibble

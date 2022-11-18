@@ -21,7 +21,6 @@ library(blendR)
 ```{r, warning=FALSE, message=FALSE}
 library(survHE)
 library(INLA)
-library(sn)
 ```
 
 

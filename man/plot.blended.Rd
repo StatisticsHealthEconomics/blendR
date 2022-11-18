@@ -4,7 +4,7 @@
 \alias{plot.blended}
 \title{Blended survival curve based on short-term data and external information}
 \usage{
-\method{plot}{blended}(x, tp = seq(0, 180), ...)
+plot.blended(x, tp = seq(0, 180), ...)
 }
 \arguments{
 \item{x}{A blended survival curve object obtain from \code{blendsurv}}
