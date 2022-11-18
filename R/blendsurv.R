@@ -60,7 +60,7 @@ blendsurv <- function(obs_Surv, ext_Surv,
                     upp = apply(mat, 1, quantile, 0.975))
   }
 
-  structure(
+  res <-
     list(S = S,
          sim = NA,
          nsim = nsim,
@@ -68,7 +68,8 @@ blendsurv <- function(obs_Surv, ext_Surv,
          des.mat = NA,
          times = times_est,
          S_ext = S_ext,     ##TODO: mat_ext etc?
-         S_obs = S_obs),
-    class = "blended")
+         S_obs = S_obs)
+
+  structure(res, class = c("blended", class(res)))
 }
 
