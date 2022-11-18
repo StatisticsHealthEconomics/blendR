@@ -14,11 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r limit-cores, echo=FALSE}
-# R CMD check only allows a maximum of two cores
-options(mc.cores=2)
-```
-
 ```{r setup, warning=FALSE, message=FALSE}
 library(blendR)
 ```
@@ -26,6 +21,12 @@ library(blendR)
 ```{r, warning=FALSE, message=FALSE}
 library(survHE)
 library(INLA)
+```
+
+```{r limit-cores, echo=FALSE}
+# R CMD check only allows a maximum of two cores
+options(mc.cores=2)
+inla.setOption(num.threads = 2)
 ```
 
 
