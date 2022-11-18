@@ -51,7 +51,6 @@ make_surv.flexsurvreg <- function(Surv, t, nsim = 100, ...) {
 #' @param nsim Number of simulations
 #' @import sn
 #' @importFrom INLA inla.posterior.sample
-#' @importFrom vctrs vec_as_names
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr select contains
 #' @export
@@ -70,13 +69,13 @@ make_surv.inla <- function(Surv, t, nsim = 100, ...) {
         baseline.hazard = c(1:(nrow(Surv$summary.random$baseline.hazard))))
     )
 
+  browser()
   sim <-
     lapply(joint_post, function(x) x$latent) |>
     unlist() |>
     matrix(nrow = nsim, byrow = TRUE) |>
-    as_tibble(.name_repair =
-                ~ vctrs::vec_as_names(rownames(joint_post[[1]]$latent),
-                                     quiet = TRUE))
+    `colnames<-`(rownames(joint_post[[1]]$latent)) |>
+    as_tibble()
 
   interval.t <- Surv$summary.random$baseline.hazard$ID
   interval_width <- interval.t[2]
