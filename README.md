@@ -5,7 +5,7 @@
 [![R-CMD-check](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of blendR is to _blend_ two survical curves together from one to the other according to some defined blending function.
+The goal of blendR is to _blend_ two survival curves together from one to the other according to some defined blending function.
 
 ## Installation
 
