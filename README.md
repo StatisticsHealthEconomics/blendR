@@ -5,7 +5,7 @@
 [![R-CMD-check](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of blendR is to ...
+The goal of blendR is to _blend_ two survical curves together from one to the other according to some defined blending function.
 
 ## Installation
 
@@ -20,9 +20,33 @@ devtools::install_github("StatisticsHealthEconomics/blendR")
 
 This is a basic example which shows you how to solve a common problem:
 
-``` r
+```r
 library(blendR)
-## basic example code
+
+## trial data
+data("TA174_FCR", package = "blendR")
+
+## externally estimated data
+data_sim <- ext_surv_sim(t_info = 144,
+                         S_info = 0.05,
+                         T_max = 180)
+                         
+obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
+                        data = dat_FCR,
+                        distr = "exponential",
+                        method = "hmc")
+                        
+ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       distr = "exponential",
+                       method = "hmc")
+                       
+blend_interv <- list(min = 48, max = 150)
+beta_params <- list(alpha = 3, beta = 3)
+
+ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
+
+plot(ble_Surv)
 ```
 
 ## Licence
