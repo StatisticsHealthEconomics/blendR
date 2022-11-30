@@ -68,7 +68,10 @@ blendsurv <- function(obs_Surv, ext_Surv,
          des.mat = NA,
          times = times_est,
          S_ext = S_ext,     ##TODO: mat_ext etc?
-         S_obs = S_obs)
+         S_obs = S_obs,
+         weight = w,
+         blend_interv = blend_interv,
+         beta_params = beta_params)
 
   structure(res, class = c("blended", class(res)))
 }

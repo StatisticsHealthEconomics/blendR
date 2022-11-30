@@ -41,9 +41,34 @@ plot.blended <- function(x, tp = seq(0, 180), ...) {
           axis.line = element_line(colour = "black"),
           text = element_text(size = 8)) +
     xlab("Time (months)") + ylab("Survival") +
-    scale_colour_manual(name = "model",
+    scale_colour_manual(name = "Model",
                         values = c("Data fitting" = "#7CAE00",
                                    "External info" = "#00BFC4",
                                    "Blended curve" = "#F8766D",
                                    "Kaplan-Meier" = "brown"))
+}
+
+#' Plots the weights for the blending procedure
+#'
+#' @param x A blended survival curve object obtain from \code{blendsurv}
+#' @param ... Additional arguments
+#' @import ggplot2
+#'
+#' @return \pkg{ggplot2} object
+#' @seealso \code{\link{blendsurv}}
+#' @export
+
+weightplot <- function(x, ...) {
+  tibble(
+    t=x$times,
+    t_scaled=(t-x$blend_interv$min)/(x$blend_interv$max-x$blend_interv$min),
+    y=pbeta(t_scaled,x$beta_params$alpha,x$beta_params$beta)) |>
+    mutate(
+      y=case_when(t_scaled<0~0,t_scaled>1~1,TRUE~y)
+    ) |>
+    ggplot(aes(t,y)) + geom_line() + theme_bw() + xlab("Time") + ylab("Weight function") +
+    annotate("text",x$blend_interv |> as.numeric() |> mean(),1.025,label="Blending interval",hjust=0.5,vjust=-1) +
+    geom_segment(
+      aes(x=x$blend_interv$min,y=1.025,xend=x$blend_interv$max,yend=1.025),arrow=arrow(length=unit(0.2,"cm"),ends="both",type="closed")
+    )
 }
