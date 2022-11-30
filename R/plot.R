@@ -18,6 +18,7 @@ plot.blended <- function(x, tp = seq(0, 180), ...) {
   ble_Surv <- x$mat
 
   alpha <- 0.1
+  alpha_1 <- 0.02
 
   ggplot() +
     xlim(0, 180) + ylim(0,1) +
@@ -25,12 +26,12 @@ plot.blended <- function(x, tp = seq(0, 180), ...) {
               size = 1, linetype = "twodash") +
     geom_ribbon(aes(x = tp, y = rowMeans(obs_Surv),
                     ymin = apply(obs_Surv, 1, quantile, probs = 0.025),
-                    ymax = apply(obs_Surv, 1, quantile, probs = 0.975)), alpha = alpha) +
+                    ymax = apply(obs_Surv, 1, quantile, probs = 0.975)), alpha = alpha_1) +
     geom_line(aes(tp, rowMeans(ext_Surv), colour = "External info"),
               size = 1, linetype = "longdash") +
     geom_ribbon(aes(x = tp, y = rowMeans(ext_Surv),
                     ymin = apply(ext_Surv, 1, quantile, probs = 0.025),
-                    ymax = apply(ext_Surv, 1, quantile, probs = 0.975)), alpha = alpha) +
+                    ymax = apply(ext_Surv, 1, quantile, probs = 0.975)), alpha = alpha_1) +
     geom_line(aes(tp, rowMeans(ble_Surv), colour = "Blended curve"), size = 1.25) +
     geom_ribbon(aes(x = tp, y = rowMeans(ble_Surv),
                     ymin = apply(ble_Surv, 1, quantile, probs = 0.025),
