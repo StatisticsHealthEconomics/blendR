@@ -2,6 +2,7 @@
 #' Blended survival curve based on short-term data and external information
 #'
 #' @param x A blended survival curve object obtain from \code{blendsurv}
+#' @param alpha A vector specifying the opacity of ribbon for the blended curve and other curves
 #' @param ... Additional arguments
 #' @import ggplot2
 #' @importFrom stats quantile
@@ -10,7 +11,7 @@
 #' @seealso \code{\link{blendsurv}}
 #' @method plot blended
 #' @export
-plot.blended <- function(x, ...) {
+plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
   dots <- list(...)
 
   obs_Surv <- x$S_obs
@@ -28,8 +29,7 @@ plot.blended <- function(x, ...) {
     ble_Surv <- ble_Surv[keep_times, ]
   }
 
-  alpha <- 0.1
-  alpha_1 <- 0.02
+
 
   ci <- list(low = 0.025, high = 0.975)
 
@@ -39,22 +39,22 @@ plot.blended <- function(x, ...) {
               size = 1, linetype = "twodash") +
     geom_ribbon(aes(x = times, y = rowMeans(obs_Surv),
                     ymin = apply(obs_Surv, 1, quantile, probs = ci$low),
-                    ymax = apply(obs_Surv, 1, quantile, probs = ci$high)), alpha = alpha_1) +
+                    ymax = apply(obs_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
     geom_line(aes(times, rowMeans(ext_Surv), colour = "External info"),
               size = 1, linetype = "longdash") +
     geom_ribbon(aes(x = times, y = rowMeans(ext_Surv),
                     ymin = apply(ext_Surv, 1, quantile, probs = ci$low),
-                    ymax = apply(ext_Surv, 1, quantile, probs = ci$high)), alpha = alpha_1) +
+                    ymax = apply(ext_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
     geom_line(aes(times, rowMeans(ble_Surv), colour = "Blended curve"), size = 1.25) +
     geom_ribbon(aes(x = times, y = rowMeans(ble_Surv),
                     ymin = apply(ble_Surv, 1, quantile, probs = ci$low),
-                    ymax = apply(ble_Surv, 1, quantile, probs = ci$high)), alpha = alpha) +
+                    ymax = apply(ble_Surv, 1, quantile, probs = ci$high)), alpha = alpha[1]) +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
           axis.line = element_line(colour = "black"),
           text = element_text(size = 8)) +
-    xlab("Time (months)") + ylab("Survival") +
+    xlab("Time") + ylab("Survival") +
     scale_colour_manual(name = "Model",
                         values = c("Data fitting" = "#7CAE00",
                                    "External info" = "#00BFC4",
