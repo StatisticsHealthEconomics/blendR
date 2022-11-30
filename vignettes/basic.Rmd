@@ -74,7 +74,11 @@ blend_interv <- list(min = 48, max = 150)
 beta_params <- list(alpha = 3, beta = 3)
 
 ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
+```
 
+We can visualise all of the curves.
+
+```{r}
 plot(ble_Surv)
 ```
 

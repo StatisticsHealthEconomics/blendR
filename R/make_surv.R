@@ -69,7 +69,6 @@ make_surv.inla <- function(Surv, t, nsim = 100, ...) {
         baseline.hazard = c(1:(nrow(Surv$summary.random$baseline.hazard))))
     )
 
-  browser()
   sim <-
     lapply(joint_post, function(x) x$latent) |>
     unlist() |>
