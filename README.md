@@ -22,6 +22,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ```r
 library(blendR)
+library(survHE)
 
 ## trial data
 data("TA174_FCR", package = "blendR")
