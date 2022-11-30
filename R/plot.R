@@ -28,6 +28,8 @@ plot.blended <- function(x, ...) {
     ble_Surv <- ble_Surv[keep_times, ]
   }
 
+  xtext <- ifelse(is.null(dots$xlab), "Time", dots$xlab)
+
   alpha <- 0.1
   alpha_1 <- 0.02
 
@@ -54,7 +56,7 @@ plot.blended <- function(x, ...) {
           panel.background = element_blank(),
           axis.line = element_line(colour = "black"),
           text = element_text(size = 8)) +
-    xlab("Time (months)") + ylab("Survival") +
+    xlab(xtext) + ylab("Survival") +
     scale_colour_manual(name = "Model",
                         values = c("Data fitting" = "#7CAE00",
                                    "External info" = "#00BFC4",
