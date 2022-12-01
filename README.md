@@ -18,7 +18,7 @@ devtools::install_github("StatisticsHealthEconomics/blendR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to solve a common problem. Using the _TA174_FCR_ data set contained in the `blendR` package, we fit exponential distribution survival models with no covariates with the `fit.models()` function from the `survHE` package. This employs the HMC sampler from Stan behind the scenes. The _external_ or _long-term_ data are obtained from an heuristic approach to simulating data consistent with user-defined constraints. The results are then blended into a single survival curve using the `blendsurv()` function.
 
 ```r
 library(blendR)
