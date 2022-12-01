@@ -59,7 +59,10 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
                         values = c("Data fitting" = "#7CAE00",
                                    "External info" = "#00BFC4",
                                    "Blended curve" = "#F8766D",
-                                   "Kaplan-Meier" = "brown"))
+                                   "Kaplan-Meier" = "brown")) +
+    theme_bw() +
+    theme(legend.position = c(0.9, 0.85),
+          legend.background = element_rect(fill = 'transparent'))
 }
 
 #' Plots the weights for the blending procedure
