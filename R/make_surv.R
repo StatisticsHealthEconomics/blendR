@@ -33,7 +33,9 @@ make_surv.survHE <- function(Surv, t, nsim = 100, ...) {
 #' @importFrom flexsurv normboot.flexsurvreg
 #' @export
 #'
-make_surv.flexsurvreg <- function(Surv, t, nsim = 100, ...) {
+make_surv.flexsurvreg <- function(Surv, t = NULL, nsim = 100, ...) {
+
+  if (is.null(t)) t <- sort(unique(Surv$data$Y[, "stop"]))
 
   # sample parameters
   sim <- flexsurv::normboot.flexsurvreg(Surv, B = nsim)
