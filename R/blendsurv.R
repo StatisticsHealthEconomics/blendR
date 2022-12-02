@@ -10,8 +10,8 @@
 #'    These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.
 #' @param blend_interv Maximum and minimum values for the blending interval.
 #' @param beta_params coefficients of a beta distribution
-#' @param times_est A vector of times for which the survival curves
-#'                  are to be computed
+#' @param times A vector of times for which the survival curves
+#'              are to be computed
 #' @param nsim The number of simulations from the distribution of
 #'             the survival curves; default 100
 #'
@@ -21,16 +21,16 @@
 blendsurv <- function(obs_Surv, ext_Surv,
                       blend_interv,
                       beta_params = list(alpha = 3, beta = 3),
-                      times_est = seq(0, 180),
+                      times = NULL,
                       nsim = 100) {
 
-  tmax <- length(times_est)
+  tmax <- length(times)
 
   # external survival curve
-  S_ext <- make_surv(ext_Surv, t = times_est, nsim = nsim)
+  S_ext <- make_surv(ext_Surv, t = times, nsim = nsim)
 
   # observed data survival curve
-  S_obs <- make_surv(obs_Surv, t = times_est, nsim = nsim)
+  S_obs <- make_surv(obs_Surv, t = times, nsim = nsim)
 
   # parameters for the weight function
   wt_par <- list(a = blend_interv$min,
@@ -39,7 +39,7 @@ blendsurv <- function(obs_Surv, ext_Surv,
                  shape2 = beta_params$beta)
 
   w <- with(wt_par,
-            pbeta((times_est - a)/(b - a), shape1, shape2))
+            pbeta((times - a)/(b - a), shape1, shape2))
 
   # blended estimate
   mat <- matrix(NA, nrow = tmax, ncol = nsim)
@@ -66,7 +66,7 @@ blendsurv <- function(obs_Surv, ext_Surv,
          nsim = nsim,
          mat = mat,
          des.mat = NA,
-         times = times_est,
+         times = times,
          S_ext = S_ext,     ##TODO: mat_ext etc?
          S_obs = S_obs,
          weight = w,
