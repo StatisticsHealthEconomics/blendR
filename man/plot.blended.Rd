@@ -4,12 +4,12 @@
 \alias{plot.blended}
 \title{Blended survival curve based on short-term data and external information}
 \usage{
-\method{plot}{blended}(x, tp = seq(0, 180), ...)
+\method{plot}{blended}(x, alpha = c(0.1, 0.05), ...)
 }
 \arguments{
 \item{x}{A blended survival curve object obtain from \code{blendsurv}}
 
-\item{tp}{Time points}
+\item{alpha}{A vector specifying the opacity of ribbon for the blended curve and other curves}
 
 \item{...}{Additional arguments}
 }

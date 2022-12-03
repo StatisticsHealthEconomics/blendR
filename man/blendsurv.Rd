@@ -9,7 +9,7 @@ blendsurv(
   ext_Surv,
   blend_interv,
   beta_params = list(alpha = 3, beta = 3),
-  times_est = seq(0, 180),
+  times = NULL,
   nsim = 100
 )
 }
@@ -21,8 +21,8 @@ These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.}
 
 \item{beta_params}{coefficients of a beta distribution}
 
-\item{times_est}{A vector of times for which the survival curves
-are to be computed}
+\item{times}{A vector of times for which the survival curves
+are to be computed; optional}
 
 \item{nsim}{The number of simulations from the distribution of
 the survival curves; default 100}

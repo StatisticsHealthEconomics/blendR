@@ -12,7 +12,7 @@ make_surv(Surv, ...)
 
 \method{make_surv}{survHE}(Surv, t, nsim = 100, ...)
 
-\method{make_surv}{flexsurvreg}(Surv, t, nsim = 100, ...)
+\method{make_surv}{flexsurvreg}(Surv, t = NULL, nsim = 100, ...)
 
 \method{make_surv}{inla}(Surv, t, nsim = 100, ...)
 }
@@ -21,9 +21,9 @@ make_surv(Surv, ...)
 
 \item{...}{Additional arguments}
 
-\item{t}{Time}
+\item{t}{Time points; vector}
 
-\item{nsim}{Number of simulations}
+\item{nsim}{Number of simulations; integer}
 }
 \value{
 matrix of survival probabilities

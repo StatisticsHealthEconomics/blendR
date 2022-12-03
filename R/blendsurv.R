@@ -11,7 +11,7 @@
 #' @param blend_interv Maximum and minimum values for the blending interval.
 #' @param beta_params coefficients of a beta distribution
 #' @param times A vector of times for which the survival curves
-#'              are to be computed
+#'              are to be computed; optional
 #' @param nsim The number of simulations from the distribution of
 #'             the survival curves; default 100
 #'
@@ -23,6 +23,12 @@ blendsurv <- function(obs_Surv, ext_Surv,
                       beta_params = list(alpha = 3, beta = 3),
                       times = NULL,
                       nsim = 100) {
+
+  # best guess at survival times
+  if (is.null(times)) {
+    S_times <- c(data_times(ext_Surv), data_times(ext_Surv))
+    times <- pretty(S_times, n = 100)
+  }
 
   tmax <- length(times)
 
