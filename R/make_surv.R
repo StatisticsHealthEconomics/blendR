@@ -85,24 +85,24 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
   interval_width <- interval.t[2]
   n_intervals <- length(interval.t)
 
+  # additional tail times
+  t_excess <- max(0, max(t) - max(interval.t))
 
   if (interval_width < 1) {
     H0 <- (apply(h0, 1, cumsum))*interval_width
-    tt <- interval.t + interval_width
   } else {
     h0_long <- h0[, rep(1:(n_intervals - 1), each = interval_width)]
-    h0_long <- cbind(h0_long, h0[, n_intervals])
+    h0_long <- cbind(h0_long, h0[, rep(n_intervals, t_excess + 1)])
     H0 <- apply(h0_long, 1, cumsum)
-
-    tt <- 1:(max(interval.t) + 1)
   }
 
   # transform to survival probabilities
   S0 <- t(exp(-t(H0)))
   row.names(S0) <- NULL
 
+  t_filter <- if (is.null(t)) TRUE else t + 1
+
   out <- rbind(rep(1, nsim), S0[-nrow(S0), ])
 
-  t_filter <- ifelse(is.null(t), TRUE, t + 1)
-  out[t_filter, ]
+  out[t_filter, , drop = FALSE]
 }
