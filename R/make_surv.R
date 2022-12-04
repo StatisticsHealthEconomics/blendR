@@ -107,7 +107,8 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
   out[t_filter, , drop = FALSE]
 }
 
+#' @rdname make_surv_methods
 #'
-make_surv.default <- function(Surv, t = 1:length(Surv) - 1, ...) {
+make_surv.default <- function(Surv, t = 0:(length(Surv) - 1), ...) {
   Surv[t + 1]
 }
