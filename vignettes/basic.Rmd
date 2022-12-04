@@ -43,8 +43,8 @@ Next, fit the observed data with a piece-wise exponential model using INLA.
 
 ```{r}
 ## observed estimate
-obs_Surv <- surv_est_inla(data = dat_FCR,
-                          cutpoints = seq(0, 180, by = 5))
+obs_Surv <- fit_inla_pw(data = dat_FCR,
+                        cutpoints = seq(0, 180, by = 5))
 ```
 
 For the external model first we create some synthetic data consistent with user-defined constraints as follows.

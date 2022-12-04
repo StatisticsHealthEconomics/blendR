@@ -49,7 +49,7 @@ make_surv.flexsurvreg <- function(Surv, t = NULL, nsim = 100, ...) {
 
 
 #' @rdname make_surv_methods
-#' @param t Time points; vector
+#' @param t Time points; integer vector
 #' @param nsim Number of simulations; integer
 #' @import sn
 #' @importFrom INLA inla.posterior.sample
@@ -71,39 +71,37 @@ make_surv.inla <- function(Surv, t, nsim = 100, ...) {
         baseline.hazard = c(1:(nrow(Surv$summary.random$baseline.hazard))))
     )
 
-  sim <-
+  # matrix of baseline hazards
+  h0 <-
     lapply(joint_post, function(x) x$latent) |>
     unlist() |>
     matrix(nrow = nsim, byrow = TRUE) |>
     `colnames<-`(rownames(joint_post[[1]]$latent)) |>
-    as_tibble()
+    as_tibble() |>
+    select(contains("baseline")) |>
+    exp()
 
   interval.t <- Surv$summary.random$baseline.hazard$ID
   interval_width <- interval.t[2]
+  n_intervals <- length(interval.t)
 
-  # transform baseline hazard
-  logh0 <- select(sim, contains("baseline"))
 
   if (interval_width < 1) {
-    H0 <- (apply(exp(logh0) |>
-                   select(1:length(interval.t)), 1, cumsum))*interval_width
-
+    H0 <- (apply(h0, 1, cumsum))*interval_width
     tt <- interval.t + interval_width
   } else {
-    h0 <-
-      exp(logh0) |>
-      select(1:length(interval.t))
-
-    h0_long <- h0[, rep(1:(length(interval.t) - 1), each = interval_width)]
-    h0_long <- cbind(h0_long, h0[, length(interval.t)])
+    h0_long <- h0[, rep(1:(n_intervals - 1), each = interval_width)]
+    h0_long <- cbind(h0_long, h0[, n_intervals])
     H0 <- apply(h0_long, 1, cumsum)
 
     tt <- 1:(max(interval.t) + 1)
   }
 
-  # transform survival probabilities
+  # transform to survival probabilities
   S0 <- t(exp(-t(H0)))
   row.names(S0) <- NULL
 
-  rbind(rep(1, nsim), S0[-nrow(S0), ])
+  out <- rbind(rep(1, nsim), S0[-nrow(S0), ])
+
+  out[t+1, ]
 }

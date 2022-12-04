@@ -10,7 +10,7 @@
 #' @return INLA object
 #' @export
 #'
-surv_est_inla <- function(inla.formula = inla.surv(death_t, death) ~ -1,
+fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
                           data,
                           cutpoints,
                           nsim = 100) {
