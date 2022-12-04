@@ -57,7 +57,7 @@ make_surv.flexsurvreg <- function(Surv, t = NULL, nsim = 100, ...) {
 #' @importFrom dplyr select contains
 #' @export
 #'
-make_surv.inla <- function(Surv, t, nsim = 100, ...) {
+make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
 
   n_data <- Surv$model.matrix@Dim[1]
 
@@ -103,5 +103,6 @@ make_surv.inla <- function(Surv, t, nsim = 100, ...) {
 
   out <- rbind(rep(1, nsim), S0[-nrow(S0), ])
 
-  out[t+1, ]
+  t_filter <- ifelse(is.null(t), TRUE, t + 1)
+  out[t_filter, ]
 }
