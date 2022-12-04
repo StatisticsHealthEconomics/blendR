@@ -71,7 +71,7 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
         baseline.hazard = c(1:(nrow(Surv$summary.random$baseline.hazard))))
     )
 
-  # matrix of baseline hazards
+  # matrix of baseline hazards for the intervals
   h0 <-
     lapply(joint_post, function(x) x$latent) |>
     unlist() |>
@@ -80,31 +80,45 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
     as_tibble() |>
     select(contains("baseline")) |>
     exp()
-
+  
+  # intervals for the hazards         
   interval.t <- Surv$summary.random$baseline.hazard$ID
   interval_width <- interval.t[2]
-  n_intervals <- length(interval.t)
-
-  # additional tail times
-  t_excess <- max(0, max(t) - max(interval.t))
-
-  if (interval_width < 1) {
-    H0 <- (apply(h0, 1, cumsum))*interval_width
-  } else {
-    h0_long <- h0[, rep(1:(n_intervals - 1), each = interval_width)]
-    h0_long <- cbind(h0_long, h0[, rep(n_intervals, t_excess + 1)])
-    H0 <- apply(h0_long, 1, cumsum)
-  }
-
+           
+  # matrix of cumulative hazards for the intervals         
+  H0 <- (apply(h0, 1, cumsum))*interval_width
+  
+  # If t = NULL, calculate the survival probabilities for the intervals by default
+  if (is.null(t)) t = interval.t else t = t
+ 
+  # find the intervals for elements of the vector t         
+  t_int <- findInterval(t, interval.t)
+  
+  # hazard for the specific time vector t         
+  h.t <- h0[,t_int] 
+  
+  # cumulative hazard 
+  H.t <- matrix(NaN, nrow = length(t), ncol = nsim)
+ 
+ for (i in 1:length(t)){
+   
+   if (t_int[i] > 1){
+     
+     H.t[i, ] <- H0[t_int[i] - 1, ] + unlist(h0[,t_int[i]] * (t[i] - interval.t[t_int[i]])) 
+     
+   }else{
+     
+     H.t[i, ] <- unlist(h0[,t_int[i]] * (t[i] - interval.t[i]))
+     
+   }
+   
+ }
+           
   # transform to survival probabilities
-  S0 <- t(exp(-t(H0)))
-  row.names(S0) <- NULL
-
-  t_filter <- if (is.null(t)) TRUE else t + 1
-
-  out <- rbind(rep(1, nsim), S0[-nrow(S0), ])
-
-  out[t_filter, , drop = FALSE]
+  S.t <- t(exp(-t(H.t)))
+           
+  S.t         
+  
 }
 
 #' @rdname make_surv_methods
