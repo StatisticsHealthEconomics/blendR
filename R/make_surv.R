@@ -106,3 +106,8 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
 
   out[t_filter, , drop = FALSE]
 }
+
+#'
+make_surv.default <- function(Surv, t = 1:length(Surv) - 1, ...) {
+  Surv[t + 1]
+}
