@@ -6,6 +6,7 @@
 \alias{make_surv.survHE}
 \alias{make_surv.flexsurvreg}
 \alias{make_surv.inla}
+\alias{make_surv.default}
 \title{Create survival probabilities}
 \usage{
 make_surv(Surv, ...)
@@ -14,7 +15,9 @@ make_surv(Surv, ...)
 
 \method{make_surv}{flexsurvreg}(Surv, t = NULL, nsim = 100, ...)
 
-\method{make_surv}{inla}(Surv, t, nsim = 100, ...)
+\method{make_surv}{inla}(Surv, t = NULL, nsim = 100, ...)
+
+\method{make_surv}{default}(Surv, t = 0:(length(Surv) - 1), ...)
 }
 \arguments{
 \item{Surv}{survival analysis object}

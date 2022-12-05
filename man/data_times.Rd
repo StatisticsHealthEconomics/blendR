@@ -5,15 +5,18 @@
 \alias{data_times.inla}
 \alias{data_times.survHE}
 \alias{data_times.flexsurvreg}
+\alias{data_times.default}
 \title{Get event time data}
 \usage{
-data_times(surv_res)
+data_times(S)
 
-\method{data_times}{inla}(surv_res)
+\method{data_times}{inla}(S)
 
-\method{data_times}{survHE}(surv_res)
+\method{data_times}{survHE}(S)
 
-\method{data_times}{flexsurvreg}(surv_res)
+\method{data_times}{flexsurvreg}(S)
+
+\method{data_times}{default}(S)
 }
 \description{
 Get event time data

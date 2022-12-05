@@ -49,7 +49,7 @@ make_surv.flexsurvreg <- function(Surv, t = NULL, nsim = 100, ...) {
 
 
 #' @rdname make_surv_methods
-#' @param t Time points; integer vector
+#' @param t Time points; vector
 #' @param nsim Number of simulations; integer
 #' @import sn
 #' @importFrom INLA inla.posterior.sample
@@ -80,45 +80,40 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
     as_tibble() |>
     select(contains("baseline")) |>
     exp()
-  
-  # intervals for the hazards         
+
+  # intervals for the hazards
   interval.t <- Surv$summary.random$baseline.hazard$ID
   interval_width <- interval.t[2]
-           
-  # matrix of cumulative hazards for the intervals         
-  H0 <- (apply(h0, 1, cumsum))*interval_width
-  
-  # If t = NULL, calculate the survival probabilities for the intervals by default
-  if (is.null(t)) t = interval.t else t = t
- 
-  # find the intervals for elements of the vector t         
+
+  # matrix of cumulative hazards for the intervals
+  H0 <- apply(h0, 1, cumsum)*interval_width
+
+  # calculate survival probabilities for the intervals by default
+  if (is.null(t)) t <- interval.t else t <- t
+
+  # find the intervals for elements of vector t
   t_int <- findInterval(t, interval.t)
-  
-  # hazard for the specific time vector t         
-  h.t <- h0[,t_int] 
-  
-  # cumulative hazard 
-  H.t <- matrix(NaN, nrow = length(t), ncol = nsim)
- 
- for (i in 1:length(t)){
-   
-   if (t_int[i] > 1){
-     
-     H.t[i, ] <- H0[t_int[i] - 1, ] + unlist(h0[,t_int[i]] * (t[i] - interval.t[t_int[i]])) 
-     
-   }else{
-     
-     H.t[i, ] <- unlist(h0[,t_int[i]] * (t[i] - interval.t[i]))
-     
-   }
-   
- }
-           
+
+  # hazard for the specific time vector t
+  h.t <- h0[,t_int]
+
+  # cumulative hazard
+  H.t <- matrix(NA_real_, nrow = length(t), ncol = nsim)
+
+  for (i in seq_along(t)) {
+    if (t_int[i] > 1){
+      H.t[i, ] <-
+        H0[t_int[i] - 1, ] +
+        unlist(h0[, t_int[i]] * (t[i] - interval.t[t_int[i]]))
+    } else {
+      H.t[i, ] <- unlist(h0[, t_int[i]] * (t[i] - interval.t[i]))
+    }
+  }
+
   # transform to survival probabilities
   S.t <- t(exp(-t(H.t)))
-           
-  S.t         
-  
+
+  S.t
 }
 
 #' @rdname make_surv_methods
