@@ -116,15 +116,15 @@ test_that("user-supplied time points for survival distribution", {
 
   # flexsurv
 
-  ext_Surv2 <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
+  ext_Surv_flex <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
                                      data = data_sim,
                                      dist = "gompertz")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = 0:100), "list")
-  expect_type(xx <- blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = -100:100), "list")
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = seq(0, 100, by = 0.5)), "list")
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = 0:300), "list")
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = seq(0, 300, by = 0.5)), "list")
+  expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = 0:100), "list")
+  expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = -100:100), "list")
+  expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = seq(0, 100, by = 0.5)), "list")
+  expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = 0:300), "list")
+  expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = seq(0, 300, by = 0.5)), "list")
 
 })
 
