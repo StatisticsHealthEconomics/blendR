@@ -94,10 +94,7 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
   # find the intervals for elements of vector t
   t_int <- findInterval(t, interval.t)
 
-  # hazard for the specific time vector t
-  h.t <- h0[,t_int]
-
-  # cumulative hazard
+  # cumulative hazard for the specific time vector t
   H.t <- matrix(NA_real_, nrow = length(t), ncol = nsim)
 
   for (i in seq_along(t)) {
@@ -105,8 +102,11 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
       H.t[i, ] <-
         H0[t_int[i] - 1, ] +
         unlist(h0[, t_int[i]] * (t[i] - interval.t[t_int[i]]))
+    } else if (t_int[i] == 1) {
+      H.t[i, ] <- 
+        unlist(h0[, t_int[i]] * (t[i] - interval.t[t_int[i]]))
     } else {
-      H.t[i, ] <- unlist(h0[, t_int[i]] * (t[i] - interval.t[i]))
+      H.t[i, ] <- 0
     }
   }
 
