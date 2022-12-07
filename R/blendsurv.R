@@ -23,10 +23,10 @@ blendsurv <- function(obs_Surv, ext_Surv,
                       beta_params = list(alpha = 3, beta = 3),
                       times = NULL,
                       nsim = 100) {
-
+browser()
   # best guess at survival times
   if (is.null(times)) {
-    S_times <- c(data_times(ext_Surv), data_times(ext_Surv))
+    S_times <- c(data_times(obs_Surv), data_times(ext_Surv))
     times <- pretty(S_times, n = 100)
   }
 

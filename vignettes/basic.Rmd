@@ -128,3 +128,17 @@ ble_Surv3 <- blendsurv(obs_Surv3, ext_Surv3, blend_interv, beta_params)
 
 plot(ble_Surv3)
 ```
+
+##
+
+```{r}
+p <- c(0.05, 0)
+times <- c(144, 180)
+surv <- pw_unif_surv(p, times, epsilon = 1)
+
+plot(surv, type = "l")
+
+ble_Surv <- blendsurv(obs_Surv, surv$S, blend_interv, beta_params)
+
+plot(ble_Surv)
+```
