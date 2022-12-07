@@ -117,8 +117,8 @@ test_that("user-supplied time points for survival distribution", {
   # flexsurv
 
   ext_Surv_flex <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
-                                     data = data_sim,
-                                     dist = "gompertz")
+                                         data = data_sim,
+                                         dist = "gompertz")
 
   expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = 0:100), "list")
   expect_type(blendsurv(obs_Surv2, ext_Surv_flex, blend_interv, beta_params, times = -100:100), "list")
