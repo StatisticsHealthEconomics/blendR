@@ -118,6 +118,11 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
 
 #' @rdname make_surv_methods
 #'
-make_surv.default <- function(Surv, t = 0:(length(Surv) - 1), nsim = 1, ...) {
-  matrix(rep(Surv[t + 1], nsim), ncol = nsim)
+make_surv.default <- function(Surv, t = 0:(length(Surv) - 1),
+                              nsim = 100, ...) {
+
+  if (length(dim(S)) == 1)
+    return(matrix(rep(Surv[t + 1], nsim), ncol = nsim))
+
+  Surv[t + 1, ]
 }
