@@ -38,6 +38,7 @@ pw_unif_surv <- function(p, times, epsilon = 0.1) {
     S = (p1 - p2)*(1 - (ts - t1)/(t2 - t1)) + p2)
 }
 
+
 #' Piecewise uniform survival curve for uncertain inputs
 #'
 #' @param n Number of samples

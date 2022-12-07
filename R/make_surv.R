@@ -103,7 +103,7 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
         H0[t_int[i] - 1, ] +
         unlist(h0[, t_int[i]] * (t[i] - interval.t[t_int[i]]))
     } else if (t_int[i] == 1) {
-      H.t[i, ] <- 
+      H.t[i, ] <-
         unlist(h0[, t_int[i]] * (t[i] - interval.t[t_int[i]]))
     } else {
       H.t[i, ] <- 0
@@ -118,6 +118,6 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
 
 #' @rdname make_surv_methods
 #'
-make_surv.default <- function(Surv, t = 0:(length(Surv) - 1), ...) {
-  Surv[t + 1]
+make_surv.default <- function(Surv, t = 0:(length(Surv) - 1), nsim = 1, ...) {
+  matrix(rep(Surv[t + 1], nsim), ncol = nsim)
 }

@@ -131,7 +131,7 @@ plot(ble_Surv3)
 
 ##
 
-```{r}
+```{r, eval=FALSE}
 p <- c(0.05, 0)
 times <- c(144, 180)
 surv <- pw_unif_surv(p, times, epsilon = 1)
