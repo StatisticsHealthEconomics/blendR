@@ -2,15 +2,22 @@
 % Please edit documentation in R/pw_unif_surv.R
 \name{sample_pw_unif_surv}
 \alias{sample_pw_unif_surv}
-\title{Piecewise uniform survival curve for uncertain inputs}
+\title{Piece-wise uniform survival curve for uncertain inputs}
 \usage{
-sample_pw_unif_surv(p, times, n = 2, ...)
+sample_pw_unif_surv(p, times, n = 2, sn = 10, epsilon = 0.1)
 }
 \arguments{
-\item{n}{Number of samples
-x <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0.01),
-times = c(10, 20, 30, 40))}
+\item{n}{Number of samples}
 }
 \description{
-Piecewise uniform survival curve for uncertain inputs
+Piece-wise uniform survival curve for uncertain inputs
+}
+\examples{
+surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+                           times = c(10, 20, 30, 40), n = 100)
+matplot(surv, type = "l")
+surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+                           times = c(10, 20, 30, 40), n = 100, sn = 100)
+matplot(surv, type = "l")
+
 }

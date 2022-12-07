@@ -29,5 +29,8 @@ data_times.flexsurvreg <- function(S) {
 #' @rdname data_times
 #'
 data_times.default <- function(S) {
-  0:(length(S) - 1)
+  if (is.null(dim(S)))
+    return(0:(length(S) - 1))
+
+  0:(nrow(S) - 1)
 }

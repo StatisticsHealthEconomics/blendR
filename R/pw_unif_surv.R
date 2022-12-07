@@ -39,20 +39,29 @@ pw_unif_surv <- function(p, times, epsilon = 0.1) {
 }
 
 
-#' Piecewise uniform survival curve for uncertain inputs
+#' Piece-wise uniform survival curve for uncertain inputs
 #'
+#' @param p
+#' @param times
+#' @param sn
+#' @param epsilon
 #' @param n Number of samples
-#' x <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0.01),
-#' times = c(10, 20, 30, 40))
-sample_pw_unif_surv <- function(p, times, n = 2, ...) {
+#'
+#' @examples
+#' surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+#'                            times = c(10, 20, 30, 40), n = 100)
+#' matplot(surv, type = "l")
+#' surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+#'                            times = c(10, 20, 30, 40), n = 100, sn = 100)
+#' matplot(surv, type = "l")
+#'
+sample_pw_unif_surv <- function(p, times,
+                                n = 2, sn = 10,
+                                epsilon = 0.1) {
+  delta_p <- diff(rev(c(1,p)))
+  rprobs <- igraph::sample_dirichlet(n, delta_p*sn)
+  rSurv <- as.data.frame(1 - apply(rprobs, 2, cumsum))
 
-  ##TODO:
-  # change to step wise so that we can constrain p1>p2?
-  # cumsum(rev())
-  rprobs <- as.data.frame(igraph::sample_dirichlet(n, p))
-
-  purrr::map(rprobs, ~pw_unif_surv(p = .x, times))
+  purrr::map_dfc(rSurv, ~pw_unif_surv(p = .x, times, epsilon)$S) |>
+    as.matrix()
 }
-
-
-

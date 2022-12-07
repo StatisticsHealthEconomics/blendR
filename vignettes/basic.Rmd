@@ -3,8 +3,10 @@ title: "Basic examples"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{basic}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -132,13 +134,35 @@ plot(ble_Surv3)
 ##
 
 ```{r, eval=FALSE}
+blend_interv <- list(min = 48, max = 150)
+beta_params <- list(alpha = 3, beta = 3)
+
 p <- c(0.05, 0)
 times <- c(144, 180)
 surv <- pw_unif_surv(p, times, epsilon = 1)
 
-plot(surv, type = "l")
+# plot(surv, type = "l")
 
 ble_Surv <- blendsurv(obs_Surv, surv$S, blend_interv, beta_params)
 
 plot(ble_Surv)
 ```
+
+```{r, eval=FALSE}
+blend_interv <- list(min = 20, max = 40)
+beta_params <- list(alpha = 3, beta = 3)
+
+p <- c(0.05, 0)
+times <- c(144, 180)
+surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+                            times = c(10, 20, 30, 48),
+                            n = 100, epsilon = 1)
+
+matplot(surv, type = "l")
+
+ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
+
+plot(ble_Surv)
+```
+
+
