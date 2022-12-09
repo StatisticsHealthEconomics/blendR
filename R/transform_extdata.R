@@ -22,7 +22,7 @@ browser()
            pcum = cumprod(prop))
 
   # need to assume something about the absolute survival probabilities
-  # assume linear i.e maximum survival
+  # assume linear
 
   surv <- 1 - (1/tmax)*extdat$start[1]
 
