@@ -65,13 +65,16 @@ from <span class="pkg">survHE</span>. These are needed prior to blending.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for survHE</span></span>
-<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, <span class="va">t</span>, nsim <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, <span class="va">t</span>, nsim <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for flexsurvreg</span></span>
-<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, <span class="va">t</span>, nsim <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, t <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for inla</span></span>
-<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, <span class="va">t</span>, nsim <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, t <span class="op">=</span> <span class="cn">NULL</span>, nsim <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">make_surv</span><span class="op">(</span><span class="va">Surv</span>, t <span class="op">=</span> <span class="cn">NA</span>, nsim <span class="op">=</span> <span class="fl">100</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,6 +85,14 @@ from <span class="pkg">survHE</span>. These are needed prior to blending.</p>
 
 <dt>...</dt>
 <dd><p>Additional arguments</p></dd>
+
+
+<dt>t</dt>
+<dd><p>Time points; vector</p></dd>
+
+
+<dt>nsim</dt>
+<dd><p>Number of simulations; integer</p></dd>
 
 </dl></div>
     <div id="value">

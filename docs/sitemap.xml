@@ -22,7 +22,16 @@
     <loc>/reference/blendsurv.html</loc>
   </url>
   <url>
+    <loc>/reference/data_times.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dat_FCR.html</loc>
+  </url>
+  <url>
     <loc>/reference/ext_surv_sim.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fit_inla_pw.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -34,9 +43,21 @@
     <loc>/reference/make_surv_methods.html</loc>
   </url>
   <url>
+    <loc>/reference/manip_plot.html</loc>
+  </url>
+  <url>
     <loc>/reference/plot.blended.html</loc>
   </url>
   <url>
+    <loc>/reference/pw_unif_surv.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sample_pw_unif_surv.html</loc>
+  </url>
+  <url>
     <loc>/reference/surv_est_inla.html</loc>
+  </url>
+  <url>
+    <loc>/reference/weightplot.html</loc>
   </url>
 </urlset>

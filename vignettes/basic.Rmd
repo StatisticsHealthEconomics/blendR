@@ -131,29 +131,46 @@ ble_Surv3 <- blendsurv(obs_Surv3, ext_Surv3, blend_interv, beta_params)
 plot(ble_Surv3)
 ```
 
-##
 
-```{r, eval=FALSE}
-blend_interv <- list(min = 48, max = 150)
-beta_params <- list(alpha = 3, beta = 3)
+## Piecewise uniform CDF
 
+In the example above we sample from separate uniform distributions in between the times specified by the user.
+These data are then used to fit a parametric survival curve which is use in the blending step.
+
+As an alternative - rather than fitting to sampled data - we could simply use the underlying survival curve directly i.e. the 'curve' consisting of uniform segments.
+
+We provide the function `pw_unif_surv()` to create a single piecewise uniform survival curve.
+
+```{r}
 p <- c(0.05, 0)
 times <- c(144, 180)
 surv <- pw_unif_surv(p, times, epsilon = 1)
 
-# plot(surv, type = "l")
+plot(surv, type = "l")
+```
+
+We can now simply blend the two curves together in the usual way.
+Because this is a single curve then there is no uncertainty associated with it.
+
+```{r}
+blend_interv <- list(min = 48, max = 150)
+beta_params <- list(alpha = 3, beta = 3)
 
 ble_Surv <- blendsurv(obs_Surv, surv$S, blend_interv, beta_params)
 
 plot(ble_Surv)
 ```
 
-```{r, eval=FALSE}
+Further, one way in which we can include uncertainty on the external curve is by sampling from a Dirichlet distribution on the user-provided survival probabilities.
+If we use the probabilities as the parameter values of the Dirichlet distribution then the degree of certainty can be thought of as a scaling factor on these.
+That is for a larger scaling, i.e. taking a product with a large value, is equivalent to more certainty and vice-versa using a smaller scaling is equivalent to more uncertainty.
+
+First let us see for a moderate degree of uncertainty.
+
+```{r}
 blend_interv <- list(min = 30, max = 50)
 beta_params <- list(alpha = 3, beta = 3)
 
-p <- c(0.05, 0)
-times <- c(144, 180)
 surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
                             times = c(10, 20, 30, 48),
                             n = 100, epsilon = 0.5)
@@ -165,4 +182,31 @@ ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
 plot(ble_Surv)
 ```
 
+For a small amount of uncertainty.
+
+```{r}
+surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+                            times = c(10, 20, 30, 48),
+                            n = 100, epsilon = 0.5, sn = 100)
+
+matplot(surv, type = "l")
+
+ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
+
+plot(ble_Surv)
+```
+
+For a large amount of uncertainty.
+
+```{r}
+surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
+                            times = c(10, 20, 30, 48),
+                            n = 100, epsilon = 0.5, sn = 3)
+
+matplot(surv, type = "l")
+
+ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
+
+plot(ble_Surv)
+```
 

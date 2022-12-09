@@ -7,7 +7,15 @@
 sample_pw_unif_surv(p, times, n = 2, sn = 10, epsilon = 0.1)
 }
 \arguments{
+\item{p}{Probability}
+
+\item{times}{Event times}
+
 \item{n}{Number of samples}
+
+\item{sn}{Scaling factor}
+
+\item{epsilon}{Different in times}
 }
 \description{
 Piece-wise uniform survival curve for uncertain inputs

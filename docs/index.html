@@ -79,7 +79,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of blendR is to …</p>
+<p>The goal of blendR is to <em>blend</em> two survival curves together from one to the other according to some defined blending function.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -91,10 +91,35 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>This is a basic example which shows you how to solve a common problem. Using the <em>TA174_FCR</em> data set contained in the <code>blendR</code> package, we fit exponential distribution survival models with no covariates with the <code><a href="https://rdrr.io/pkg/survHE/man/fit.models.html" class="external-link">fit.models()</a></code> function from the <code>survHE</code> package. This employs the HMC sampler from Stan behind the scenes. The <em>external</em> or <em>long-term</em> data are obtained from an heuristic approach to simulating data consistent with user-defined constraints. The results are then blended into a single survival curve using the <code><a href="reference/blendsurv.html">blendsurv()</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/StatisticsHealthEconomics/blendR/" class="external-link">blendR</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/giabaio/survHE" class="external-link">survHE</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## trial data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"TA174_FCR"</span>, package <span class="op">=</span> <span class="st">"blendR"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## externally estimated data</span></span>
+<span><span class="va">data_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ext_surv_sim.html">ext_surv_sim</a></span><span class="op">(</span>t_info <span class="op">=</span> <span class="fl">144</span>,</span>
+<span>                         S_info <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>                         T_max <span class="op">=</span> <span class="fl">180</span><span class="op">)</span></span>
+<span>                         </span>
+<span><span class="va">obs_Surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survHE/man/fit.models.html" class="external-link">fit.models</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu">Surv</span><span class="op">(</span><span class="va">death_t</span>, <span class="va">death</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>                        data <span class="op">=</span> <span class="va">dat_FCR</span>,</span>
+<span>                        distr <span class="op">=</span> <span class="st">"exponential"</span>,</span>
+<span>                        method <span class="op">=</span> <span class="st">"hmc"</span><span class="op">)</span></span>
+<span>                        </span>
+<span><span class="va">ext_Surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survHE/man/fit.models.html" class="external-link">fit.models</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="fu">Surv</span><span class="op">(</span><span class="va">time</span>, <span class="va">event</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>                       data <span class="op">=</span> <span class="va">data_sim</span>,</span>
+<span>                       distr <span class="op">=</span> <span class="st">"exponential"</span>,</span>
+<span>                       method <span class="op">=</span> <span class="st">"hmc"</span><span class="op">)</span></span>
+<span>                       </span>
+<span><span class="va">blend_interv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>min <span class="op">=</span> <span class="fl">48</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span>
+<span><span class="va">beta_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">3</span>, beta <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ble_Surv</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/blendsurv.html">blendsurv</a></span><span class="op">(</span><span class="va">obs_Surv</span>, <span class="va">ext_Surv</span>, <span class="va">blend_interv</span>, <span class="va">beta_params</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ble_Surv</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="licence">Licence<a class="anchor" aria-label="anchor" href="#licence"></a>
@@ -138,8 +163,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Nathan Green <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/YOUR-ORCID-ID" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Che Zhaojing <br><small class="roles"> Author </small>  </li>
+<li>Nathan Green <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2745-1736" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Che Zhaojing <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 

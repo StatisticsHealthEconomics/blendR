@@ -41,11 +41,12 @@ pw_unif_surv <- function(p, times, epsilon = 0.1) {
 
 #' Piece-wise uniform survival curve for uncertain inputs
 #'
-#' @param p
-#' @param times
-#' @param sn
-#' @param epsilon
+#' @param p Probability
+#' @param times Event times
+#' @param sn Scaling factor
+#' @param epsilon Different in times
 #' @param n Number of samples
+#' @export
 #'
 #' @examples
 #' surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),

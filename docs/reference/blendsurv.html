@@ -71,7 +71,7 @@ the beta distribution parameters.</p>
 <span>  <span class="va">ext_Surv</span>,</span>
 <span>  <span class="va">blend_interv</span>,</span>
 <span>  beta_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">3</span>, beta <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>  times_est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">180</span><span class="op">)</span>,</span>
+<span>  times <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nsim <span class="op">=</span> <span class="fl">100</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -91,9 +91,9 @@ These can come from <span class="pkg">survHE</span>, <span class="pkg">INLA</spa
 <dd><p>coefficients of a beta distribution</p></dd>
 
 
-<dt>times_est</dt>
+<dt>times</dt>
 <dd><p>A vector of times for which the survival curves
-are to be computed</p></dd>
+are to be computed; optional</p></dd>
 
 
 <dt>nsim</dt>

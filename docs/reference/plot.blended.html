@@ -61,20 +61,28 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for blended</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ble_Surv</span>, tp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">180</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.05</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>ble_Surv</dt>
+    <dl><dt>x</dt>
 <dd><p>A blended survival curve object obtain from <code>blendsurv</code></p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>A vector specifying the opacity of ribbon for the blended curve and other curves</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional arguments</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>ggplot2 object</p>
+<p><span class="pkg">ggplot2</span> object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
