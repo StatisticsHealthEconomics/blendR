@@ -164,6 +164,7 @@ plot(ble_Surv)
 Further, one way in which we can include uncertainty on the external curve is by sampling from a Dirichlet distribution on the user-provided survival probabilities.
 If we use the probabilities as the parameter values of the Dirichlet distribution then the degree of certainty can be thought of as a scaling factor on these.
 That is for a larger scaling, i.e. taking a product with a large value, is equivalent to more certainty and vice-versa using a smaller scaling is equivalent to more uncertainty.
+Intuitively in a Bayesian context, we can view a hyperprior vector $p$ as pseudocounts, i.e. as representing the number of observations in each category that we have already seen.
 
 First let us see for a moderate degree of uncertainty.
 
