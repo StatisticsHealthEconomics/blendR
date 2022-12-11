@@ -24,8 +24,8 @@ browser()
   # need to assume something about the absolute survival probabilities
   # assume linear
 
-  surv <- 1 - (1/tmax)*extdat$start[1]
+  S_start <- 1 - (1/tmax)*extdat$start[1]
 
-  data.frame(s = c(surv, surv*extdat$pcum),
+  data.frame(s = c(S_start, S_start*extdat$pcum),
              t = c(extdat$start[1], extdat$stop))
 }
