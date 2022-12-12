@@ -68,7 +68,7 @@ riskset_surv_sim <- function(extdat,
   times <-
     purrr::map(
       r_pcum, ~ext_surv_sim(
-        extdat$stop, .x, T_max = 100, n = 1)) |>
+        extdat$stop, .x, T_max = tmax, n = 1)) |>
     do.call(what = rbind)
 
   times
