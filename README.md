@@ -49,6 +49,9 @@ ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
 plot(ble_Surv)
 ```
+## GitHub Site
+
+https://statisticshealtheconomics.github.io/blendR/
 
 ## Licence
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
