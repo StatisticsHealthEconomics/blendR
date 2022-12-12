@@ -47,7 +47,6 @@ browser()
 
 
 ##TODO: how to sample from ext_surv_sim() properly
-##      why can't we sample n = 1?
 ##      refactor duplication with transform_extdata()
 riskset_surv_sim <- function(extdat,
                              tmax = 100,
