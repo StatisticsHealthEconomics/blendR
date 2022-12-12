@@ -43,7 +43,7 @@ pw_unif_surv <- function(p, times, epsilon = 0.1) {
 #'
 #' @param p Probability
 #' @param times Event times
-#' @param sn Scaling factor
+#' @param sn Scaling factor. This is like a pseudosample size.
 #' @param epsilon Different in times
 #' @param n Number of samples
 #' @export
