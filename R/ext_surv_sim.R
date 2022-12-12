@@ -31,9 +31,11 @@ ext_surv_sim <- function(t_info, S_info, T_max, n = 100) {
 
   n_par <- vector(mode = "numeric", length = n_S - 1)
 
-  for (i in seq_len(n_S - 1)) {
-    n_par[i] <- round(n*(S[i] - S[i+1]), digits = 0)
-  }
+  S_delta <- rev(diff(rev(S)))
+
+  n_par <-
+    rmultinom(1, size = n, prob = S_delta) |>
+    as.vector()
 
   n_sim <- sum(n_par)
 
