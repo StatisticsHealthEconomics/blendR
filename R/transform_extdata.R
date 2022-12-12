@@ -14,11 +14,14 @@
 #'                      r = c(50, 40, 30, 20))
 #' transform_extdata(extdat, tmax = 100)
 #'
-transform_extdata <- function(extdat, tmax = 100) {
+transform_extdata <- function(extdat,
+                              tmax = 100,
+                              n = 100) {
 browser()
 
   extdat <- extdat |>
     mutate(prop = r/n,
+           m = n-r,
            pcum = cumprod(prop))
 
   # need to assume something about the absolute survival probabilities
@@ -26,6 +29,13 @@ browser()
 
   S_start <- 1 - (1/tmax)*extdat$start[1]
 
-  data.frame(s = c(S_start, S_start*extdat$pcum),
-             t = c(extdat$start[1], extdat$stop))
+  x <-
+    purrr::map2_dfc(extdat$r, extdat$m, ~rbeta(n, .x, .y)) |>
+    t() |>
+    as.data.frame() |>
+    mutate(across(everything(), ~round(cumprod(.x), 4)))
+
+  data.frame(t = c(extdat$start[1], extdat$stop),
+             s = c(S_start, S_start*extdat$pcum),
+             rbind(S_start, x))
 }
