@@ -4,12 +4,15 @@
 \alias{transform_extdata}
 \title{Transform external data from risk set format}
 \usage{
-transform_extdata(extdat, tmax = 100)
+transform_extdata(extdat, tmax = 100, n = 100)
 }
 \arguments{
-\item{extdat}{External data; data frame}
+\item{extdat}{Long-term data typically from elicitation or
+external sources; data frame}
 
 \item{tmax}{Maximum survival time}
+
+\item{n}{Number of samples}
 }
 \value{
 Survival probabilities

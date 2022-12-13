@@ -13,7 +13,7 @@ sample_pw_unif_surv(p, times, n = 2, sn = 10, epsilon = 0.1)
 
 \item{n}{Number of samples}
 
-\item{sn}{Scaling factor}
+\item{sn}{Scaling factor. This is like a pseudosample size.}
 
 \item{epsilon}{Different in times}
 }

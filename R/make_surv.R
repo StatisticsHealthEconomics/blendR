@@ -118,16 +118,17 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
 
 #' @rdname make_surv_methods
 #'
+#' @export
 make_surv.default <- function(Surv,
-                              t = NA,
+                              t = NULL,
                               nsim = 100, ...) {
   if (is.null(dim(Surv))) {
-    if (any(is.na(t))) t <- 0:(length(Surv) - 1)
+    if (any(is.null(t))) t <- 0:(length(Surv) - 1)
 
     return(matrix(rep(Surv[t + 1], nsim), ncol = nsim))
   }
 
-  if (any(is.na(t))) t <- 0:(nrow(Surv) - 1)
+  if (any(is.null(t))) t <- 0:(nrow(Surv) - 1)
 
   Surv[t + 1, ]
 }
