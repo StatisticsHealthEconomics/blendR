@@ -20,7 +20,15 @@ corresponding to time points in \code{t_info}}
 Dataframe of times and censoring status.
 }
 \description{
-Create an external survival data based on expert opinion
+Generally, the sampling is done is two steps
+\deqn{
+   p(T) = p(T | interval i) p(interval i)
+}
+}
+\details{
+In particular
+\eqn{T ~ U(x_{i}, x_{i+1})}
+\eqn{i ~ multinomial(\hat{\pi})}
 }
 \examples{
 dat <- ext_surv_sim(t_info = c(10,20,50),

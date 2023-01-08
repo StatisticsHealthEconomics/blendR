@@ -35,7 +35,7 @@ transform_extdata <- function(extdat,
     t() |>
     as.data.frame() |>
     mutate(across(everything(), ~round(cumprod(.x), 4)))
-browser()
+
   # sample event times
   purrr::map(r_pcum, ~ext_surv_sim(extdat$stop, .x, T_max = 100, n = 2)) |>
     do.call(what = rbind)

@@ -1,6 +1,15 @@
 
 #' Create an external survival data based on expert opinion
 #'
+#' Generally, the sampling is done is two steps
+#' \deqn{
+#'    p(T) = p(T | interval i) p(interval i)
+#' }
+#'
+#' In particular
+#' \eqn{T ~ U(x_{i}, x_{i+1})}
+#' \eqn{i ~ multinomial(\hat{\pi})}
+#'
 #' @param t_info  A vector of times for which expert opinion is elicited
 #' @param S_info  A vector of mean survival probabilities estimated by experts
 #'                corresponding to time points in \code{t_info}

@@ -17,7 +17,7 @@ make_surv(Surv, ...)
 
 \method{make_surv}{inla}(Surv, t = NULL, nsim = 100, ...)
 
-\method{make_surv}{default}(Surv, t = NA, nsim = 100, ...)
+\method{make_surv}{default}(Surv, t = NULL, nsim = 100, ...)
 }
 \arguments{
 \item{Surv}{survival analysis object}
