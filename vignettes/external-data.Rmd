@@ -132,11 +132,17 @@ plot(ble_Surv)
 ```
 
 Further, one way in which we can include uncertainty on the external curve is by sampling from a Dirichlet distribution on the user-provided survival probabilities.
+
+$$
+{\bf p} \sim Dirichlet({\bf \alpha})
+$$
+
+
 If we use the probabilities as the parameter values of the Dirichlet distribution then the degree of certainty can be thought of as a scaling factor on these.
 That is for a larger scaling, i.e. taking a product with a large value, is equivalent to more certainty and vice-versa using a smaller scaling is equivalent to more uncertainty.
-Intuitively in a Bayesian context, we can view a hyperprior vector $p$ as pseudocounts, i.e. as representing the number of observations in each category that we have already seen.
+Intuitively in a Bayesian context, we can view a hyperprior vector $\alpha$ as pseudocounts, i.e. as representing the number of observations in each category that we have already seen.
 
-First let us see for a moderate degree of uncertainty.
+First let us see for a moderate degree of uncertainty. We will sample `n=100` curves.
 
 ```{r}
 blend_interv <- list(min = 30, max = 50)
@@ -153,7 +159,7 @@ ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
 plot(ble_Surv)
 ```
 
-For a small amount of uncertainty.
+Explicitly setting the scaling factor `sn=100` we can repeat analysis this for a relatively small amount of uncertainty.
 
 ```{r}
 surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
@@ -167,7 +173,7 @@ ble_Surv <- blendsurv(obs_Surv, surv, blend_interv, beta_params)
 plot(ble_Surv)
 ```
 
-For a large amount of uncertainty.
+For a large amount of uncertainty with `sn=3`.
 
 ```{r}
 surv <- sample_pw_unif_surv(p = c(0.8, 0.3, 0.2, 0),
@@ -185,11 +191,16 @@ plot(ble_Surv)
 ## External data at landmark times as risk sets and number of events
 
 This is related to the approach above but can be thought of as more general.
-This is a format taken from Jackson and his package [ref].
-The idea is that at discrete time risk set sizes and then number of events are defined these can be over lapping with other risk sets and event counts.
+This is a format taken from Jackson and his `survextrap` package (https://github.com/chjackson/survextrap/).
+The idea is that at discrete pairs of time points risk set sizes and then subsequent number of events (observed via the change in the risk set) are defined. These can be overlapping with other risk sets and event counts.
 This format allows different sizes of risk sets to be specified at different points of time which can represent the uncertainty with the values in the data.
 
 blendR currently has two experimental functions for handling this sort of input data: `transform_extdata()` and `riskset_surv_sim()`.
+
+```{r}
+# transform_extdata()
+# riskset_surv_sim()
+```
 
 
 

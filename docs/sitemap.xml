@@ -7,6 +7,9 @@
     <loc>/articles/basic.html</loc>
   </url>
   <url>
+    <loc>/articles/external-data.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/surv_est_inla.html</loc>
+  </url>
+  <url>
+    <loc>/reference/transform_extdata.html</loc>
   </url>
   <url>
     <loc>/reference/weightplot.html</loc>
