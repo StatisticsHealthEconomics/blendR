@@ -202,7 +202,41 @@ blendR currently has two experimental functions for handling this sort of input 
 # riskset_surv_sim()
 ```
 
+```{r}
+# install.packages("survextrap", repos=c('https://chjackson.r-universe.dev', 'https://cloud.r-project.org'))
+library(survextrap)
+```
 
+```{r}
+library(ggplot2)
+library(dplyr)
 
+survminer::ggsurvplot(survfit(Surv(years, status) ~ 1, data=colons), data=colons)
+
+nd_mod <- survextrap(Surv(years, status) ~ 1, data=colons, chains=1)
+plot(nd_mod, tmax=5)
+```
+
+```{r}
+survminer::ggsurvplot(survfit(Surv(time, event) ~ 1, data=data_sim), data=data_sim)
+
+nd_mod1 <- survextrap(Surv(time, event) ~ 1, data=data_sim, chains=1)
+plot(nd_mod1, tmax=200)
+```
+
+```{r}
+extdata <- data.frame(start = 80, stop = 100,
+                      n = 100, r = 10)
+nd_mod2 <- survextrap(Surv(time, event) ~ 1, data=data_sim, chains=1, external = extdata)
+plot(nd_mod2, tmax=200)
+```
+
+```{r eval=FALSE}
+##TODO:
+ble_Surv1 <- blendsurv(obs_Surv, nd_mod1, blend_interv, beta_params)
+ble_Surv2 <- blendsurv(obs_Surv, nd_mod2, blend_interv, beta_params)
+
+plot(ble_Surv)
+```
 
 
