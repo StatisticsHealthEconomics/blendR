@@ -15,6 +15,7 @@ Imports:
     dplyr,
     flexsurv,
     INLA,
+    manipulate,
     sn,
     survHE,
     tibble
