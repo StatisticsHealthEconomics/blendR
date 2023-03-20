@@ -238,8 +238,8 @@ plot(ble_Surv12)
 surv_mcmc1 <- survextrap::survival(nd_mod1, sample = TRUE)  # MCMC sample
 surv_mcmc2 <- survextrap::survival(nd_mod2, sample = TRUE)
 
-ble_Surv21 <- blendsurv(obs_Surv, surv_mcmc1, blend_interv, beta_params)
-ble_Surv22 <- blendsurv(obs_Surv, surv_mcmc2, blend_interv, beta_params)
+ble_Surv21 <- blendsurv(obs_Surv, surv_mcmc1[,,1], blend_interv, beta_params)
+ble_Surv22 <- blendsurv(obs_Surv, surv_mcmc2[,,1], blend_interv, beta_params)
 
 plot(ble_Surv21)
 plot(ble_Surv22)
