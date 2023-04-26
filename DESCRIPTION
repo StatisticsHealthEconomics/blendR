@@ -25,6 +25,8 @@ Depends:
 Suggests: 
     knitr,
     rmarkdown,
+    remotes,
+    survHEhmc,
     survival,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr

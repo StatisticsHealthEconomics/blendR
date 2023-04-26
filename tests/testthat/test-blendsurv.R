@@ -1,5 +1,8 @@
 
+if (!require("survHEhmc")) remotes::install_github('giabaio/survHEhmc')
+
 library(survHE)
+library(survHEhmc)
 
 data("TA174_FCR", package = "blendR")
 
