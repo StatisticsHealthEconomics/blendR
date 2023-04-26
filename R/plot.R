@@ -73,13 +73,14 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 #'
 #' @return \pkg{ggplot2} object
 #' @seealso \code{\link{blendsurv}}
+#' @importFrom stats pbeta
 #' @export
 
 weightplot <- function(x, ...) {
   tibble(
     t = x$times,
     t_scaled = (t - x$blend_interv$min)/(x$blend_interv$max - x$blend_interv$min),
-    y = pbeta(t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
+    y = stats::pbeta(t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
     mutate(
       y = case_when(t_scaled < 0 ~ 0,
                     t_scaled > 1 ~ 1,

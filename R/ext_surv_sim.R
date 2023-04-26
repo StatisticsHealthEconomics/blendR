@@ -15,7 +15,7 @@
 #'                corresponding to time points in \code{t_info}
 #' @param T_max   The maximum survival time to be used
 #' @param n       The number of patients to construct the artificial external data set; default 70
-#' @importFrom stats runif
+#' @importFrom stats runif rmultinom
 #' @return Dataframe of times and censoring status.
 #' @export
 #'

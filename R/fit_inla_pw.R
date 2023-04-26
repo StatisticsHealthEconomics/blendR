@@ -11,9 +11,9 @@
 #' @export
 #'
 fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
-                          data,
-                          cutpoints,
-                          nsim = 100) {
+                        data,
+                        cutpoints,
+                        nsim = 100) {
 
   # Convert a Cox proportional hazard model into Poisson regression
   p <- INLA::inla.coxph(

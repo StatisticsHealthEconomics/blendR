@@ -2,7 +2,7 @@
 title: "Basic examples"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{basic}
+  %\VignetteIndexEntry{Basic examples}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -22,6 +22,7 @@ library(blendR)
 
 ```{r, warning=FALSE, message=FALSE}
 library(survHE)
+library(survHEhmc)
 library(INLA)
 ```
 
