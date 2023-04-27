@@ -1,6 +1,7 @@
 
 #' @title Get event time data
 #' @name data_times
+#' @param S vector of survival data
 #'
 data_times <- function(S)
   UseMethod("data_times", S)

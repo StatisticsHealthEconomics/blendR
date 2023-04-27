@@ -6,6 +6,13 @@
 \usage{
 manip_plot(obs_Surv, ext_Surv, blend_interv)
 }
+\arguments{
+\item{obs_Surv}{Observed survival}
+
+\item{ext_Surv}{External survival}
+
+\item{blend_interv}{Blending interval}
+}
 \description{
 RStudio bug
 need to run base R first

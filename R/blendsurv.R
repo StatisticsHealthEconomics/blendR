@@ -16,6 +16,7 @@
 #'             the survival curves; default 100
 #'
 #' @return List of S for observed, external and blended curves.
+#' @importFrom stats pbeta
 #' @export
 #'
 blendsurv <- function(obs_Surv, ext_Surv,
@@ -45,7 +46,7 @@ blendsurv <- function(obs_Surv, ext_Surv,
                  shape2 = beta_params$beta)
 
   w <- with(wt_par,
-            pbeta((times - a)/(b - a), shape1, shape2))
+            stats::pbeta((times - a)/(b - a), shape1, shape2))
 
   # blended estimate
   mat <- matrix(NA, nrow = tmax, ncol = nsim)

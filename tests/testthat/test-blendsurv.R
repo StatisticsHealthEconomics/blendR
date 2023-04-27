@@ -1,6 +1,8 @@
 
+if (!require("survHEhmc")) remotes::install_github('giabaio/survHEhmc')
 
 library(survHE)
+library(survHEhmc)
 
 data("TA174_FCR", package = "blendR")
 
@@ -35,7 +37,9 @@ test_that("different distributions in survHE hmc", {
                           distr = "weibull",
                           method = "hmc")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  suppressWarnings(
+    expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  )
 
   # gompertz
 
@@ -44,7 +48,9 @@ test_that("different distributions in survHE hmc", {
                           distr = "gompertz",
                           method = "hmc")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  suppressWarnings(
+    expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  )
 
   # log normal
 
@@ -53,7 +59,9 @@ test_that("different distributions in survHE hmc", {
                           distr = "lognormal",
                           method = "hmc")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  suppressWarnings(
+    expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  )
 
   # gamma
 
@@ -62,7 +70,9 @@ test_that("different distributions in survHE hmc", {
                           distr = "gamma",
                           method = "hmc")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  suppressWarnings(
+    expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  )
 
   # log logistic
 
@@ -71,7 +81,9 @@ test_that("different distributions in survHE hmc", {
                           distr = "loglogistic",
                           method = "hmc")
 
-  expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  suppressWarnings(
+    expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params), "list")
+  )
 })
 
 

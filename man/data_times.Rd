@@ -18,6 +18,9 @@ data_times(S)
 
 \method{data_times}{default}(S)
 }
+\arguments{
+\item{S}{vector of survival data}
+}
 \description{
 Get event time data
 }
