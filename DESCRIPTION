@@ -19,6 +19,7 @@ Imports:
     manipulate,
     sn,
     survHE,
+    survHEhmc,
     tibble
 Depends:
     R (>= 3.5.0)
