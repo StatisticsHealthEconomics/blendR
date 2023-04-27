@@ -14,16 +14,14 @@ RoxygenNote: 7.2.3.9000
 Imports:
     dplyr,
     flexsurv,
+    ggplot2,
     INLA,
     manipulate,
-    remotes,
     sn,
     survHE,
-    survHEhmc,
     tibble
 Depends:
-    R (>= 3.5.0),
-    ggplot2,
+    R (>= 3.5.0)
 Suggests: 
     knitr,
     rmarkdown,
