@@ -26,11 +26,10 @@ Suggests:
     knitr,
     rmarkdown,
     remotes,
-    survHEhmc,
     survival,
     testthat (>= 3.0.0)
 Remotes:
-    github::giabaio/survHE@hmc
+    github::giabaio/survHEhmc
 VignetteBuilder: knitr
 Additional_repositories: https://inla.r-inla-download.org/R/stable/
 URL: https://github.com/StatisticsHealthEconomics/blendR/
