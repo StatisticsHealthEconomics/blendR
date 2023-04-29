@@ -5,8 +5,8 @@ library(survHE)
 library(survHEhmc)
 
 # GitHub Actions only allows 2 cores on Windows
-# options("mc.cores" = 1)
-options(cores = 1)
+options("mc.cores" = 1)
+# options(cores = 1)
 
 data("TA174_FCR", package = "blendR")
 
