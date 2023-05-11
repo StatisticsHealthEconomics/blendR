@@ -116,10 +116,11 @@ test_that("user-supplied time points for survival distribution", {
   expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = 0:300), "list")
   expect_type(blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params, times = seq(0, 300, by = 0.5)), "list")
 
-  ## inla
+  ## INLA
 
   obs_Surv_inla <- fit_inla_pw(data = dat_FCR,
-                               cutpoints = seq(0, 180, by = 5))
+                               cutpoints = seq(0, 180, by = 5),
+                               num.threads = 2)
 
   expect_type(blendsurv(obs_Surv_inla, ext_Surv2, blend_interv, beta_params, times = 0:100), "list")
   expect_type(blendsurv(obs_Surv_inla, ext_Surv2, blend_interv, beta_params, times = seq(0, 100, by = 0.5)), "list")

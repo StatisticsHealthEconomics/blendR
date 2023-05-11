@@ -8,7 +8,8 @@ fit_inla_pw(
   inla.formula = inla.surv(death_t, death) ~ -1,
   data,
   cutpoints,
-  nsim = 100
+  nsim = 100,
+  ...
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ event (\code{death})}
 \item{cutpoints}{A sequence of cut points for intervals in the baseline hazard}
 
 \item{nsim}{The number of simulations from posteriors; default 100}
+
+\item{...}{Additional arguments}
 }
 \value{
 INLA object
