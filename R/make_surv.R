@@ -64,6 +64,7 @@ make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
   # draw samples from the joint posterior distribution
   joint_post <-
     INLA::inla.posterior.sample(
+      num.threads = Surv$.args$num.threads,
       n = nsim,
       result = Surv,
       selection = list(
