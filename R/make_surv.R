@@ -2,7 +2,7 @@
 #' @title Create survival probabilities
 #' @name make_surv_methods
 #'
-#' @description These function are version of the \code{make.surv} function
+#' @description These function are version of the [make.surv()] function
 #'    from \pkg{survHE}. These are needed prior to blending.
 #'
 #' @param Surv  survival analysis object

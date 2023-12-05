@@ -1,14 +1,14 @@
 
 #' Blended survival curve based on short-term data and external information
 #'
-#' @param x A blended survival curve object obtain from \code{blendsurv}
+#' @param x A blended survival curve object obtain from [blendsurv()]
 #' @param alpha A vector specifying the opacity of ribbon for the blended curve and other curves
 #' @param ... Additional arguments
 #' @import ggplot2
 #' @importFrom stats quantile
 #'
 #' @return \pkg{ggplot2} object
-#' @seealso \code{\link{blendsurv}}
+#' @seealso [blendsurv()]
 #' @method plot blended
 #' @export
 plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
@@ -67,25 +67,25 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 
 #' Plots the weights for the blending procedure
 #'
-#' @param x A blended survival curve object obtain from \code{blendsurv}
+#' @param x A blended survival curve object obtained from [blendsurv()]
 #' @param ... Additional arguments
-#' @import ggplot2
+#' @import ggplot2 tibble dplyr
 #'
 #' @return \pkg{ggplot2} object
-#' @seealso \code{\link{blendsurv}}
+#' @seealso [blendsurv()]
 #' @importFrom stats pbeta
 #' @export
-
+#'
 weightplot <- function(x, ...) {
   tibble(
     t = x$times,
     t_scaled = (t - x$blend_interv$min)/(x$blend_interv$max - x$blend_interv$min),
-    y = stats::pbeta(t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
+    y = stats::pbeta(.data$t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
     mutate(
       y = case_when(t_scaled < 0 ~ 0,
                     t_scaled > 1 ~ 1,
                     TRUE ~ y)) |>
-    ggplot(aes(t,y)) +
+    ggplot(aes(.data$t, .data$y)) +
     geom_line() +
     theme_bw() +
     xlab("Time") + ylab("Weight function") +

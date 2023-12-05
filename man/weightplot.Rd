@@ -7,7 +7,7 @@
 weightplot(x, ...)
 }
 \arguments{
-\item{x}{A blended survival curve object obtain from \code{blendsurv}}
+\item{x}{A blended survival curve object obtained from \code{blendsurv}}
 
 \item{...}{Additional arguments}
 }
@@ -18,5 +18,5 @@ weightplot(x, ...)
 Plots the weights for the blending procedure
 }
 \seealso{
-\code{\link{blendsurv}}
+\code{\link[=blendsurv]{blendsurv()}}
 }

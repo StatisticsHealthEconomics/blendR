@@ -12,7 +12,7 @@
 #'
 #' @param t_info  A vector of times for which expert opinion is elicited
 #' @param S_info  A vector of mean survival probabilities estimated by experts
-#'                corresponding to time points in \code{t_info}
+#'                corresponding to time points in `t_info`
 #' @param T_max   The maximum survival time to be used
 #' @param n       The number of patients to construct the artificial external data set; default 70
 #' @importFrom stats runif rmultinom

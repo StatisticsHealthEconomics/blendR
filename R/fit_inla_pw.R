@@ -1,9 +1,9 @@
 
 #' Generate survival estimates with a piecewise exponential Cox model (using INLA)
 #'
-#' @param inla.formula The formula for PEM which must be an \code{inla.surv} object
-#' @param data A dataframe for survival data with time (\code{death_t}) and
-#'    event (\code{death})
+#' @param inla.formula The formula for PEM which must be an `inla.surv` object
+#' @param data A dataframe for survival data with time (`death_t`) and
+#'    event (`death`)
 #' @param cutpoints A sequence of cut points for intervals in the baseline hazard
 #' @param nsim The number of simulations from posteriors; default 100
 #' @param ... Additional arguments

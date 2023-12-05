@@ -20,5 +20,5 @@
 Blended survival curve based on short-term data and external information
 }
 \seealso{
-\code{\link{blendsurv}}
+\code{\link[=blendsurv]{blendsurv()}}
 }

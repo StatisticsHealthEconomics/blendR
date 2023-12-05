@@ -3,7 +3,7 @@
 #'
 #' RStudio bug
 #' need to run base R first
-#' manipulate(plot(1:x), x = slider(5, 10))
+#' `manipulate(plot(1:x), x = slider(5, 10))`
 #'
 #' @param obs_Surv Observed survival
 #' @param ext_Surv External survival
@@ -11,6 +11,7 @@
 #' @import manipulate
 #'
 manip_plot <- function(obs_Surv, ext_Surv, blend_interv) {
+  a <- b <- NULL
   manipulate::manipulate(
     {params <- list(obs_Surv = obs_Surv,
                     ext_Surv = ext_Surv,
