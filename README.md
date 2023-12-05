@@ -6,12 +6,16 @@
 <!-- badges: end -->
 
 The goal of blendR is to _blend_ two survival curves together from one to the other according to some defined blending function.
+Originally developed for the following paper
+
+> 1. Che Z, Green N, Baio G. Blended Survival Curves: A New Approach to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health Technology Assessment. Med Decis Mak. 2022;43(3):299–310. 
+
 
 ## Installation
 
 You can install the development version of blendR from [GitHub](https://github.com/) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("StatisticsHealthEconomics/blendR")
 ```
