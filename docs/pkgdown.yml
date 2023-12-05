@@ -1,8 +1,10 @@
-pandoc: '2.18'
-pkgdown: 2.0.6
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   basic: basic.html
-  external-data: external-data.html
-last_built: 2023-01-13T12:29Z
+last_built: 2023-12-05T15:37Z
+urls:
+  reference: https://StatisticsHealthEconomics.github.io/blendR/reference
+  article: https://StatisticsHealthEconomics.github.io/blendR/articles
 
