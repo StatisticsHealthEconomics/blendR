@@ -49,7 +49,7 @@ head(dat_FCR)
 Next, fit the observed data with a piece-wise exponential model using INLA.
 
 ```{r}
-## observed estimate
+# observed estimate
 obs_Surv <- fit_inla_pw(data = dat_FCR,
                         cutpoints = seq(0, 180, by = 5))
 ```
@@ -57,7 +57,7 @@ obs_Surv <- fit_inla_pw(data = dat_FCR,
 For the external model first we create some synthetic data consistent with user-defined constraints as follows.
 
 ```{r}
-## external estimate
+# external estimate
 data_sim <- ext_surv_sim(t_info = 144,
                          S_info = 0.05,
                          T_max = 180)
@@ -147,40 +147,42 @@ We can create the external survival curve using the penalised regression model.
 # devtools::install_github("Philip-Cooney/expertsurv")
 library(expertsurv)
 
+# S = 0.05
 param_expert[[1]] <- data.frame(dist = "norm",
                                 wi = 1,
                                 param1 = 0.1,
                                 param2 = 0.005)
 
+# S = 0
 param_expert[[2]] <- data.frame(dist = "norm",
                                 wi = 1,
                                 param1 = 0.05,
                                 param2 = 0.005,
                                 param3 = NA)
 
-timepoint_expert <- c(14,18)
+timepoint_expert <- c(144,180)
 
-obs_Surv3 <- fit.models(formula = Surv(death_t, death) ~ 1,
-                        data = dat_FCR,
-                        distr = "exponential",
-                        method = "hmc")
+obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
+                       data = dat_FCR,
+                       distr = "exponential",
+                       method = "hmc")
 
 # dummy data
 data <- data.frame(time = 1, event = 0)
 
 # don't provide any data so its all based on the prior
-example1  <- fit.models.expert(formula = Surv(time,event) ~ 1,
-                               data = data,
-                               distr = "gomp",
-                               method = "hmc",
-                               iter = 5000,
-                               opinion_type = "survival",
-                               times_expert = timepoint_expert, 
-                               param_expert = param_expert)
+ext_Surv <- fit.models.expert(formula = Surv(time,event) ~ 1,
+                              data = data,
+                              distr = "gomp",
+                              method = "hmc",
+                              iter = 5000,
+                              opinion_type = "survival",
+                              times_expert = timepoint_expert, 
+                              param_expert = param_expert)
 
-ble_Surv3 <- blendsurv(obs_Surv3, ext_Surv3, blend_interv, beta_params)
+ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
-plot(ble_Surv3)
+plot(ble_Surv)
 ```
 
 Alternatively, we could use the `{expertsurv}` functions to fit both the data and the external information together as intended in the `{expertsurv}` package.

@@ -10,13 +10,13 @@
 #' \eqn{T ~ U(x_{i}, x_{i+1})}
 #' \eqn{i ~ multinomial(\hat{\pi})}
 #'
-#' @param t_info  A vector of times for which expert opinion is elicited
-#' @param S_info  A vector of mean survival probabilities estimated by experts
-#'                corresponding to time points in `t_info`
-#' @param T_max   The maximum survival time to be used
-#' @param n       The number of patients to construct the artificial external data set; default 70
+#' @param t_info A vector of times for which expert opinion is elicited
+#' @param S_info A vector of mean survival probabilities estimated by experts
+#'               corresponding to time points in `t_info`
+#' @param T_max  The maximum survival time to be used
+#' @param n      The number of patients to construct the artificial external data set; default 100
 #' @importFrom stats runif rmultinom
-#' @return Dataframe of times and censoring status.
+#' @return Dataframe of times and censoring status
 #' @export
 #'
 #' @examples
