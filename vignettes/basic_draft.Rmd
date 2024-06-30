@@ -144,14 +144,19 @@ The next example is using the [`{expertsurv}`](https://github.com/Philip-Cooney/
 We can create the external survival curve using the penalised regression model.
 
 ```{r eval=FALSE}}
-# devtools::install_github("Philip-Cooney/expertsurv")
+# if (!requireNamespace("expertsurv", quietly = TRUE)) 
+#   remotes::install_github("Philip-Cooney/expertsurv")
+
 library(expertsurv)
+
+param_expert <- list()
 
 # S = 0.05
 param_expert[[1]] <- data.frame(dist = "norm",
                                 wi = 1,
-                                param1 = 0.1,
-                                param2 = 0.005)
+                                param1 = 0.2,
+                                param2 = 0.05,
+                                param3 = NA)
 
 # S = 0
 param_expert[[2]] <- data.frame(dist = "norm",
@@ -160,25 +165,34 @@ param_expert[[2]] <- data.frame(dist = "norm",
                                 param2 = 0.005,
                                 param3 = NA)
 
-timepoint_expert <- c(144,180)
-
-obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
-                       data = dat_FCR,
-                       distr = "exponential",
-                       method = "hmc")
+timepoint_expert <- c(100, 180)
 
 # dummy data
-data <- data.frame(time = 1, event = 0)
+data <- data.frame(time =50, event = 0)
 
 # don't provide any data so its all based on the prior
 ext_Surv <- fit.models.expert(formula = Surv(time,event) ~ 1,
                               data = data,
                               distr = "gomp",
                               method = "hmc",
-                              iter = 5000,
+                              iter = 1000,
                               opinion_type = "survival",
                               times_expert = timepoint_expert, 
                               param_expert = param_expert)
+
+plot(ext_Surv, add.km = T, t = seq(0:180), ci = TRUE)
+
+
+##TODO: how to get confidence intervals? make.surv()?
+
+# obs_Surv <- survHE::fit.models(formula = Surv(death_t, death) ~ 1,
+#                        data = dat_FCR,
+#                        distr = "exponential",
+#                        method = "hmc")
+
+bs_Surv <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       dist = "exp")
 
 ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
@@ -187,4 +201,53 @@ plot(ble_Surv)
 
 Alternatively, we could use the `{expertsurv}` functions to fit both the data and the external information together as intended in the `{expertsurv}` package.
 However, to modify this so that it is similar to `{blendr}` we can choose variance of constraint as functions of the blending interval.
+
+
+TODO...
+## Using sample size formula
+
+```{r}
+# external estimate
+data_sim <- ext_surv_sim(t_info = 100,
+                         S_info = 0.05,
+                         T_max = 180,
+                         n = 100)
+                         # n = 40)
+```
+
+```{r}
+ext_Surv3 <- flexsurv::flexsurvreg(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       dist = "exp")
+```
+
+```{r}
+plot(ext_Surv3)
+summary(ext_Surv3)
+```
+
+median time of mean 46
+median time of upper limit 60
+0.5 = exp(-lambda t) so lambda = log(2)/t
+which gives log(2)/46 = 0.015 and log(2)/60 = 0.012
+a hazard ratio of 46/60 = 0.77
+
+```{r}
+# log-mean method
+# https://shariq-mohammed.github.io/files/cbsa2019/2-power-and-sample-size.html
+expLogMeanDeaths = function(Delta, alpha, pwr){
+  z.alpha = qnorm(alpha, lower.tail=FALSE)
+  z.beta = qnorm(1-pwr, lower.tail=FALSE)
+  num = (z.alpha + z.beta)^2
+  denom = (log(Delta))^2
+
+  num/denom
+}
+```
+
+```{r}
+# one-sided test
+expLogMeanDeaths(Delta = 0.77, alpha = 0.025, pwr = 0.8)
+```
+
 
