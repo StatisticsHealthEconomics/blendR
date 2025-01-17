@@ -21,6 +21,34 @@ data_times(S)
 \arguments{
 \item{S}{vector of survival data}
 }
+\value{
+A vector of event times
+}
 \description{
 Get event time data
 }
+\examples{
+library(survHE)
+
+## trial data
+data("TA174_FCR", package = "blendR")
+
+## externally estimated data
+data_sim <- ext_surv_sim(t_info = 144,
+                         S_info = 0.05,
+                         T_max = 180)
+
+obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
+                       data = dat_FCR,
+                       distr = "exponential",
+                       method = "hmc")
+
+ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       distr = "exponential",
+                       method = "hmc")
+
+c(data_times(obs_Surv), data_times(ext_Surv))
+
+}
+\keyword{internal}

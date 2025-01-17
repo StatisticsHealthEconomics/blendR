@@ -13,6 +13,9 @@ manip_plot(obs_Surv, ext_Surv, blend_interv)
 
 \item{blend_interv}{Blending interval}
 }
+\value{
+Blended survival plot
+}
 \description{
 RStudio bug
 need to run base R first

@@ -11,6 +11,14 @@
 #' @return INLA object
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' data("TA174_FCR", package = "blendR")
+#' head(dat_FCR)
+#'
+#' obs_Surv <- fit_inla_pw(data = dat_FCR, cutpoints = seq(0, 180, by = 5))
+#' }
+#'
 fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
                         data,
                         cutpoints,

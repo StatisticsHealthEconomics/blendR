@@ -30,3 +30,12 @@ INLA object
 \description{
 Generate survival estimates with a piecewise exponential Cox model (using INLA)
 }
+\examples{
+\dontrun{
+data("TA174_FCR", package = "blendR")
+head(dat_FCR)
+
+obs_Surv <- fit_inla_pw(data = dat_FCR, cutpoints = seq(0, 180, by = 5))
+}
+
+}

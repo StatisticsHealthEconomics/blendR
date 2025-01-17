@@ -8,6 +8,7 @@
 #' @param obs_Surv Observed survival
 #' @param ext_Surv External survival
 #' @param blend_interv Blending interval
+#' @return Blended survival plot
 #' @import manipulate
 #'
 manip_plot <- function(obs_Surv, ext_Surv, blend_interv) {
