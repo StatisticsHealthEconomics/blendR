@@ -5,7 +5,7 @@
 #' @return A vector of event times
 #' @keywords internal
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("survHEhmc")
 #' library(survHE)
 #'
 #' ## trial data

@@ -28,6 +28,7 @@ A vector of event times
 Get event time data
 }
 \examples{
+\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survHE)
 
 ## trial data
@@ -49,6 +50,6 @@ ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
                        method = "hmc")
 
 c(data_times(obs_Surv), data_times(ext_Surv))
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

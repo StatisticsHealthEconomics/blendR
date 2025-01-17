@@ -12,7 +12,7 @@
 #' @method plot blended
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("survHEhmc")
 #' library(survHE)
 #'
 #' ## trial data

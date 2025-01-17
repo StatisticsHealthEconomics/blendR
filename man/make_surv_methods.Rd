@@ -36,6 +36,7 @@ These function are version of the \code{\link[=make.surv]{make.surv()}} function
 from \pkg{survHE}. These are needed prior to blending.
 }
 \examples{
+\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survHE)
 
 ## trial data
@@ -52,5 +53,5 @@ ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
                        method = "hmc")
 
 S_ext <- make_surv(ext_Surv, t = 1:100, nsim = 100)
-
+\dontshow{\}) # examplesIf}
 }

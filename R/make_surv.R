@@ -10,7 +10,7 @@
 #' @return matrix of survival probabilities
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("survHEhmc")
 #' library(survHE)
 #'
 #' ## trial data

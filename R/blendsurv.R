@@ -19,7 +19,8 @@
 #' @importFrom stats pbeta
 #' @export
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("survHEhmc")
+#'
 #' library(survHE)
 #'
 #' ## trial data

@@ -20,6 +20,7 @@
 Blended survival curve based on short-term data and external information
 }
 \examples{
+\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survHE)
 
 ## trial data
@@ -46,7 +47,7 @@ beta_params <- list(alpha = 3, beta = 3)
 ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
 plot(ble_Surv)
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=blendsurv]{blendsurv()}}
