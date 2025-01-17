@@ -30,7 +30,6 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Additional_repositories: https://inla.r-inla-download.org/R/stable/
-URL: https://github.com/StatisticsHealthEconomics/blendR/,
-     https://StatisticsHealthEconomics.github.io/blendR/
-BugReports: https://github.com/StatisticsHealthEconomics/blendR/issues/
+URL: https://github.com/StatisticsHealthEconomics/blendR/, https://StatisticsHealthEconomics.github.io/blendR/, https://github.com/StatisticsHealthEconomics/blendR
+BugReports: https://github.com/StatisticsHealthEconomics/blendR/issues
 Config/testthat/edition: 3
