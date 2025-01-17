@@ -62,7 +62,7 @@ https://statisticshealtheconomics.github.io/blendR/
 
 ## Contributing
 Please submit contributions through `Pull Requests`, following the [contributing
-guidelines](https://github.com/StatisticsHealthEconomics/blendR/main/CONTRIBUTING.md).
+guidelines](https://github.com/StatisticsHealthEconomics/blendR/blob/main/CONTRIBUTING.md).
 
 To report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/StatisticsHealthEconomics/blendR/issues) tracker.
