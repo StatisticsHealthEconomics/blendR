@@ -6,3 +6,5 @@
 ^docs$
 ^scripts$
 ^DESCRIPTION-dev$
+^_pkgdown.yml
+^vignettes/

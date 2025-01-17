@@ -21,12 +21,13 @@ library(blendR)
 ```
 
 
-```{r install-pkgs, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
+```{r install-pkgs, warning=FALSE, message=FALSE, eval=TRUE, echo=FALSE}
 if (!requireNamespace("survHEhmc")) remotes::install_github('giabaio/survHEhmc')
 ```
 
 ```{r, warning=FALSE, message=FALSE}
 library(survHE)
+library(survHEhmc)
 library(INLA)
 ```
 
