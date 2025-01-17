@@ -62,8 +62,10 @@ https://statisticshealtheconomics.github.io/blendR/
 
 ## Contributing
 Please submit contributions through `Pull Requests`, following the [contributing
-guidelines](https://github.com/StatisticsHealthEconomics/blendR/blob/dev/CONTRIBUTING.md).
+guidelines](https://github.com/StatisticsHealthEconomics/blendR/main/CONTRIBUTING.md).
+
 To report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/StatisticsHealthEconomics/blendR/issues) tracker.
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/blob/dev/CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/main/CONDUCT.md).
+By participating in this project you agree to abide by its terms.
