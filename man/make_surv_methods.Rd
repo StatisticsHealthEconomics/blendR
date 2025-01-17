@@ -32,6 +32,6 @@ make_surv(Surv, ...)
 matrix of survival probabilities
 }
 \description{
-These function are version of the \code{make.surv} function
+These function are version of the \code{\link[=make.surv]{make.surv()}} function
 from \pkg{survHE}. These are needed prior to blending.
 }

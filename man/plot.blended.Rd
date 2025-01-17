@@ -7,7 +7,7 @@
 \method{plot}{blended}(x, alpha = c(0.1, 0.05), ...)
 }
 \arguments{
-\item{x}{A blended survival curve object obtain from \code{blendsurv}}
+\item{x}{A blended survival curve object obtain from \code{\link[=blendsurv]{blendsurv()}}}
 
 \item{alpha}{A vector specifying the opacity of ribbon for the blended curve and other curves}
 
