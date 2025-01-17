@@ -67,5 +67,5 @@ guidelines](https://github.com/StatisticsHealthEconomics/blendR/main/CONTRIBUTIN
 To report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/StatisticsHealthEconomics/blendR/issues) tracker.
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/main/CONDUCT.md).
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/blob/main/CONDUCT.md).
 By participating in this project you agree to abide by its terms.
