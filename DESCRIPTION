@@ -21,7 +21,7 @@ Imports:
     survHE,
     tibble
 Depends:
-    R (>= 4.4.0)
+    R (>= 4.3.3)
 Suggests:
     knitr,
     rlang,
