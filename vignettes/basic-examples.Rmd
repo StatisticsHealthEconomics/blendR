@@ -5,35 +5,34 @@ vignette: >
   %\VignetteIndexEntry{Basic examples}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{survHE, INLA}
 editor_options: 
   chunk_output_type: console
 ---
 
 ```{r options, include = FALSE}
+# Set global chunk options
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
-)
+  comment = "#>",
+  eval = requireNamespace("survHEhmc", quietly = TRUE))
+  # eval = FALSE)
+
+survHEhmc_available <- requireNamespace("survHEhmc", quietly = TRUE)
 ```
 
 ```{r setup, warning=FALSE, message=FALSE}
 library(blendR)
 ```
 
-
-```{r install-pkgs, warning=FALSE, message=FALSE, eval=TRUE, echo=FALSE}
-if (!requireNamespace("survHEhmc")) remotes::install_github('giabaio/survHEhmc')
-```
-
 ```{r, warning=FALSE, message=FALSE}
 library(survHE)
-library(survHEhmc)
 library(INLA)
 ```
 
 ```{r limit-cores, echo=FALSE}
 # R CMD check only allows a maximum of two cores
-options(mc.cores=2)
+options(mc.cores = 2)
 inla.setOption(num.threads = 2)
 ```
 
@@ -42,14 +41,14 @@ inla.setOption(num.threads = 2)
 
 First load the package data and take a look.
 
-```{r}
+```{r load-data}
 data("TA174_FCR", package = "blendR")
 head(dat_FCR)
 ```
 
 Next, fit the observed data with a piece-wise exponential model using INLA.
 
-```{r}
+```{r fit-obs}
 # observed estimate
 obs_Surv <- fit_inla_pw(data = dat_FCR,
                         cutpoints = seq(0, 180, by = 5))
@@ -57,16 +56,16 @@ obs_Surv <- fit_inla_pw(data = dat_FCR,
 
 For the external model first we create some synthetic data consistent with user-defined constraints as follows.
 
-```{r}
+```{r fit-ext}
 # external estimate
 data_sim <- ext_surv_sim(t_info = 144,
                          S_info = 0.05,
                          T_max = 180)
 ```
 
-Then fit a gompertz model to this.
+Then fit a gompertz model to this. Require the `{survHEhmc}` package to be installed.
 
-```{r}
+```{r fit-models, eval=survHEhmc_available}
 ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
                        data = data_sim,
                        distr = "gompertz",
@@ -77,7 +76,7 @@ ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
 
 Lastly, we can run the blending step.
 
-```{r}
+```{r blendsurv, eval=survHEhmc_available}
 blend_interv <- list(min = 48, max = 150)
 beta_params <- list(alpha = 3, beta = 3)
 
@@ -86,7 +85,7 @@ ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
 We can visualise all of the curves.
 
-```{r}
+```{r plot, eval=survHEhmc_available}
 plot(ble_Surv)
 ```
 
@@ -95,7 +94,7 @@ plot(ble_Surv)
 In the same way as above we fit two survival curves and then blend them together.
 In this case we use two exponential curves using the survHE package to fit them.
 
-```{r}
+```{r, eval=survHEhmc_available}
 obs_Surv2 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         data = dat_FCR,
                         distr = "exponential",
@@ -107,7 +106,7 @@ ext_Surv2 <- fit.models(formula = Surv(time, event) ~ 1,
                        method = "hmc")
 ```
 
-```{r}
+```{r, eval=survHEhmc_available}
 ble_Surv2 <- blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params)
 
 # kaplan-meier
@@ -122,7 +121,7 @@ plot(ble_Surv2) +
 
 The next example is for an HMC and frequentist survival model using the flexsurv package directly.
 
-```{r}
+```{r, eval=survHEhmc_available}
 obs_Surv3 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         data = dat_FCR,
                         distr = "exponential",

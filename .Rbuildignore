@@ -7,5 +7,8 @@
 ^scripts$
 ^DESCRIPTION-dev$
 ^_pkgdown.yml
-^vignettes/
 ^cran-comments\.md$
+^CONDUCT.md
+^CONTRIBUTING.md
+^doc$
+^Meta$
