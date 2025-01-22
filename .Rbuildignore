@@ -5,3 +5,10 @@
 ^BSCweb$
 ^docs$
 ^scripts$
+^DESCRIPTION-dev$
+^_pkgdown.yml
+^cran-comments\.md$
+^CONDUCT.md
+^CONTRIBUTING.md
+^doc$
+^Meta$

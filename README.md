@@ -6,12 +6,16 @@
 <!-- badges: end -->
 
 The goal of blendR is to _blend_ two survival curves together from one to the other according to some defined blending function.
+Originally developed for the following paper
+
+> Che Z, Green N, Baio G. Blended Survival Curves: A New Approach to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health Technology Assessment. Med Decis Mak. 2022;43(3):299–310. 
+
 
 ## Installation
 
 You can install the development version of blendR from [GitHub](https://github.com/) with:
 
-``` r
+```r
 # install.packages("devtools")
 devtools::install_github("StatisticsHealthEconomics/blendR")
 ```
@@ -58,8 +62,10 @@ https://statisticshealtheconomics.github.io/blendR/
 
 ## Contributing
 Please submit contributions through `Pull Requests`, following the [contributing
-guidelines](https://github.com/StatisticsHealthEconomics/blendR/blob/dev/CONTRIBUTING.md).
+guidelines](https://github.com/StatisticsHealthEconomics/blendR/blob/main/CONTRIBUTING.md).
+
 To report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/StatisticsHealthEconomics/blendR/issues) tracker.
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/blob/dev/CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/StatisticsHealthEconomics/blendR/blob/main/CONDUCT.md).
+By participating in this project you agree to abide by its terms.

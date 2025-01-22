@@ -14,10 +14,10 @@ corresponding to time points in \code{t_info}}
 
 \item{T_max}{The maximum survival time to be used}
 
-\item{n}{The number of patients to construct the artificial external data set; default 70}
+\item{n}{The number of patients to construct the artificial external data set; default 100}
 }
 \value{
-Dataframe of times and censoring status.
+Dataframe of times and censoring status
 }
 \description{
 Generally, the sampling is done is two steps

@@ -2,13 +2,31 @@
 #' @title Create survival probabilities
 #' @name make_surv_methods
 #'
-#' @description These function are version of the \code{make.surv} function
+#' @description These function are version of the [make.surv()] function
 #'    from \pkg{survHE}. These are needed prior to blending.
 #'
 #' @param Surv  survival analysis object
 #' @param ... Additional arguments
 #' @return matrix of survival probabilities
 #' @export
+#'
+#' @examplesIf rlang::is_installed("survHEhmc")
+#' library(survHE)
+#'
+#' ## trial data
+#' data("TA174_FCR", package = "blendR")
+#'
+#' ## externally estimated data
+#' data_sim <- ext_surv_sim(t_info = 144,
+#'                          S_info = 0.05,
+#'                          T_max = 180)
+#'
+#' ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
+#'                        data = data_sim,
+#'                        distr = "exponential",
+#'                        method = "hmc")
+#'
+#' S_ext <- make_surv(ext_Surv, t = 1:100, nsim = 100)
 #'
 make_surv <- function(Surv, ...)
   UseMethod("make_surv", Surv)

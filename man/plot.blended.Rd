@@ -7,7 +7,7 @@
 \method{plot}{blended}(x, alpha = c(0.1, 0.05), ...)
 }
 \arguments{
-\item{x}{A blended survival curve object obtain from \code{blendsurv}}
+\item{x}{A blended survival curve object obtain from \code{\link[=blendsurv]{blendsurv()}}}
 
 \item{alpha}{A vector specifying the opacity of ribbon for the blended curve and other curves}
 
@@ -19,6 +19,36 @@
 \description{
 Blended survival curve based on short-term data and external information
 }
+\examples{
+\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(survHE)
+
+## trial data
+data("TA174_FCR", package = "blendR")
+
+## externally estimated data
+data_sim <- ext_surv_sim(t_info = 144,
+                         S_info = 0.05,
+                         T_max = 180)
+
+obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
+                       data = dat_FCR,
+                       distr = "exponential",
+                       method = "hmc")
+
+ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
+                       data = data_sim,
+                       distr = "exponential",
+                       method = "hmc")
+
+blend_interv <- list(min = 48, max = 150)
+beta_params <- list(alpha = 3, beta = 3)
+
+ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
+
+plot(ble_Surv)
+\dontshow{\}) # examplesIf}
+}
 \seealso{
-\code{\link{blendsurv}}
+\code{\link[=blendsurv]{blendsurv()}}
 }

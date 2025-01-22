@@ -1,0 +1,38 @@
+url: https://StatisticsHealthEconomics.github.io/blendR/
+
+news:
+  cran_dates: false
+
+template:
+  bootstrap: 5
+  theme: atom-one-light
+  bslib:
+    font_scale: 1.0
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
+
+reference:
+- title: "Main"
+  desc: "Main functions"
+  contents:
+  # - blendR-package
+  - blendsurv
+  - ext_surv_sim
+  - fit_inla_pw
+  - make_surv
+- title: "Plotting"
+  desc: "Plotting functions"
+  contents:
+  - plot.blended
+  - weightplot
+  - manip_plot
+- title: "Helpers"
+  desc: "Helper functions"
+  contents:
+  - data_times
+- title: "Data"
+  contents:
+  - dat_FCR

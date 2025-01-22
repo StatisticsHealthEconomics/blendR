@@ -1,8 +1,0 @@
-pandoc: '2.18'
-pkgdown: 2.0.6
-pkgdown_sha: ~
-articles:
-  basic: basic.html
-  external-data: external-data.html
-last_built: 2023-01-13T12:29Z
-

@@ -21,6 +21,10 @@ data_times(S)
 \arguments{
 \item{S}{vector of survival data}
 }
+\value{
+A vector of event times
+}
 \description{
 Get event time data
 }
+\keyword{internal}
