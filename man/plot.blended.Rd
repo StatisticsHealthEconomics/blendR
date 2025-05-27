@@ -20,7 +20,7 @@
 Blended survival curve based on short-term data and external information
 }
 \examples{
-\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
 library(survHE)
 
 ## trial data
