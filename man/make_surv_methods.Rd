@@ -32,11 +32,11 @@ make_surv(Surv, ...)
 matrix of survival probabilities
 }
 \description{
-These function are version of the \code{\link[=make.surv]{make.surv()}} function
+These function are version of the \code{\link[survHE:make.surv]{survHE::make.surv()}} function
 from \pkg{survHE}. These are needed prior to blending.
 }
 \examples{
-\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
 library(survHE)
 
 ## trial data

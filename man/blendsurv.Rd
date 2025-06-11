@@ -37,7 +37,7 @@ the blending distribution characterised by the blending interval and
 the beta distribution parameters.
 }
 \examples{
-\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
 
 library(survHE)
 
