@@ -15,6 +15,7 @@ authors:
     equal-contrib: true
     affiliation: 2
   - name: Gianluca Baio
+    orcid: 0000-0003-4314-2570
     corresponding: true
     affiliation: 1
 affiliations:
