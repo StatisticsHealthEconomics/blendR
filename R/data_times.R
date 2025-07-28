@@ -12,6 +12,15 @@ data_times <- function(S)
 #' @keywords internal
 #'
 data_times.inla <- function(S) {
+
+  if (!requireNamespace("INLA", quietly = TRUE)) {
+    stop(
+      "The 'INLA' package is required to use this function. ",
+      "Please install it from its repository by running: ",
+      "install.packages('INLA', repos = c(getOption('repos'), INLA = 'https://inla.r-inla-download.org/R/stable'), dep = TRUE)"
+    )
+  }
+
   time_var <-
     S[[".args"]][[".parent.frame"]][["inla.formula"]][[2]][[2]]
 

@@ -7,7 +7,7 @@
 #'
 #' @param Surv  survival analysis object
 #' @param ... Additional arguments
-#' @return matrix of survival probabilities
+#' @return Matrix of survival probabilities
 #' @export
 #'
 #' @examplesIf rlang::is_installed("survHEhmc")
@@ -70,12 +70,19 @@ make_surv.flexsurvreg <- function(Surv, t = NULL, nsim = 100, ...) {
 #' @param t Time points; vector
 #' @param nsim Number of simulations; integer
 #' @import sn
-#' @importFrom INLA inla.posterior.sample
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr select contains
 #' @export
 #'
 make_surv.inla <- function(Surv, t = NULL, nsim = 100, ...) {
+
+  if (!requireNamespace("INLA", quietly = TRUE)) {
+    stop(
+      "The 'INLA' package is required to use this function. ",
+      "Please install it from its repository by running: ",
+      "install.packages('INLA', repos = c(getOption('repos'), INLA = 'https://inla.r-inla-download.org/R/stable'), dep = TRUE)"
+    )
+  }
 
   n_data <- Surv$model.matrix@Dim[1]
 

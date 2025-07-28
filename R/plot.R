@@ -7,7 +7,7 @@
 #' @import ggplot2
 #' @importFrom stats quantile
 #'
-#' @return \pkg{ggplot2} object
+#' @return A \pkg{ggplot2} object
 #' @seealso [blendsurv()]
 #' @method plot blended
 #' @export

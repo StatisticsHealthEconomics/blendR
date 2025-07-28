@@ -29,7 +29,7 @@ make_surv(Surv, ...)
 \item{nsim}{Number of simulations; integer}
 }
 \value{
-matrix of survival probabilities
+Matrix of survival probabilities
 }
 \description{
 These function are version of the \code{\link[survHE:make.surv]{survHE::make.surv()}} function

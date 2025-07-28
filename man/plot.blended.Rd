@@ -14,7 +14,7 @@
 \item{...}{Additional arguments}
 }
 \value{
-\pkg{ggplot2} object
+A \pkg{ggplot2} object
 }
 \description{
 Blended survival curve based on short-term data and external information

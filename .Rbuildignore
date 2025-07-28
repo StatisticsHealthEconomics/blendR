@@ -12,3 +12,8 @@
 ^CONTRIBUTING.md
 ^doc$
 ^Meta$
+^paper\.bib
+^paper\.html
+^figure\.jpeg
+^paper\.md
+^plotblend\.png

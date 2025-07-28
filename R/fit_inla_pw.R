@@ -24,6 +24,14 @@ fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
                         cutpoints,
                         nsim = 100, ...) {
 
+  if (!requireNamespace("INLA", quietly = TRUE)) {
+    stop(
+      "The 'INLA' package is required to use this function. ",
+      "Please install it from its repository by running: ",
+      "install.packages('INLA', repos = c(getOption('repos'), INLA = 'https://inla.r-inla-download.org/R/stable'), dep = TRUE)"
+    )
+  }
+
   # Convert a Cox proportional hazard model into Poisson regression
   p <- INLA::inla.coxph(
     inla.formula,
