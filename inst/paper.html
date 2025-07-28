@@ -439,7 +439,9 @@ possible to the observed information. Unlike in a standard modelling
 exercise where the issue of overfitting is potentially critical,
 achieving a very close approximation to the observed dynamics has much
 less important implications in the case of blending, as explained
-further below.</p>
+further below. Common packages available in R for this step include
+<code>survHE</code> <span class="citation">(Baio 2020)</span> and
+<code>flexsurv</code> <span class="citation">(Jackson 2016)</span>.</p>
 <p>For the second component of the blending process, consider a separate
 <em>external</em> survival curve, <span class="math inline">\({S_{ext}(t\mid\boldsymbol{\theta}_{ext})}\)</span>.
 This is a parametric model that is not informed by the observed data -
@@ -537,16 +539,16 @@ data_sim &lt;- ext_surv_sim(t_info = 144,
                          T_max = 180)
     
 # observed survival model                     
-obs_Surv &lt;- fit.models(formula = Surv(death_t, death) ~ 1,
-                        data = dat_FCR,
-                        distr = &quot;exponential&quot;,
-                        method = &quot;hmc&quot;)
+obs_Surv &lt;- survHE::fit.models(formula = Surv(death_t, death) ~ 1,
+                               data = dat_FCR,
+                               distr = &quot;exponential&quot;,
+                               method = &quot;hmc&quot;)
                         
-# external survival model                     
-ext_Surv &lt;- fit.models(formula = Surv(time, event) ~ 1,
-                       data = data_sim,
-                       distr = &quot;exponential&quot;,
-                       method = &quot;hmc&quot;)
+# external survival model               
+ext_Surv &lt;- survHE::fit.models(formula = Surv(time, event) ~ 1,
+                               data = data_sim,
+                               distr = &quot;exponential&quot;,
+                               method = &quot;hmc&quot;)
                        
 blend_interv &lt;- list(min = 48, max = 150)
 beta_params &lt;- list(alpha = 3, beta = 3)
@@ -577,6 +579,11 @@ Programming Language.”</span> <em>Journal of Statistical Software</em>
 Che, Zhaojing, Nathan Green, and Gianluca Baio. 2022. <span>“<span class="nocase">Blended Survival Curves: A New Approach to Extrapolation
 for Time-to-Event Outcomes from Clinical Trial in Health Technology
 Assessment</span>,”</span> May. <a href="http://arxiv.org/abs/2206.00154">http://arxiv.org/abs/2206.00154</a>.
+</div>
+<div id="ref-flexsurv" class="csl-entry">
+Jackson, Christopher. 2016. <span>“<span class="nocase">flexsurv</span>:
+A Platform for Parametric Survival Modeling in <span>R</span>.”</span>
+<em>Journal of Statistical Software</em> 70 (8): 1–33. <a href="https://doi.org/10.18637/jss.v070.i08">https://doi.org/10.18637/jss.v070.i08</a>.
 </div>
 <div id="ref-NICE_TSD14" class="csl-entry">
 Latimer, N. R., M. J. Crowther, P. C. Lambert, K. R. Abrams, A. J.
