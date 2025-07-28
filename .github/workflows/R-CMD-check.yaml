@@ -38,12 +38,16 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      
+      # Manually install INLA before other dependencies
+      - name: Install INLA
+        run: install.packages('INLA', repos = c(getOption('repos'), INLA = 'https://inla.r-inla-download.org/R/stable'))
+        shell: Rscript {0}
           
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
             any::rcmdcheck
-            any::r-inla/INLA
             giabaio/survHEhmc
           needs: check
 
