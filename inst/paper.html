@@ -413,12 +413,11 @@ opinion.</p>
 <h1>Statement of need</h1>
 <p>Interim analyses of trials with limited follow-up are often subject
 to high degrees of administrative censoring, which may result in
-implausible long-term extrapolations using standard approaches.
-Implementing an innovative methodology based on “blending” survival
-curves to relax the traditional proportional hazard assumption and
-simultaneously incorporate external information can guide the
-extrapolation <span class="citation">(Che, Green, and Baio 2022)</span>.
-The <code>blendR</code> package provides a simple and powerful means to
+implausible long-term extrapolations using standard approaches <span class="citation">(Latimer et al. 2013)</span>. Implementing an
+innovative methodology based on “blending” survival curves to relax the
+traditional proportional hazard assumption and simultaneously
+incorporate external information can guide the extrapolation <span class="citation">(Che, Green, and Baio 2022)</span>. The
+<code>blendR</code> package provides a simple and powerful means to
 allow a careful consideration of a wide range of plausible scenarios,
 accounting for model fit to the short-term data as well as the
 plausibility of long-term extrapolations. <code>blendR</code> was
@@ -520,11 +519,12 @@ problem. Using the <em>TA174_FCR</em> data set contained in the
 <code>blendR</code> package, we fit exponential distribution survival
 models with no covariates using the <code>fit.models()</code> function
 from the <code>survHE</code> package <span class="citation">(Baio
-2020)</span>. This employs the HMC sampler from Stan behind the scenes.
-The <em>external</em> or <em>long-term</em> data are obtained from an
-heuristic approach to simulating data consistent with user-defined
-constraints. The results are then blended into a single survival curve
-using the <code>blendsurv()</code> function.</p>
+2020)</span>. This employs the Hamiltonian Monte Carlo (HMC) sampler
+from Stan behind the scenes <span class="citation">(Carpenter et al.
+2017)</span>. The <em>external</em> or <em>long-term</em> data are
+obtained from an heuristic approach to simulating data consistent with
+user-defined constraints. The results are then blended into a single
+survival curve using the <code>blendsurv()</code> function.</p>
 <pre class="r"><code>library(blendR)
 library(survHE)
 
@@ -566,10 +566,24 @@ Survival Analysis for Health Economic Evaluation and Cost-Effectiveness
 Modeling.”</span> <em>Journal of Statistical Software</em> 95 (14):
 1–47. <a href="https://doi.org/10.18637/jss.v095.i14">https://doi.org/10.18637/jss.v095.i14</a>.
 </div>
+<div id="ref-stan2017" class="csl-entry">
+Carpenter, Bob, Andrew Gelman, Matthew D. Hoffman, Daniel Lee, Ben
+Goodrich, Michael Betancourt, Marcus Brubaker, Jiqiang Guo, Peter Li,
+and Allen Riddell. 2017. <span>“<span>Stan</span>: A Probabilistic
+Programming Language.”</span> <em>Journal of Statistical Software</em>
+76 (1): 1–32. <a href="https://doi.org/10.18637/jss.v076.i01">https://doi.org/10.18637/jss.v076.i01</a>.
+</div>
 <div id="ref-Che2022" class="csl-entry">
 Che, Zhaojing, Nathan Green, and Gianluca Baio. 2022. <span>“<span class="nocase">Blended Survival Curves: A New Approach to Extrapolation
 for Time-to-Event Outcomes from Clinical Trial in Health Technology
 Assessment</span>,”</span> May. <a href="http://arxiv.org/abs/2206.00154">http://arxiv.org/abs/2206.00154</a>.
+</div>
+<div id="ref-NICE_TSD14" class="csl-entry">
+Latimer, N. R., M. J. Crowther, P. C. Lambert, K. R. Abrams, A. J.
+Wailoo, J. P. Morden, R. L. Akehurst, and M. J. Campbell. 2013.
+<span>“Survival Analysis for Economic Evaluations Alongside Clinical
+Trials – Extrapolation with Patient-Level Data.”</span> TSD 14.
+Sheffield, UK: NICE Decision Support Unit. <a href="http://nicedsu.org.uk/technical-support-documents/survival-analysis-tsd/">http://nicedsu.org.uk/technical-support-documents/survival-analysis-tsd/</a>.
 </div>
 </div>
 </div>

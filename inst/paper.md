@@ -67,7 +67,7 @@ opinion.
 
 Interim analyses of trials with limited follow-up are often subject to
 high degrees of administrative censoring, which may result in
-implausible long-term extrapolations using standard approaches.
+implausible long-term extrapolations using standard approaches [@NICE_TSD14].
 Implementing an innovative methodology based on "blending" survival
 curves to relax the traditional proportional hazard assumption and
 simultaneously incorporate external information can guide the
@@ -172,8 +172,8 @@ at the 13 years from experts.\label{fig:figure}](figure.jpeg){width="80%"}
 We present a basic example which demonstrates how to solve a common problem.
 Using the *TA174_FCR* data set contained in the `blendR` package, we fit
 exponential distribution survival models with no covariates using the
-`fit.models()` function from the `survHE` package [@survHE]. This employs the HMC
-sampler from Stan behind the scenes. The *external* or *long-term* data
+`fit.models()` function from the `survHE` package [@survHE]. This employs the Hamiltonian Monte Carlo (HMC)
+sampler from Stan behind the scenes [@stan2017]. The *external* or *long-term* data
 are obtained from an heuristic approach to simulating data consistent
 with user-defined constraints. The results are then blended into a
 single survival curve using the `blendsurv()` function.
