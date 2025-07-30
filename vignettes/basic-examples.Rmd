@@ -15,8 +15,9 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = requireNamespace("survHEhmc", quietly = TRUE))
-  # eval = FALSE)
+  eval =  requireNamespace("INLA") && requireNamespace("survHEhmc")
+)
+# eval = FALSE)
 
 survHEhmc_available <- requireNamespace("survHEhmc", quietly = TRUE)
 ```

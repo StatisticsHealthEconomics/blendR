@@ -10,4 +10,4 @@
 
 * This is a first release.
 
-* survHEhmc is not available on CRAN and so is not listed as a dependency in the DESCRIPTION file. It is loaded conditionally in the vignettes.
+* survHEhmc is not available on CRAN and so is Suggested. It is loaded conditionally in the vignettes.
