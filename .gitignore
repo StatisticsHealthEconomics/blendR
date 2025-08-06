@@ -4,3 +4,4 @@ docs/*
 docs/
 /doc/
 /Meta/
+*\.tar\.gz

@@ -22,11 +22,15 @@ knitr::opts_chunk$set(
 survHEhmc_available <- requireNamespace("survHEhmc", quietly = TRUE)
 ```
 
+## Introduction
+
+This vignette provides a walkthrough of the basic functionality of the `{blendR}` package. We'll show how to combine survival models from different sources, such as observed trial data and external evidence, using various fitting methods.
+
 ```{r setup, warning=FALSE, message=FALSE}
 library(blendR)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r load-packages, warning=FALSE, message=FALSE}
 library(survHE)
 library(INLA)
 ```
@@ -38,16 +42,20 @@ inla.setOption(num.threads = 2)
 ```
 
 
-## INLA piece-wise exponential and external knowledge
+## Example 1: INLA piece-wise exponential and external knowledge
 
-First load the package data and take a look.
+This first example demonstrates a common use case: blending a semi-parametric model fitted to observed data with a parametric model representing external knowledge.
+
+### Prepare the models
+
+First, we load the package's example dataset and inspect its structure. This dataset contains individual patient data from a clinical trial.
 
 ```{r load-data}
 data("TA174_FCR", package = "blendR")
 head(dat_FCR)
 ```
 
-Next, fit the observed data with a piece-wise exponential model using INLA.
+Next, we fit a piece-wise exponential model to the observed trial data. This is done using Integrated Nested Laplace Approximation (INLA) via the `fit_inla_pw()` helper function. We define the cut-points for the piece-wise hazard function.
 
 ```{r fit-obs}
 # observed estimate
@@ -55,7 +63,7 @@ obs_Surv <- fit_inla_pw(data = dat_FCR,
                         cutpoints = seq(0, 180, by = 5))
 ```
 
-For the external model first we create some synthetic data consistent with user-defined constraints as follows.
+For the external model, we first generate a synthetic dataset that is consistent with some external information or expert opinion. Here, we simulate data where the survival probability is known to be 5\% at 144 months, up to a maximum follow-up time of 180 months.
 
 ```{r fit-ext}
 # external estimate
@@ -64,7 +72,7 @@ data_sim <- ext_surv_sim(t_info = 144,
                          T_max = 180)
 ```
 
-Then fit a gompertz model to this. Require the `{survHEhmc}` package to be installed.
+Now, we fit a parametric Gompertz model to this synthetic external data. This is done using Hamiltonian Monte Carlo (HMC) via the `{survHE}` package. Note that this step requires the `{survHEhmc}` package to be installed.
 
 ```{r fit-models, eval=survHEhmc_available}
 ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
@@ -75,7 +83,9 @@ ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
                                                 b_alpha = 0.1)))
 ```
 
-Lastly, we can run the blending step.
+### Blend the curves
+
+With both the observed and external survival models fitted, we can now use the core `blendsurv()` function. We must specify the blending interval (`blend_interv`) and the parameters of the Beta distribution (`beta_params`) that will control the blending weight.
 
 ```{r blendsurv, eval=survHEhmc_available}
 blend_interv <- list(min = 48, max = 150)
@@ -84,16 +94,17 @@ beta_params <- list(alpha = 3, beta = 3)
 ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 ```
 
-We can visualise all of the curves.
+Finally, we can easily visualize the observed curve, the external curve, and the final blended curve using the default `plot` method.
 
 ```{r plot, eval=survHEhmc_available}
 plot(ble_Surv)
 ```
 
-## Two HMC survHE fits
+## Example 2: Blending two HMC survHE models
 
-In the same way as above we fit two survival curves and then blend them together.
-In this case we use two exponential curves using the survHE package to fit them.
+This example shows how to blend two survival curves that were both fitted using HMC with the `{survHE}` package.
+
+We'll fit an exponential model to both the observed trial data and the synthetic external data created in the previous example.
 
 ```{r, eval=survHEhmc_available}
 obs_Surv2 <- fit.models(formula = Surv(death_t, death) ~ 1,
@@ -107,6 +118,8 @@ ext_Surv2 <- fit.models(formula = Surv(time, event) ~ 1,
                        method = "hmc")
 ```
 
+The blending step is identical to before, demonstrating the consistent interface. We can then plot the result and add a non-parametric Kaplan-Meier estimate for comparison.
+
 ```{r, eval=survHEhmc_available}
 ble_Surv2 <- blendsurv(obs_Surv2, ext_Surv2, blend_interv, beta_params)
 
@@ -118,11 +131,13 @@ plot(ble_Surv2) +
             size = 1.25, linetype = "dashed")
 ```
 
-## flexsurv frequentist background fit
+## Example 3: Blending HMC and frequentist models
 
-The next example is for an HMC and frequentist survival model using the flexsurv package directly.
+This final example highlights the flexibility of `{blendR}` by blending a Bayesian model (from HMC) with a frequentist one fitted using the `{flexsurv}` package.
 
-```{r, eval=survHEhmc_available}
+First, we fit the observed data model using HMC via `{survHE}`. Then, we fit the external data model using `flexsurv::flexsurvreg()`.
+
+```{r freq-background, eval=survHEhmc_available}
 obs_Surv3 <- fit.models(formula = Surv(death_t, death) ~ 1,
                         data = dat_FCR,
                         distr = "exponential",

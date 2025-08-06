@@ -9,9 +9,7 @@ Authors@R: c(
   )
 Description: Create blended survival curves, see 'Che et al.' (2022) <doi:10.1177/0272989X221134545>.
 License: GPL (>= 3)
-Additional_repositories:
-    https://giabaio.r-universe.dev,
-    https://inla.r-inla-download.org/R/stable
+Additional_repositories: https://giabaio.r-universe.dev, https://inla.r-inla-download.org/R/stable
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2.9000
