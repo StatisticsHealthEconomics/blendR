@@ -3,11 +3,8 @@
 ❯ checking for future file timestamps ... NOTE
   unable to verify current time
 
-❯ checking for unstated dependencies in vignettes ... NOTE
-  'library' or 'require' call not declared from: 'survHEhmc'
-
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 * This is a first release.
 
-* survHEhmc is not available on CRAN and so is Suggested. It is loaded conditionally in the vignettes.
+* survHEhmc and INLA are not available on CRAN and so are Suggested. They are loaded conditionally in the vignettes.
