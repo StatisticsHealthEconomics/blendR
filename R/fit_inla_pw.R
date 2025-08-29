@@ -12,11 +12,12 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' data("TA174_FCR", package = "blendR")
-#' head(dat_FCR)
-#'
-#' obs_Surv <- fit_inla_pw(data = dat_FCR, cutpoints = seq(0, 180, by = 5))
+#' \donttest{
+#'  if (requireNamespace("INLA", quietly = TRUE)) {
+#'   data("TA174_FCR", package = "blendR")
+#'   head(dat_FCR)
+#'   obs_Surv <- fit_inla_pw(data = dat_FCR, cutpoints = seq(0, 180, by = 5))
+#'  }
 #' }
 #'
 fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
@@ -28,7 +29,8 @@ fit_inla_pw <- function(inla.formula = inla.surv(death_t, death) ~ -1,
     stop(
       "The 'INLA' package is required to use this function. ",
       "Please install it from its repository by running: ",
-      "install.packages('INLA', repos = c(getOption('repos'), INLA = 'https://inla.r-inla-download.org/R/stable'), dep = TRUE)"
+      "install.packages('INLA', repos = c(getOption('repos'),
+      INLA = 'https://inla.r-inla-download.org/R/stable'), dep = TRUE)"
     )
   }
 
