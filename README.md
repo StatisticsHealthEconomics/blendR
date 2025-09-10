@@ -13,7 +13,13 @@ Originally developed for the following paper
 
 ## Installation
 
-You can install the development version of blendR from [GitHub](https://github.com/) with:
+You can install the [CRAN](https://cran.r-project.org/web/packages/blendR/index.html) version of `blendR` with:
+
+```r
+install.packages("blendR")
+```
+
+or the development version from [GitHub](https://github.com/) with:
 
 ```r
 # install.packages("devtools")
