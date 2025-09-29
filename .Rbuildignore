@@ -17,3 +17,4 @@
 ^inst/plotblend\.png$
 ^revdep$
 ^doc$
+^README\.Rmd$
