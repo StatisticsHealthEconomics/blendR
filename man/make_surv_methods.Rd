@@ -20,38 +20,149 @@ make_surv(Surv, ...)
 \method{make_surv}{default}(Surv, t = NULL, nsim = 100, ...)
 }
 \arguments{
-\item{Surv}{survival analysis object}
+\item{Surv}{A fitted survival model object or a matrix/vector of survival
+probabilities. Supported classes include \code{survHE}, \code{flexsurvreg}, \code{inla},
+\code{matrix}, and \code{numeric}.}
 
-\item{...}{Additional arguments}
+\item{...}{Additional arguments passed to specific methods (e.g., \code{t}, \code{nsim}).}
 
-\item{t}{Time points; vector}
+\item{t}{A numeric vector of time points at which to calculate survival
+probabilities. The behaviour for \code{NULL} varies by method.}
 
-\item{nsim}{Number of simulations; integer}
+\item{nsim}{The number of simulations to generate from the model's posterior
+distribution. Defaults to 100.}
 }
 \value{
-Matrix of survival probabilities
+A matrix with \code{length(t)} rows and \code{nsim} columns. Each element \verb{[i, j]}
+is the survival probability at time \code{t[i]} for simulation \code{j}.
 }
 \description{
-These function are version of the \code{\link[survHE:make.surv]{survHE::make.surv()}} function
-from \pkg{survHE}. These are needed prior to blending.
+A generic S3 function and methods to generate a standardized matrix of survival
+probabilities from various fitted survival model objects.
+
+This function standardizes the output from different survival modelling packages
+into a consistent format: a matrix where rows represent discrete time points
+and columns represent simulations from the model's posterior distribution. This
+standardized format is essential for use in downstream evidence blending
+functions. The methods are inspired by the \code{\link[survHE:make.surv]{survHE::make.surv()}} function.
+}
+\details{
+For \code{flexsurvreg} objects, parameters are sampled from the asymptotic
+normal distribution of the maximum likelihood estimates using
+\code{flexsurv::normboot.flexsurvreg()}. If \code{t} is \code{NULL}, the unique
+event/censoring times from the model's source data are used.
+
+\subsection{INLA Method}{
+
+The \code{inla} method requires the \strong{INLA} package. As it is not available on CRAN,
+you must install it from its own repository:
+\code{install.packages("INLA", repos = c(getOption("repos"), INLA = "https://inla.r-inla-download.org/R/stable"), dep = TRUE)}
+
+This method is designed for \code{inla} objects fitted with a \code{poisson} likelihood
+for piecewise exponential models. It samples from the joint posterior of the
+baseline hazard to calculate survival probabilities. If \code{t} is \code{NULL}, the
+interval cut-points for the baseline hazard from the model are used.
+}
+
+\subsection{Default Method}{
+
+The default method handles pre-computed survival probabilities.
+\itemize{
+\item If \code{Surv} is a \strong{vector}, it is treated as a single survival curve (e.g.,
+from a Kaplan-Meier estimate). The function replicates this curve \code{nsim}
+times to form the output matrix.
+\item If \code{Surv} is a \strong{matrix}, it is assumed to already be in the desired
+(time x simulations) format. The function will simply subset rows based on \code{t}.
+}
+
+If \code{t} is \code{NULL}, a sequence \verb{0, 1, 2, ...} is generated based on the length
+or number of rows of \code{Surv}. Note that time points are used as 1-based indices,
+so \code{t = 0} corresponds to the first row/element.
+}
 }
 \examples{
-\dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
-library(survHE)
+# Define common time points and number of simulations for examples
+time_points <- 1:100
+n_sim <- 50
 
-## trial data
-data("TA174_FCR", package = "blendR")
+#--------------------------------------
+## Method for a 'survHE' object
+#--------------------------------------
+if (rlang::is_installed("survHE") && rlang::is_installed("survival")) {
+  library(survHE)
+  library(survival)
+  data(ovarian)
 
-## externally estimated data
-data_sim <- ext_surv_sim(t_info = 144,
-                         S_info = 0.05,
-                         T_max = 180)
+  # Fit a Weibull model using survHE (with MLE for speed)
+  fit_she <- fit.models(
+    formula = Surv(futime, fustat) ~ 1,
+    data = ovarian,
+    distr = "weibull",
+    method = "mle"
+  )
 
-ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
-                       data = data_sim,
-                       distr = "exponential",
-                       method = "hmc")
+  # Generate survival probability matrix
+  surv_matrix_she <- make_surv(fit_she, t = time_points, nsim = n_sim)
+  cat("survHE method output dimensions:", dim(surv_matrix_she), "\n")
+}
 
-S_ext <- make_surv(ext_Surv, t = 1:100, nsim = 100)
-\dontshow{\}) # examplesIf}
+#--------------------------------------
+## Method for a 'flexsurvreg' object
+#--------------------------------------
+if (rlang::is_installed("flexsurv") && rlang::is_installed("survival")) {
+  library(flexsurv)
+  library(survival)
+
+  # Fit a log-logistic model using flexsurv
+  fit_fsr <- flexsurvreg(
+    formula = Surv(futime, fustat) ~ 1,
+    data = ovarian,
+    dist = "llogis"
+  )
+
+  # Generate survival probability matrix
+  surv_matrix_fsr <- make_surv(fit_fsr, t = time_points, nsim = n_sim)
+  cat("flexsurvreg method output dimensions:", dim(surv_matrix_fsr), "\n")
+}
+
+#--------------------------------------
+## Default method for a numeric vector (e.g., from a Kaplan-Meier curve)
+#--------------------------------------
+if (rlang::is_installed("survival")) {
+  library(survival)
+  km_fit <- survfit(Surv(futime, fustat) ~ 1, data = ovarian)
+  # Extract survival probabilities at our time points
+  km_summary <- summary(km_fit, times = time_points)
+
+  # Generate matrix by replicating the single survival curve
+  surv_matrix_vec <- make_surv(km_summary$surv, t = 0:(length(km_summary$surv) - 1), nsim = n_sim)
+  cat("Default (vector) method output dimensions:", dim(surv_matrix_vec), "\n")
+}
+
+#--------------------------------------
+## Default method for a matrix (pre-simulated curves)
+#--------------------------------------
+# Create a sample matrix of survival probabilities (500 time points, 50 simulations)
+pre_sim_matrix <- sapply(1:n_sim, function(i) 1 - pweibull(1:500, shape = 1.5, scale = 100 + i))
+
+# Use make_surv to subset the matrix for our desired time points
+surv_matrix_mat <- make_surv(pre_sim_matrix, t = time_points)
+cat("Default (matrix) method output dimensions:", dim(surv_matrix_mat), "\n")
+
+#--------------------------------------
+## Method for 'inla' objects (conceptual example)
+#--------------------------------------
+\dontrun{
+if (rlang::is_installed("INLA")) {
+  # This method requires a fitted 'inla' object, typically from a
+  # piecewise exponential model (poisson likelihood).
+
+  # Assuming 'fit_inla' is a valid model object from INLA:
+  # surv_matrix_inla <- make_surv(fit_inla, t = time_points, nsim = n_sim)
+  # print(dim(surv_matrix_inla))
+}
+}
+}
+\seealso{
+\code{\link[survHE:make.surv]{survHE::make.surv()}}
 }

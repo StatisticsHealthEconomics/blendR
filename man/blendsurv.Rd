@@ -19,16 +19,16 @@ These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.}
 
 \item{blend_interv}{Maximum and minimum values for the blending interval.}
 
-\item{beta_params}{coefficients of a beta distribution}
+\item{beta_params}{Coefficients of a beta distribution.}
 
 \item{times}{A vector of times for which the survival curves
-are to be computed; optional}
+are to be computed; optional.}
 
 \item{nsim}{The number of simulations from the distribution of
-the survival curves; default 100}
+the survival curves; default 100.}
 }
 \value{
-List of S for observed, external and blended curves.
+List of survival probabilities for observed, external and blended curves, with other relevant data.
 }
 \description{
 This is the main function in the \pkg{blendR} package.
@@ -48,22 +48,25 @@ data("TA174_FCR", package = "blendR")
 data_sim <- ext_surv_sim(t_info = 144,
                          S_info = 0.05,
                          T_max = 180)
-
+# observed survival times
 obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
                        data = dat_FCR,
                        distr = "exponential",
                        method = "hmc")
 
+# external survival times
 ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
                        data = data_sim,
                        distr = "exponential",
                        method = "hmc")
 
+# blending parameter values
 blend_interv <- list(min = 48, max = 150)
 beta_params <- list(alpha = 3, beta = 3)
 
 ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
+# all survival curves
 plot(ble_Surv)
 \dontshow{\}) # examplesIf}
 }

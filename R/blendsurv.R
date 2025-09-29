@@ -9,13 +9,13 @@
 #' @param obs_Surv,ext_Surv Observed and external data survival curves.
 #'    These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.
 #' @param blend_interv Maximum and minimum values for the blending interval.
-#' @param beta_params coefficients of a beta distribution
+#' @param beta_params Coefficients of a beta distribution.
 #' @param times A vector of times for which the survival curves
-#'              are to be computed; optional
+#'              are to be computed; optional.
 #' @param nsim The number of simulations from the distribution of
-#'             the survival curves; default 100
+#'             the survival curves; default 100.
 #'
-#' @return List of S for observed, external and blended curves.
+#' @return List of survival probabilities for observed, external and blended curves, with other relevant data.
 #' @importFrom stats pbeta
 #' @export
 #'
@@ -30,22 +30,25 @@
 #' data_sim <- ext_surv_sim(t_info = 144,
 #'                          S_info = 0.05,
 #'                          T_max = 180)
-#'
+#' # observed survival times
 #' obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
 #'                        data = dat_FCR,
 #'                        distr = "exponential",
 #'                        method = "hmc")
 #'
+#' # external survival times
 #' ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
 #'                        data = data_sim,
 #'                        distr = "exponential",
 #'                        method = "hmc")
 #'
+#' # blending parameter values
 #' blend_interv <- list(min = 48, max = 150)
 #' beta_params <- list(alpha = 3, beta = 3)
 #'
 #' ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 #'
+#' # all survival curves
 #' plot(ble_Surv)
 #'
 blendsurv <- function(obs_Surv, ext_Surv,

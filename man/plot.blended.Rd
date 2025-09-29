@@ -2,22 +2,32 @@
 % Please edit documentation in R/plot.R
 \name{plot.blended}
 \alias{plot.blended}
-\title{Blended survival curve based on short-term data and external information}
+\title{Plot Blended Survival Curves}
 \usage{
 \method{plot}{blended}(x, alpha = c(0.1, 0.05), ...)
 }
 \arguments{
-\item{x}{A blended survival curve object obtain from \code{\link[=blendsurv]{blendsurv()}}}
+\item{x}{An object of class \code{blended}, typically the output of \code{\link[=blendsurv]{blendsurv()}}.}
 
-\item{alpha}{A vector specifying the opacity of ribbon for the blended curve and other curves}
+\item{alpha}{A numeric vector of length two specifying the opacity for the
+credible interval ribbons. The first value (\code{alpha[1]}) is for the blended
+curve, and the second (\code{alpha[2]}) is for the trial and external curves.}
 
-\item{...}{Additional arguments}
+\item{...}{Additional graphical arguments passed to the plot, such as \code{xlim},
+\code{xlab}, or \code{ylab}.}
 }
 \value{
-A \pkg{ggplot2} object
+A \code{ggplot} object representing the survival curves.
 }
 \description{
-Blended survival curve based on short-term data and external information
+S3 method for plotting objects of class \code{blended}. This function generates a
+\code{ggplot2} visualization that displays the mean survival curves and 95\%
+credible intervals for three components:
+\enumerate{
+\item The curve fitted to the original trial data (\verb{Data fitting}).
+\item The curve representing external information (\verb{External info}).
+\item The final, combined blended curve (\verb{Blended curve}).
+}
 }
 \examples{
 \dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
@@ -50,5 +60,5 @@ plot(ble_Surv)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=blendsurv]{blendsurv()}}
+\code{\link[=blendsurv]{blendsurv()}}, \code{\link[=weightplot]{weightplot()}}
 }

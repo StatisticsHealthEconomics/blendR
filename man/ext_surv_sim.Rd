@@ -7,34 +7,54 @@
 ext_surv_sim(t_info, S_info, T_max, n = 100)
 }
 \arguments{
-\item{t_info}{A vector of times for which expert opinion is elicited}
+\item{t_info}{A numeric vector of time points for which expert opinion is elicited.}
 
-\item{S_info}{A vector of mean survival probabilities estimated by experts
-corresponding to time points in \code{t_info}}
+\item{S_info}{A numeric vector of mean survival probabilities estimated by experts
+corresponding to time points in \code{t_info}.}
 
-\item{T_max}{The maximum survival time to be used}
+\item{T_max}{The maximum survival time for the simulation, at which the
+survival probability is assumed to be 0.}
 
-\item{n}{The number of patients to construct the artificial external data set; default 100}
+\item{n}{The total number of patients to construct the artificial external data set; default 100}
 }
 \value{
-Dataframe of times and censoring status
+A data frame with \code{n} rows and two columns:
+\itemize{
+\item \strong{time}: The simulated event time for each patient.
+\item \strong{event}: The event indicator, which is always \code{1} as this function does not simulate censoring.
+}
 }
 \description{
-Generally, the sampling is done is two steps
-\deqn{
-   p(T) = p(T | interval i) p(interval i)
-}
+Generates an individual patient-level survival dataset from aggregate survival
+probabilities that might be elicited from expert opinion.
+
+The function creates a synthetic dataset of event times for \code{n} patients,
+consistent with a piecewise-constant hazard rate implied by the expert-provided
+survival probabilities.
 }
 \details{
-In particular
-\eqn{T ~ U(x_{i}, x_{i+1})}
-\eqn{i ~ multinomial(\hat{\pi})}
+The simulation uses a two-step sampling process based on partitioning the time
+horizon from \code{0} to \code{T_max}. First, the total number of patients \code{n} is
+allocated to different time intervals \verb{[t_i, t_\{i+1\}]}. The probability of an
+event occurring in an interval is derived from the drop in the survival curve
+over that interval. This allocation is done via a multinomial distribution:
+\deqn{
+    i \sim \text{Multinomial}(\pi)
+}
+where $\pi_i = S(t_{i-1}) - S(t_i)$ is the probability of an event in interval \code{i}.
+
+Second, for the patients assigned to each interval, a specific event time is
+simulated from a uniform distribution covering that interval:
+\deqn{
+    T | i \sim U(t_{i-1}, t_i)
+}
 }
 \examples{
 dat <- ext_surv_sim(t_info = c(10,20,50),
                     S_info = c(0.9, 0.8, 0.2),
                     T_max = 100, n = 100)
 if (require(survival)) {
+    # Kaplan-Meier curve
     km_fit <- survfit(Surv(time, event) ~ 1, data = dat)
     plot(km_fit)
 }

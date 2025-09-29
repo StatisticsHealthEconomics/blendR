@@ -1,14 +1,27 @@
 
-#' Blended survival curve based on short-term data and external information
+#' @title Plot Blended Survival Curves
 #'
-#' @param x A blended survival curve object obtain from [blendsurv()]
-#' @param alpha A vector specifying the opacity of ribbon for the blended curve and other curves
-#' @param ... Additional arguments
+#' @description
+#' S3 method for plotting objects of class `blended`. This function generates a
+#' `ggplot2` visualization that displays the mean survival curves and 95%
+#' credible intervals for three components:
+#'
+#' 1.  The curve fitted to the original trial data (`Data fitting`).
+#' 2.  The curve representing external information (`External info`).
+#' 3.  The final, combined blended curve (`Blended curve`).
+#'
+#' @param x An object of class `blended`, typically the output of [blendsurv()].
+#' @param alpha A numeric vector of length two specifying the opacity for the
+#'   credible interval ribbons. The first value (`alpha[1]`) is for the blended
+#'   curve, and the second (`alpha[2]`) is for the trial and external curves.
+#' @param ... Additional graphical arguments passed to the plot, such as `xlim`,
+#'   `xlab`, or `ylab`.
+#'
 #' @import ggplot2
 #' @importFrom stats quantile
 #'
-#' @return A \pkg{ggplot2} object
-#' @seealso [blendsurv()]
+#' @return A `ggplot` object representing the survival curves.
+#' @seealso [blendsurv()], [weightplot()]
 #' @method plot blended
 #' @export
 #'
