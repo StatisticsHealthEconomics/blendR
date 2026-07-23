@@ -18,7 +18,7 @@
 #' \deqn{
 #'     i \sim \text{Multinomial}(\pi)
 #' }
-#' where $\pi_i = S(t_{i-1}) - S(t_i)$ is the probability of an event in interval `i`.
+#' where \eqn{\pi_i = S(t_{i-1}) - S(t_i)} is the probability of an event in interval `i`.
 #'
 #' Second, for the patients assigned to each interval, a specific event time is
 #' simulated from a uniform distribution covering that interval:

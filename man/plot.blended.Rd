@@ -30,7 +30,7 @@ credible intervals for three components:
 }
 }
 \examples{
-\dontshow{if (rlang::is_installed("survHEhmc")) withAutoprint(\{ # examplesIf}
+\dontshow{if (rlang::is_installed("survHEhmc")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(survHE)
 
 ## trial data

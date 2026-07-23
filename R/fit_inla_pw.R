@@ -25,6 +25,7 @@
 #'   variables named in the `inla.formula`.
 #' @param cutpoints A numeric vector of cut points used to partition the time
 #'   axis into intervals for the piecewise constant hazard.
+#' @param nsim Number of simulations from posteriors; default 100
 #' @param ... Additional arguments to be passed directly to the `INLA::inla`
 #'   function (e.g., `control.predictor`, `control.family`).
 #'

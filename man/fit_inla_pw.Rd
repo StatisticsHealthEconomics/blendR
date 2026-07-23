@@ -23,6 +23,8 @@ variables named in the \code{inla.formula}.}
 \item{cutpoints}{A numeric vector of cut points used to partition the time
 axis into intervals for the piecewise constant hazard.}
 
+\item{nsim}{Number of simulations from posteriors; default 100}
+
 \item{...}{Additional arguments to be passed directly to the \code{INLA::inla}
 function (e.g., \code{control.predictor}, \code{control.family}).}
 }
