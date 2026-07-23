@@ -39,16 +39,29 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Set custom R repositories
+        run: |
+          r <- getOption("repos")
+          r["CRAN"] <- "https://cloud.r-project.org"
+          r["INLA"] <- "https://inla.r-inla-download.org/R/stable"
+          r["giabaio"] <- "https://giabaio.r-universe.dev"
+          options(repos = r)
+          writeLines(
+            'options(repos = c(CRAN = "https://cloud.r-project.org", INLA = "https://inla.r-inla-download.org/R/stable", giabaio = "https://giabaio.r-universe.dev"))',
+            file.path(Sys.getenv("HOME"), ".Rprofile")
+          )
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
             any::rcmdcheck
-            any::INLA
-            any::giabaio/survHEhmc
+            giabaio/survHEhmc
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
           error-on: '"error"'
+
 
