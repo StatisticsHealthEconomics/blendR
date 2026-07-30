@@ -3,7 +3,12 @@
 -->
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/StatisticsHealthEconomics/blendR/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/blendR)](https://CRAN.R-project.org/package=blendR)
+[![CRAN monthly downloads](https://cranlogs.r-pkg.org/badges/blendR)](https://CRAN.R-project.org/package=blendR)
+[![CRAN total downloads](https://cranlogs.r-pkg.org/badges/grand-total/blendR)](https://CRAN.R-project.org/package=blendR)
+[![Codecov test coverage](https://codecov.io/gh/StatisticsHealthEconomics/blendR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/StatisticsHealthEconomics/blendR)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 # blendR : An R package for blending survival curves <a href="https://StatisticsHealthEconomics.github.io/blendR/"><img src="man/figures/hexbadge.png" align="right" height="139" alt="blendR website" /></a>

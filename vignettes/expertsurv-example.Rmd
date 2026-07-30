@@ -12,14 +12,15 @@ editor_options:
 
 ```{r, include = FALSE}
 # Set global chunk options
+has_inla <- requireNamespace("INLA", quietly = TRUE)
+has_survHEhmc <- requireNamespace("survHEhmc", quietly = TRUE)
+survHEhmc_available <- has_inla && has_survHEhmc
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval =  requireNamespace("INLA") && requireNamespace("survHEhmc")
+  eval = survHEhmc_available
 )
-# eval = FALSE)
-
-survHEhmc_available <- requireNamespace("survHEhmc", quietly = TRUE)
 ```
 
 ```{r setup, warning=FALSE, message=FALSE}

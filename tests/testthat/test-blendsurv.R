@@ -2,7 +2,7 @@
 ## non-CRAN use
 # if (!require("survHEhmc")) remotes::install_github('giabaio/survHEhmc')
 
-if (require("survHEhmc")) {
+if (requireNamespace("survHEhmc", quietly = TRUE)) {
 
   library(survHE)
   library(survHEhmc)
