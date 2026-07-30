@@ -188,11 +188,10 @@ function updateStats(data) {
   document.getElementById('stat-window').innerText = `[${state.minT}, ${state.maxT}] mo`;
 }
 
-// Canvas Renderer
-function drawChart(data) {
+// Dedicated function to resize canvas bitmap ONCE or on window resize
+function resizeCanvas() {
   const canvas = document.getElementById('main-chart');
   if (!canvas) return;
-
   const container = canvas.parentElement;
   if (!container) return;
 
@@ -208,12 +207,22 @@ function drawChart(data) {
     canvas.width = targetW;
     canvas.height = targetH;
   }
+}
+
+// Canvas Renderer - ONLY draws, NEVER modifies canvas.width or canvas.height
+function drawChart(data) {
+  const canvas = document.getElementById('main-chart');
+  if (!canvas || canvas.width === 0 || canvas.height === 0) return;
 
   const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.width / dpr;
+  const height = canvas.height / dpr;
+
   ctx.save();
   ctx.scale(dpr, dpr);
 
-  const margin = { top: 30, right: 30, bottom: 45, left: 55 };
+  const margin = { top: 25, right: 25, bottom: 40, left: 50 };
   const plotW = width - margin.left - margin.right;
   const plotH = height - margin.top - margin.bottom;
 
@@ -239,7 +248,7 @@ function drawChart(data) {
     ctx.fillStyle = '#94a3b8';
     ctx.font = '11px Inter, sans-serif';
     ctx.textAlign = 'right';
-    ctx.fillText((s).toFixed(1), margin.left - 10, y + 4);
+    ctx.fillText((s).toFixed(1), margin.left - 8, y + 4);
   }
 
   const tStep = Math.ceil(state.tMax / 6);
@@ -254,7 +263,7 @@ function drawChart(data) {
     ctx.fillStyle = '#94a3b8';
     ctx.font = '11px Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(`${t}`, x, height - margin.bottom + 20);
+    ctx.fillText(`${t}`, x, height - margin.bottom + 18);
   }
 
   // Draw Blending Window Shaded Region
@@ -304,27 +313,27 @@ function drawChart(data) {
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'bold 12px Inter, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText('Weight Function w(t) [Beta CDF Transition]', margin.left + 15, margin.top + 25);
+    ctx.fillText('Weight Function w(t) [Beta CDF Transition]', margin.left + 15, margin.top + 20);
   } else {
     // Standard Survival Curves Mode
     drawCurve(data.obs, '#10b981', 2, [4, 4]); // Observed: Green dashed
     drawCurve(data.ext, '#3b82f6', 2, [4, 4]); // External: Blue dashed
     
-    // Blended Curve (Bold Purple with shadow glow)
+    // Blended Curve (Bold Purple)
     ctx.shadowColor = 'rgba(168, 85, 247, 0.5)';
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 8;
     drawCurve(data.blend, '#a855f7', 3.5);
     ctx.shadowBlur = 0; // Reset shadow
   }
 
   // Draw Axes Titles
   ctx.fillStyle = '#cbd5e1';
-  ctx.font = '500 12px Inter, sans-serif';
+  ctx.font = '500 11px Inter, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('Time (Months)', margin.left + plotW / 2, height - 10);
+  ctx.fillText('Time (Months)', margin.left + plotW / 2, height - 8);
 
   ctx.save();
-  ctx.translate(15, margin.top + plotH / 2);
+  ctx.translate(14, margin.top + plotH / 2);
   ctx.rotate(-Math.PI / 2);
   ctx.fillText(state.activeTab === 'weight' ? 'Weight w(t)' : 'Survival Probability S(t)', 0, 0);
   ctx.restore();
@@ -357,7 +366,7 @@ function drawChart(data) {
     const boxH = 95;
     let boxX = hoverX + 15;
     if (boxX + boxW > width - margin.right) boxX = hoverX - boxW - 15;
-    const boxY = margin.top + 20;
+    const boxY = margin.top + 15;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
@@ -374,6 +383,7 @@ function drawChart(data) {
       ctx.fillText(txt, boxX + 10, boxY + 18 + lineIdx * 16);
     });
   }
+
   ctx.restore();
 }
 
@@ -411,6 +421,7 @@ plot(ble_Surv)`;
 
 // Synchronize UI elements with state
 function updateUI() {
+  resizeCanvas();
   const data = generateData();
   updateStats(data);
   drawChart(data);
@@ -547,15 +558,21 @@ function initEventListeners() {
     });
   });
 
-  // Canvas Hover Tooltip
+  // Canvas Hover Tooltip - Reads canvas pixel bounds without triggering resize
   const canvas = document.getElementById('main-chart');
   canvas.addEventListener('mousemove', (e) => {
+    if (!canvas.width || !canvas.height) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const width = canvas.width / dpr;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const margin = { left: 55, right: 30 };
-    const plotW = rect.width - margin.left - margin.right;
+    if (rect.width <= 0) return;
+
+    const x = (e.clientX - rect.left) * (width / rect.width);
+    const margin = { left: 50, right: 25 };
+    const plotW = width - margin.left - margin.right;
     
-    if (x >= margin.left && x <= rect.width - margin.right) {
+    if (x >= margin.left && x <= width - margin.right) {
       const frac = (x - margin.left) / plotW;
       const hoverT = Math.round(frac * state.tMax);
       const data = generateData();
@@ -608,7 +625,6 @@ async function initWebR() {
   const statusText = document.getElementById('webr-status-text');
 
   try {
-    // Attempt dynamic import of WebR module
     const { WebR } = await import('https://webr.r-wasm.org/v0.3.3/webr.mjs');
     const webR = new WebR();
     await webR.init();
