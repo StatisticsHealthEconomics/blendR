@@ -3,19 +3,249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>blendR: Blended Survival Curves</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; line-height: 1.6; }
-    h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-    pre { background: #f8f9fa; padding: 15px; border-radius: 6px; overflow-x: auto; border: 1px solid #e9ecef; }
-    a { color: #0366d6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
+  <title>blendR — Blended Survival Curves Interactive Application</title>
+  <meta name="description" content="Interactive web application for blending survival curves using the blendR R package. Perform survival extrapolation for HTA and decision modeling directly in your browser.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>blendR: Blended Survival Curves</h1>
-  <p>An R package for creating blended survival curves for health economics and survival analysis extrapolation.</p>
-  <p>For documentation, source code, and issues, visit the <a href="https://github.com/StatisticsHealthEconomics/blendR">blendR GitHub Repository</a>.</p>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <a href="https://github.com/StatisticsHealthEconomics/blendR" class="navbar-brand" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/StatisticsHealthEconomics/blendR/main/man/figures/hexbadge.png" alt="blendR Hex Logo" class="navbar-logo" onerror="this.style.display='none'">
+      <div>
+        <span class="navbar-title">blendR</span>
+        <span class="navbar-subtitle">Blended Survival Curves</span>
+      </div>
+    </a>
+
+    <div class="navbar-actions">
+      <div class="webr-badge" title="WebAssembly R engine status">
+        <div class="webr-dot" id="webr-status-dot"></div>
+        <span id="webr-status-text">Loading WebR Engine...</span>
+      </div>
+
+      <a href="https://github.com/StatisticsHealthEconomics/blendR" class="nav-link" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        GitHub Repository
+      </a>
+    </div>
+  </header>
+
+  <!-- Main App Container -->
+  <div class="app-container">
+
+    <!-- Left Sidebar Control Panel -->
+    <aside class="sidebar">
+      
+      <!-- Preset Scenarios -->
+      <section class="panel-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Preset Scenarios
+          </h2>
+        </div>
+        <div class="preset-grid">
+          <button class="btn-preset active" data-preset="ta174">TA174 FCR Trial</button>
+          <button class="btn-preset" data-preset="early">Early Blending</button>
+          <button class="btn-preset" data-preset="late">Late Transition</button>
+          <button class="btn-preset" data-preset="steep">Steep Beta Weight</button>
+        </div>
+      </section>
+
+      <!-- Survival Models Setup -->
+      <section class="panel-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"></path><path d="M18 9l-5 5-2-2-4 4"></path></svg>
+            Survival Models
+          </h2>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="select-obsModel">
+            Observed Curve Model
+            <span class="value-badge" style="background: rgba(16,185,129,0.15); color: #34d399; border-color: rgba(16,185,129,0.3);">Trial Data</span>
+          </label>
+          <select id="select-obsModel" class="select-input">
+            <option value="exponential">Exponential (Constant Hazard)</option>
+            <option value="weibull">Weibull Distribution</option>
+            <option value="piecewise">INLA Piece-wise Exponential</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="select-extModel">
+            External Curve Model
+            <span class="value-badge" style="background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(59,130,246,0.3);">External Info</span>
+          </label>
+          <select id="select-extModel" class="select-input">
+            <option value="gompertz">Gompertz Model (HMC)</option>
+            <option value="exponential">Exponential Model</option>
+            <option value="weibull">Weibull Model</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Blending Parameters Sliders -->
+      <section class="panel-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            Blending Parameters
+          </h2>
+        </div>
+
+        <!-- Min Time (a) Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Blending Start Time (<code style="color:#f59e0b">a</code>)</span>
+            <span class="value-badge" id="val-minT">48 mo</span>
+          </div>
+          <input type="range" id="slider-minT" class="range-slider" min="0" max="180" step="1" value="48">
+        </div>
+
+        <!-- Max Time (b) Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Blending End Time (<code style="color:#f59e0b">b</code>)</span>
+            <span class="value-badge" id="val-maxT">150 mo</span>
+          </div>
+          <input type="range" id="slider-maxT" class="range-slider" min="10" max="300" step="1" value="150">
+        </div>
+
+        <!-- Beta Alpha Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Beta Shape 1 (&alpha;)</span>
+            <span class="value-badge" id="val-alpha">3.0</span>
+          </div>
+          <input type="range" id="slider-alpha" class="range-slider" min="0.1" max="10.0" step="0.1" value="3.0">
+        </div>
+
+        <!-- Beta Beta Slider -->
+        <div class="control-group">
+          <div class="control-label">
+            <span>Beta Shape 2 (&beta;)</span>
+            <span class="value-badge" id="val-beta">3.0</span>
+          </div>
+          <input type="range" id="slider-beta" class="range-slider" min="0.1" max="10.0" step="0.1" value="3.0">
+        </div>
+      </section>
+
+      <!-- Time Horizon -->
+      <section class="panel-section">
+        <div class="control-group">
+          <div class="control-label">
+            <span>Extrapolation Horizon (T<sub>max</sub>)</span>
+            <span class="value-badge" id="val-tMax">180 mo</span>
+          </div>
+          <input type="range" id="slider-tMax" class="range-slider" min="50" max="300" step="5" value="180">
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Right Main Content Panel -->
+    <main class="main-content">
+      
+      <!-- Key Statistics Header Bar -->
+      <div class="stats-grid">
+        <div class="stat-card obs">
+          <span class="stat-label">Observed Median</span>
+          <span class="stat-value" id="stat-obs">38.6 mo</span>
+          <span class="stat-subtext">Trial fit survival</span>
+        </div>
+        <div class="stat-card ext">
+          <span class="stat-label">External Median</span>
+          <span class="stat-value" id="stat-ext">68.2 mo</span>
+          <span class="stat-subtext">Parametric long-term</span>
+        </div>
+        <div class="stat-card blend">
+          <span class="stat-label">Blended Median</span>
+          <span class="stat-value" id="stat-blend">42.8 mo</span>
+          <span class="stat-subtext">blendsurv() result</span>
+        </div>
+        <div class="stat-card window">
+          <span class="stat-label">Blending Window</span>
+          <span class="stat-value" id="stat-window">[48, 150] mo</span>
+          <span class="stat-subtext">Transition interval</span>
+        </div>
+      </div>
+
+      <!-- Tab Buttons and Toolbar -->
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="plot">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+            Survival Curves
+          </button>
+          <button class="tab-btn" data-tab="weight">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            Weight Function w(t)
+          </button>
+          <button class="tab-btn" data-tab="code">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            R Code
+          </button>
+        </div>
+
+        <button class="action-btn" id="btn-export-png">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Export PNG
+        </button>
+      </div>
+
+      <!-- Plot Canvas Container -->
+      <div class="chart-wrapper" id="chart-wrapper">
+        <div class="canvas-container">
+          <canvas id="main-chart"></canvas>
+        </div>
+
+        <!-- Legend Overlay Bar -->
+        <div class="legend-bar">
+          <div class="legend-item">
+            <div class="legend-color" style="background: #10b981;"></div>
+            <span>Observed Curve S<sub>obs</sub>(t)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #3b82f6;"></div>
+            <span>External Curve S<sub>ext</sub>(t)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #a855f7; height: 6px; box-shadow: 0 0 8px #a855f7;"></div>
+            <strong style="color: #f8fafc;">Blended Curve S<sub>blend</sub>(t)</strong>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: rgba(245, 158, 11, 0.4); border: 1px dashed #f59e0b; width: 20px; height: 10px;"></div>
+            <span>Blending Window [a, b]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- R Code Snippet Container -->
+      <div class="code-wrapper" id="code-wrapper" style="display: none;">
+        <button class="action-btn copy-code-btn" id="btn-copy-code">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          Copy R Code
+        </button>
+        <pre><code id="r-code-output"># R Code loading...</code></pre>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- JavaScript Application Entry -->
+  <script src="app.js"></script>
 </body>
 </html>
