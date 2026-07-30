@@ -193,17 +193,25 @@ function drawChart(data) {
   const canvas = document.getElementById('main-chart');
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
-  const rect = canvas.getBoundingClientRect();
-  
-  // Set resolution for high DPI screens
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  ctx.scale(dpr, dpr);
+  const container = canvas.parentElement;
+  if (!container) return;
 
-  const width = rect.width;
-  const height = rect.height;
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  if (width <= 0 || height <= 0) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const targetW = Math.floor(width * dpr);
+  const targetH = Math.floor(height * dpr);
+
+  if (canvas.width !== targetW || canvas.height !== targetH) {
+    canvas.width = targetW;
+    canvas.height = targetH;
+  }
+
+  const ctx = canvas.getContext('2d');
+  ctx.save();
+  ctx.scale(dpr, dpr);
 
   const margin = { top: 30, right: 30, bottom: 45, left: 55 };
   const plotW = width - margin.left - margin.right;
@@ -366,6 +374,7 @@ function drawChart(data) {
       ctx.fillText(txt, boxX + 10, boxY + 18 + lineIdx * 16);
     });
   }
+  ctx.restore();
 }
 
 // Generate R Reproducibility Code
