@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
@@ -43,8 +47,12 @@ jobs:
             giabaio/survHEhmc
           needs: coverage
 
-      - name: Test coverage
-        run: covr::codecov()
+      - name: Calculate test coverage
+        run: covr::to_cobertura(covr::package_coverage(), "coverage.xml")
         shell: Rscript {0}
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage.xml
+          use_oidc: true
