@@ -1,35 +1,38 @@
 ---
 title: 'blendR: An R package for blending survival curves'
 tags:
-  - R
-  - health economics
-  - survival analysis
-  - Bayesian inference
+- R
+- health economics
+- survival analysis
+- Bayesian inference
+date: "1 August 2025"
+output:
+  html_document:
+    df_print: paged
 authors:
-  - name: Nathan Green
-    orcid: 0000-0003-2745-1736
-    equal-contrib: true
-    affiliation: 1
-  - name: Zhaojing Che
-    orcid: 0000-0003-2745-1736
-    equal-contrib: true
-    affiliation: 2
-  - name: Gianluca Baio
-    orcid: 0000-0003-4314-2570
-    corresponding: true
-    affiliation: 1
-affiliations:
-  - name: University College London (UCL), UK
-    index: 1
-    ror: 02jx3x895
-  - name: University of Oxford
-    index: 2
-    ror: 052gg0110
-date: 1 August 2025
+- name: Nathan Green
+  orcid: "0000-0003-2745-1736"
+  equal-contrib: true
+  affiliation: 1
+- name: Zhaojing Che
+  orcid: "0000-0003-2745-1736"
+  equal-contrib: true
+  affiliation: 2
+- name: Gianluca Baio
+  orcid: "0000-0003-4314-2570"
+  corresponding: true
+  affiliation: 1
 bibliography: paper.bib
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
+affiliations:
+- name: University College London (UCL), UK
+  index: 1
+  ror: 02jx3x895
+- name: University of Oxford
+  index: 2
+  ror: 052gg0110
 ---
 
 # Summary
@@ -79,6 +82,15 @@ well as the plausibility of long-term extrapolations. `blendR` was
 designed to be used by statisticians, health economists, healthcare
 professionals and other users of survival data.
 
+While standard parametric survival modelling packages such as flexsurv
+[@flexsurv] and survHE [@survHE] support extrapolation,
+they focus primarily on fitting single models to observed data. They do
+not natively support the method of blending short-term observed trial
+data with long-term external survival estimates. `blendR` fills this
+gap by providing a dedicated, streamlined framework to
+merge these two distinct survival curves over a specified blending
+interval, potentially allowing more plausible long-term extrapolations.
+
 # Method
 
 The *blending* idea is to consider two separate processes to describe
@@ -93,8 +105,9 @@ main objective to produce the *best* fit possible to the observed
 information. Unlike in a standard modelling exercise where the issue of
 overfitting is potentially critical, achieving a very close
 approximation to the observed dynamics has much less important
-implications in the case of blending, as explained further below.
-Common packages available in R for this step include `survHE` [@survHE] and `flexsurv` [@flexsurv].
+implications in the case of blending, as explained further below. Common
+packages available in R for this step include `survHE` [@survHE] and
+`flexsurv` [@flexsurv].
 
 For the second component of the blending process, consider a separate
 *external* survival curve, ${S_{ext}(t\mid\boldsymbol{\theta}_{ext})}$.
@@ -168,6 +181,13 @@ with the expected behaviour (blue curve) in the Long term. The black
 point in the Long term is an example of external information about 10%
 expected survival at the 13 years from
 experts.\label{fig:figure}](figure.jpeg){width="80%"}
+
+## Installation
+As the package is available on CRAN, `blendR` can be easily installed using the following command
+
+``` r
+install.packages("blendR")
+```
 
 # Example
 
