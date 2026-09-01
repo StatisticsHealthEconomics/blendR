@@ -17,9 +17,11 @@ blendsurv(
 \item{obs_Surv, ext_Surv}{Observed and external data survival curves.
 These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.}
 
-\item{blend_interv}{Maximum and minimum values for the blending interval.}
+\item{blend_interv}{A named list containing \code{min} and \code{max} values
+defining the blending interval (e.g., \code{list(min = 48, max = 150)}).}
 
-\item{beta_params}{Coefficients of a beta distribution.}
+\item{beta_params}{A named list containing the shape parameters \code{alpha}
+and \code{beta} of a beta distribution (e.g., \code{list(alpha = 3, beta = 3)}).}
 
 \item{times}{A vector of times for which the survival curves
 are to be computed; optional.}
