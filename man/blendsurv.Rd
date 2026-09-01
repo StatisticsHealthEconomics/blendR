@@ -30,7 +30,20 @@ are to be computed; optional.}
 the survival curves; default 100.}
 }
 \value{
-List of survival probabilities for observed, external and blended curves, with other relevant data.
+An object of class \code{blended}, which is a list containing the following elements:
+\itemize{
+\item \code{S}: A data frame with the point estimates of the blended survival curve. If \code{nsim > 1}, it also includes the lower (\code{low}) and upper (\code{upp}) 95\\\% credible intervals.
+\item \code{sim}: Currently \code{NA}.
+\item \code{nsim}: The number of simulations used.
+\item \code{mat}: A matrix of the simulated blended survival probabilities (rows represent time points, columns represent simulations).
+\item \code{des.mat}: Currently \code{NA}.
+\item \code{times}: A numeric vector of the time points at which the survival curves were evaluated.
+\item \code{S_ext}: A matrix of the simulated external survival probabilities.
+\item \code{S_obs}: A matrix of the simulated observed survival probabilities.
+\item \code{weight}: A numeric vector of the weights applied at each time point, derived from the beta distribution.
+\item \code{blend_interv}: The blending interval used.
+\item \code{beta_params}: The parameters of the beta distribution used for blending.
+}
 }
 \description{
 This is the main function in the \pkg{blendR} package.

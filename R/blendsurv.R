@@ -19,16 +19,28 @@
 #'
 #' @param obs_Surv,ext_Surv Observed and external data survival curves.
 #'    These can come from \pkg{survHE}, \pkg{INLA} or \pkg{flexsurv} fits.
-#' @param blend_interv A named list containing \code{min} and \code{max} values 
-#'    defining the blending interval (e.g., \code{list(min = 48, max = 150)}).
-#' @param beta_params A named list containing the shape parameters \code{alpha} 
-#'    and \code{beta} of a beta distribution (e.g., \code{list(alpha = 3, beta = 3)}).
+#' @param blend_interv A named list containing `min` and `max` values
+#'    defining the blending interval (e.g., `list(min = 48, max = 150)`).
+#' @param beta_params A named list containing the shape parameters `alpha`
+#'    and `beta` of a beta distribution (e.g., `list(alpha = 3, beta = 3)`).
 #' @param times A vector of times for which the survival curves
 #'              are to be computed; optional.
 #' @param nsim The number of simulations from the distribution of
 #'             the survival curves; default 100.
 #'
-#' @return List of survival probabilities for observed, external and blended curves, with other relevant data.
+#' @return An object of class `blended`, which is a list containing the following elements:
+#'
+#' - `S`: A data frame with the point estimates of the blended survival curve. If `nsim > 1`, it also includes the lower (`low`) and upper (`upp`) 95\% credible intervals.
+#' - `sim`: Currently `NA`.
+#' - `nsim`: The number of simulations used.
+#' - `mat`: A matrix of the simulated blended survival probabilities (rows represent time points, columns represent simulations).
+#' - `des.mat`: Currently `NA`.
+#' - `times`: A numeric vector of the time points at which the survival curves were evaluated.
+#' - `S_ext`: A matrix of the simulated external survival probabilities.
+#' - `S_obs`: A matrix of the simulated observed survival probabilities.
+#' - `weight`: A numeric vector of the weights applied at each time point, derived from the beta distribution.
+#' - `blend_interv`: The blending interval used.
+#' - `beta_params`: The parameters of the beta distribution used for blending.
 #'
 #' @seealso
 #' [survHE::fit.models()], [INLA::inla()], [flexsurv::flexsurvreg()],
