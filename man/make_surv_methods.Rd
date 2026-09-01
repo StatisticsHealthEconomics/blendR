@@ -163,6 +163,12 @@ if (rlang::is_installed("INLA")) {
 }
 }
 }
+\references{
+Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+Technology Assessment. Medical Decision Making, 43(3), 299-310.
+\url{doi:10.1177/0272989X221134545}.
+}
 \seealso{
 \code{\link[survHE:make.surv]{survHE::make.surv()}}
 }

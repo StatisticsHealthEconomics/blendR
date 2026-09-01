@@ -16,6 +16,12 @@
 #'             the survival curves; default 100.
 #'
 #' @return List of survival probabilities for observed, external and blended curves, with other relevant data.
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @importFrom stats pbeta
 #' @export
 #'

@@ -22,6 +22,12 @@
 #'
 #' @return A `ggplot` object representing the survival curves.
 #' @seealso [blendsurv()], [weightplot()]
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @method plot blended
 #' @export
 #'
@@ -115,6 +121,12 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 #'
 #' @return \pkg{ggplot2} object
 #' @seealso [blendsurv()]
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @importFrom stats pbeta
 #' @export
 #'

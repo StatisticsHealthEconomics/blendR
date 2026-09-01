@@ -59,3 +59,9 @@ if (require(survival)) {
     plot(km_fit)
 }
 }
+\references{
+Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+Technology Assessment. Medical Decision Making, 43(3), 299-310.
+\url{doi:10.1177/0272989X221134545}.
+}
