@@ -27,6 +27,11 @@
 #'             the survival curves; default 100.
 #'
 #' @return List of survival probabilities for observed, external and blended curves, with other relevant data.
+#'
+#' @seealso
+#' [survHE::fit.models()], [INLA::inla()], [flexsurv::flexsurvreg()],
+#' [flexsurv::flexsurvspline()], [make_surv()]
+#'
 #' @references
 #' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
 #' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health

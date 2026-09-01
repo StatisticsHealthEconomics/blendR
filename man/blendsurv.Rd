@@ -89,3 +89,7 @@ to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
 Technology Assessment. Medical Decision Making, 43(3), 299-310.
 \url{doi:10.1177/0272989X221134545}.
 }
+\seealso{
+\code{\link[survHE:fit.models]{survHE::fit.models()}}, \code{\link[INLA:inla]{INLA::inla()}}, \code{\link[flexsurv:flexsurvreg]{flexsurv::flexsurvreg()}},
+\code{\link[flexsurv:flexsurvspline]{flexsurv::flexsurvspline()}}, \code{\link[=make_surv]{make_surv()}}
+}
