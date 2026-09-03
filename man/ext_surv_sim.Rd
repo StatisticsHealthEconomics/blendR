@@ -34,17 +34,23 @@ survival probabilities.
 }
 \details{
 The simulation uses a two-step sampling process based on partitioning the time
-horizon from \code{0} to \code{T_max}. First, the total number of patients \code{n} is
-allocated to different time intervals \verb{[t_i, t_\{i+1\}]}. The probability of an
-event occurring in an interval is derived from the drop in the survival curve
-over that interval. This allocation is done via a multinomial distribution:
+horizon from \code{0} to \code{T_max} into intervals \eqn{[t_{i-1}, t_i]}. First, the total
+number of patients \code{n} is allocated across these intervals (along with a final
+category for those who survive beyond \code{T_max}). The probability of an event
+occurring in interval \code{i} is derived from the drop in the survival curve:
 \deqn{
-    i \sim \text{Multinomial}(\pi)
+    \pi_i = S(t_{i-1}) - S(t_i)
 }
-where \eqn{\pi_i = S(t_{i-1}) - S(t_i)} is the probability of an event in interval \code{i}.
+The vector of patient counts falling into each interval, \eqn{(n_1, n_2, \dots)},
+is simulated via a multinomial distribution:
+\deqn{
+    (n_1, n_2, \dots) \sim \mathrm{Multinomial}(n, \pi)
+}
+where \eqn{\pi} must sum to 1 (including the probability \eqn{S(T_{max})} of
+surviving past the maximum time horizon).
 
-Second, for the patients assigned to each interval, a specific event time is
-simulated from a uniform distribution covering that interval:
+Second, for the \eqn{n_i} patients assigned to interval \code{i}, a specific event time
+is simulated from a uniform distribution covering that interval:
 \deqn{
     T | i \sim U(t_{i-1}, t_i)
 }
