@@ -66,7 +66,7 @@ function incBeta(x, a, b) {
 
   for (let m = 1; m <= MAX_ITER; m++) {
     let m2 = 2 * m;
-    
+
     // Even step coefficient
     let numerator = m * (b - m) * x / ((a + m2 - 1) * (a + m2));
     D = 1.0 + numerator * D;
@@ -144,12 +144,12 @@ function generateData() {
   const weights = [];
 
   const step = Math.max(1, Math.floor(state.tMax / 180));
-  
+
   for (let t = 0; t <= state.tMax; t += step) {
     const sObs = calcObsSurv(t, state.obsModel, state.obsParam);
     const sExt = calcExtSurv(t, state.extModel, state.extParam1, state.extParam2);
     const w = calcWeight(t, state.minT, state.maxT, state.alpha, state.beta);
-    
+
     // Blended curve math: S_blend = S_obs^(1-w) * S_ext^w
     const sBlend = Math.pow(sObs, 1 - w) * Math.pow(sExt, w);
 
@@ -270,13 +270,13 @@ function drawChart(data) {
   if (state.minT < state.tMax) {
     const xMin = xScale(state.minT);
     const xMax = xScale(Math.min(state.maxT, state.tMax));
-    
+
     ctx.fillStyle = 'rgba(245, 158, 11, 0.08)';
     ctx.fillRect(xMin, margin.top, Math.max(0, xMax - xMin), plotH);
 
     ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
     ctx.setLineDash([4, 4]);
-    
+
     ctx.beginPath();
     ctx.moveTo(xMin, margin.top);
     ctx.lineTo(xMin, height - margin.bottom);
@@ -309,7 +309,7 @@ function drawChart(data) {
   if (state.activeTab === 'weight') {
     // Draw Weight Curve Mode
     drawCurve(data.weights, '#f59e0b', 3);
-    
+
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'bold 12px Inter, sans-serif';
     ctx.textAlign = 'left';
@@ -318,7 +318,7 @@ function drawChart(data) {
     // Standard Survival Curves Mode
     drawCurve(data.obs, '#10b981', 2, [4, 4]); // Observed: Green dashed
     drawCurve(data.ext, '#3b82f6', 2, [4, 4]); // External: Blue dashed
-    
+
     // Blended Curve (Bold Purple)
     ctx.shadowColor = 'rgba(168, 85, 247, 0.5)';
     ctx.shadowBlur = 8;
@@ -394,7 +394,7 @@ library(blendR)
 library(survHE)
 
 # 1. Load or simulate observed & external survival models
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 
 # External simulated survival data
 data_sim <- ext_surv_sim(t_info = 144, S_info = 0.05, T_max = ${state.tMax})
@@ -571,7 +571,7 @@ function initEventListeners() {
     const x = (e.clientX - rect.left) * (width / rect.width);
     const margin = { left: 50, right: 25 };
     const plotW = width - margin.left - margin.right;
-    
+
     if (x >= margin.left && x <= width - margin.right) {
       const frac = (x - margin.left) / plotW;
       const hoverT = Math.round(frac * state.tMax);
@@ -628,7 +628,7 @@ async function initWebR() {
     const { WebR } = await import('https://webr.r-wasm.org/v0.3.3/webr.mjs');
     const webR = new WebR();
     await webR.init();
-    
+
     state.webrStatus = 'ready';
     if (statusDot) statusDot.classList.add('active');
     if (statusText) statusText.innerText = 'WebR Engine (R in Wasm)';

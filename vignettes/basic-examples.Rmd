@@ -52,7 +52,7 @@ This first example demonstrates a common use case: blending a semi-parametric mo
 First, we load the package's example dataset and inspect its structure. This dataset contains individual patient data from a clinical trial.
 
 ```{r load-data}
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 head(dat_FCR)
 ```
 

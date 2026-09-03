@@ -7,7 +7,7 @@ library(INLA)
 set.seed(1996)
 
 ## load data
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 head(dat_FCR)
 
 

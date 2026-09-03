@@ -58,7 +58,7 @@ shiny::shinyUI(
                                              shiny::tags$br(),
                                              "An example (",
                                              shiny::tags$code(".RData"), ") can be obtained ",
-                                             shiny::tags$a(href='https://github.com/StatisticsHealthEconomics/blendR-paper/blob/main/Data/TA174_FCR.RData','here', target = '_blank'), ". The example dataset is based on the CLL-8 trial data, which were also used in
+                                             shiny::tags$a(href='https://github.com/StatisticsHealthEconomics/blendR-paper/blob/main/Data/dat_FCR.RData','here', target = '_blank'), ". The example dataset is based on the CLL-8 trial data, which were also used in
                                              NICE technology appraisal TA174. Once the observed data are uploaded, the user can determine the                                                     estimated time horizon and define the grid of time values for estimating the survival probabilities
                                              at the 'Observed data' tab. An external curve is produced in the 'External info' tab, where the user
                                              can specify the external knowledge about the survival. The tab 'Blended curve' will provide graphical

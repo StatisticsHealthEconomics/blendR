@@ -76,7 +76,7 @@ produces a distribution of blended survival curves, which allows for the calcula
 library(survHE)
 
 ## trial data
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 
 ## externally estimated data
 data_sim <- ext_surv_sim(t_info = 144,

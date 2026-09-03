@@ -54,7 +54,7 @@ flexible and smoothed estimate of the baseline hazard over time.
 # INLA may require configuration on your system.
 # See: https://www.r-inla.org/download-install
  if (requireNamespace("INLA", quietly = TRUE)) {
-  data("TA174_FCR", package = "blendR")
+  data("dat_FCR", package = "blendR")
   head(dat_FCR)
 
   # Fit a simple piecewise model with intervals every 5 time units

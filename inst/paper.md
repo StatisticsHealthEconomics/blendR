@@ -170,7 +170,7 @@ at the 13 years from experts.\label{fig:figure}](figure.jpeg){width="80%"}
 # Example
 
 We present a basic example which demonstrates how to solve a common problem.
-Using the *TA174_FCR* data set contained in the `blendR` package, we fit
+Using the *dat_FCR* data set contained in the `blendR` package, we fit
 exponential distribution survival models with no covariates using the
 `fit.models()` function from the `survHE` package [@survHE]. This employs the Hamiltonian Monte Carlo (HMC)
 sampler from Stan behind the scenes [@stan2017]. The *external* or *long-term* data
@@ -183,7 +183,7 @@ library(blendR)
 library(survHE)
 
 ## trial data
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 
 ## externally estimated data
 data_sim <- ext_surv_sim(t_info = 144,
