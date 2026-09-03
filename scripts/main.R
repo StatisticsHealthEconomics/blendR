@@ -55,7 +55,7 @@ km <- survfit(Surv(death_t, death) ~ 1, data = dat_FCR)
 
 plot(ble_Surv2) +
   geom_line(aes(km$time, km$surv, colour = "Kaplan-Meier"),
-            size = 1.25, linetype = "dashed")
+            linewidth = 1.25, linetype = "dashed")
 
 
 #######################################

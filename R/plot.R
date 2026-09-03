@@ -84,16 +84,16 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
   ggplot() +
     ylim(0,1) +
     geom_line(aes(times, rowMeans(obs_Surv), colour = "Data fitting"),
-              size = 1, linetype = "twodash") +
+              linewidth = 1, linetype = "twodash") +
     geom_ribbon(aes(x = times, y = rowMeans(obs_Surv),
                     ymin = apply(obs_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(obs_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
     geom_line(aes(times, rowMeans(ext_Surv), colour = "External info"),
-              size = 1, linetype = "longdash") +
+              linewidth = 1, linetype = "longdash") +
     geom_ribbon(aes(x = times, y = rowMeans(ext_Surv),
                     ymin = apply(ext_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(ext_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
-    geom_line(aes(times, rowMeans(ble_Surv), colour = "Blended curve"), size = 1.25) +
+    geom_line(aes(times, rowMeans(ble_Surv), colour = "Blended curve"), linewidth = 1.25) +
     geom_ribbon(aes(x = times, y = rowMeans(ble_Surv),
                     ymin = apply(ble_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(ble_Surv, 1, quantile, probs = ci$high)), alpha = alpha[1]) +

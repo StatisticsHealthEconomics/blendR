@@ -80,9 +80,9 @@ function(input, output, session){
       shiny::req(obs_surv())
 
       ggplot() +
-        geom_line(aes(obs_surv()$KM$time, obs_surv()$KM$surv, colour = "Kaplan-Meier"), size = 1.25, linetype = "dashed") +
+        geom_line(aes(obs_surv()$KM$time, obs_surv()$KM$surv, colour = "Kaplan-Meier"), linewidth = 1.25, linetype = "dashed") +
         xlim(0, max(obs_surv()$time)) + ylim(0,1) +
-        geom_line(aes(obs_surv()$time,rowMeans(obs_surv()$S_obs), colour = "Data fitting"), size = 1)+
+        geom_line(aes(obs_surv()$time,rowMeans(obs_surv()$S_obs), colour = "Data fitting"), linewidth = 1)+
         geom_ribbon(aes(x=obs_surv()$time, y = rowMeans(obs_surv()$S_obs),
                         ymin = apply(obs_surv()$S_obs, 1, quantile, probs = 0.025),ymax = apply(obs_surv()$S_obs, 1, quantile, probs = 0.975)), alpha = 0.1)+
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(),
@@ -147,7 +147,7 @@ function(input, output, session){
 
       ggplot() +
         xlim(0, max(ext_surv()$time)) + ylim(0,1) +
-        geom_line(aes(ext_surv()$time, rowMeans(ext_surv()$S_ext)), color = "#00BFC4", size = 1.25)+
+        geom_line(aes(ext_surv()$time, rowMeans(ext_surv()$S_ext)), color = "#00BFC4", linewidth = 1.25)+
         geom_ribbon(aes(x=ext_surv()$time, y = rowMeans(ext_surv()$S_ext), ymin = apply(ext_surv()$S_ext, 1, quantile, probs = 0.025),
                         ymax = apply(ext_surv()$S_ext, 1, quantile, probs = 0.975)), alpha = 0.1) +
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(),
@@ -193,4 +193,4 @@ function(input, output, session){
 }
 
 
-  
+

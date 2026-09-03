@@ -1,5 +1,5 @@
 
-#' Fit a Piecewise Exponential Survival Model using INLA
+#' Fit a Piece-wise Exponential Survival Model using INLA
 #'
 #' @description
 #' A convenience wrapper to fit a Bayesian piecewise exponential model (PEM) for
