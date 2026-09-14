@@ -1,34 +1,38 @@
 ---
 title: 'blendR: An R package for blending survival curves'
 tags:
-  - R
-  - health economics
-  - survival analysis
-  - Bayesian inference
+- R
+- health economics
+- survival analysis
+- Bayesian inference
+date: "1 August 2025"
+output:
+  html_document:
+    df_print: paged
 authors:
-  - name: Nathan Green
-    orcid: 0000-0003-2745-1736
-    equal-contrib: true
-    affiliation: 1
-  - name: Zhaojing Che
-    orcid: 0000-0003-2745-1736
-    equal-contrib: true
-    affiliation: 2
-  - name: Gianluca Baio
-    corresponding: true
-    affiliation: 1
-affiliations:
-  - name: University College London (UCL), UK
-    index: 1
-    ror: 02jx3x895
-  - name: University of Oxford
-    index: 2
-    ror: 052gg0110
-date: 1 August 2025
+- name: Nathan Green
+  orcid: "0000-0003-2745-1736"
+  equal-contrib: true
+  affiliation: 1
+- name: Zhaojing Che
+  orcid: "0000-0003-2745-1736"
+  equal-contrib: true
+  affiliation: 2
+- name: Gianluca Baio
+  orcid: "0000-0003-4314-2570"
+  corresponding: true
+  affiliation: 1
 bibliography: paper.bib
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
+affiliations:
+- name: University College London (UCL), UK
+  index: 1
+  ror: 02jx3x895
+- name: University of Oxford
+  index: 2
+  ror: 052gg0110
 ---
 
 # Summary
@@ -78,6 +82,15 @@ well as the plausibility of long-term extrapolations. `blendR` was
 designed to be used by statisticians, health economists, healthcare
 professionals and other users of survival data.
 
+While standard parametric survival modelling packages such as flexsurv
+[@flexsurv] and survHE [@survHE] support extrapolation,
+they focus primarily on fitting single models to observed data. They do
+not natively support the method of blending short-term observed trial
+data with long-term external survival estimates. `blendR` fills this
+gap by providing a dedicated, streamlined framework to
+merge these two distinct survival curves over a specified blending
+interval, potentially allowing more plausible long-term extrapolations.
+
 # Method
 
 The *blending* idea is to consider two separate processes to describe
@@ -92,7 +105,9 @@ main objective to produce the *best* fit possible to the observed
 information. Unlike in a standard modelling exercise where the issue of
 overfitting is potentially critical, achieving a very close
 approximation to the observed dynamics has much less important
-implications in the case of blending, as explained further below.
+implications in the case of blending, as explained further below. Common
+packages available in R for this step include `survHE` [@survHE] and
+`flexsurv` [@flexsurv].
 
 For the second component of the blending process, consider a separate
 *external* survival curve, ${S_{ext}(t\mid\boldsymbol{\theta}_{ext})}$.
@@ -160,7 +175,7 @@ the trial; or perhaps they have elicited clinical knowledge or expert
 opinion to identify that survival at a certain time point is not
 expected to exceed a certain threshold. Notice in particular that
 $S_{ext}$ can deviate substantially from the observed data, as shown in
-\autoref{fig:figure}.
+Figure \autoref{fig:figure}.
 
 ![Graphical representation of the blended curve method. The whole
 time-horizon is partitioned into three parts: Follow-up, Blending
@@ -173,17 +188,24 @@ point in the Long term is an example of external information about 10%
 expected survival at the 13 years from
 experts.\label{fig:figure}](figure.jpeg){width="80%"}
 
+## Installation
+As the package is available on CRAN, `blendR` can be easily installed using the following command
+
+``` r
+install.packages("blendR")
+```
+
 # Example
 
 We present a basic example which demonstrates how to solve a common
-problem. Using the *dat_FCR* data set contained in the `blendR` package,
-we fit exponential distribution survival models with no covariates using
-the `fit.models()` function from the `survHE` package [@survHE]. This
-employs the Hamiltonian Monte Carlo (HMC) sampler from Stan behind the
-scenes [@stan2017]. The *external* or *long-term* data are obtained from
-an heuristic approach to simulating data consistent with user-defined
-constraints. The results are then blended into a single survival curve
-using the `blendsurv()` function.
+problem. Using the *TA174_FCR* data set contained in the `blendR`
+package, we fit exponential distribution survival models with no
+covariates using the `fit.models()` function from the `survHE` package
+[@survHE]. This employs the Hamiltonian Monte Carlo (HMC) sampler from
+Stan behind the scenes [@stan2017]. The *external* or *long-term* data
+are obtained from an heuristic approach to simulating data consistent
+with user-defined constraints. The results are then blended into a
+single survival curve using the `blendsurv()` function.
 
 ``` r
 library(blendR)
@@ -198,16 +220,16 @@ data_sim <- ext_surv_sim(t_info = 144,
                          T_max = 180)
     
 # observed survival model                     
-obs_Surv <- fit.models(formula = Surv(death_t, death) ~ 1,
-                        data = dat_FCR,
-                        distr = "exponential",
-                        method = "hmc")
+obs_Surv <- survHE::fit.models(formula = Surv(death_t, death) ~ 1,
+                               data = dat_FCR,
+                               distr = "exponential",
+                               method = "hmc")
                         
-# external survival model                     
-ext_Surv <- fit.models(formula = Surv(time, event) ~ 1,
-                       data = data_sim,
-                       distr = "exponential",
-                       method = "hmc")
+# external survival model               
+ext_Surv <- survHE::fit.models(formula = Surv(time, event) ~ 1,
+                               data = data_sim,
+                               distr = "exponential",
+                               method = "hmc")
                        
 blend_interv <- list(min = 48, max = 150)
 beta_params <- list(alpha = 3, beta = 3)
