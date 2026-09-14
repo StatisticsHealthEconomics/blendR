@@ -78,7 +78,7 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
   ggplot() +
     ylim(0,1) +
     geom_line(aes(times, rowMeans(obs_Surv), colour = "Data fitting"),
-              size = 1, linetype = "twodash") +
+              linewidth = 1, linetype = "twodash") +
     geom_ribbon(aes(x = times, y = rowMeans(obs_Surv),
                     ymin = apply(obs_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(obs_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
@@ -119,14 +119,17 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 #' @export
 #'
 weightplot <- function(x, ...) {
-  tibble(
+  plot_dat <-
+    tibble(
     t = x$times,
     t_scaled = (t - x$blend_interv$min)/(x$blend_interv$max - x$blend_interv$min),
     y = stats::pbeta(.data$t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
     mutate(
       y = case_when(t_scaled < 0 ~ 0,
                     t_scaled > 1 ~ 1,
-                    TRUE ~ y)) |>
+                    TRUE ~ y))
+
+  plot_dat |>
     ggplot(aes(.data$t, .data$y)) +
     geom_line() +
     theme_bw() +
@@ -134,9 +137,9 @@ weightplot <- function(x, ...) {
     annotate("text",
              x$blend_interv |> as.numeric() |> mean(),
              1.025, label = "Blending interval", hjust = 0.5, vjust = -1) +
-    geom_segment(
-      aes(x = x$blend_interv$min, y = 1.025,
-          xend = x$blend_interv$max, yend=1.025),
+    annotate("segment",
+      x = x$blend_interv$min, y = 1.025,
+      xend = x$blend_interv$max, yend=1.025,
       arrow = arrow(length = unit(0.2,"cm"), ends = "both", type = "closed")
     )
 }
