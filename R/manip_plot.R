@@ -10,6 +10,7 @@
 #' @param blend_interv Blending interval
 #' @return Blended survival plot
 #' @import manipulate
+#' @noRd
 #'
 manip_plot <- function(obs_Surv, ext_Surv, blend_interv) {
   a <- b <- NULL

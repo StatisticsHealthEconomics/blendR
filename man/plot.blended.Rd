@@ -34,7 +34,7 @@ credible intervals for three components:
 library(survHE)
 
 ## trial data
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 
 ## externally estimated data
 data_sim <- ext_surv_sim(t_info = 144,
@@ -58,6 +58,12 @@ ble_Surv <- blendsurv(obs_Surv, ext_Surv, blend_interv, beta_params)
 
 plot(ble_Surv)
 \dontshow{\}) # examplesIf}
+}
+\references{
+Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+Technology Assessment. Medical Decision Making, 43(3), 299-310.
+\url{doi:10.1177/0272989X221134545}.
 }
 \seealso{
 \code{\link[=blendsurv]{blendsurv()}}, \code{\link[=weightplot]{weightplot()}}

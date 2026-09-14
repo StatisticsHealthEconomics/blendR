@@ -22,6 +22,12 @@
 #'
 #' @return A `ggplot` object representing the survival curves.
 #' @seealso [blendsurv()], [weightplot()]
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @method plot blended
 #' @export
 #'
@@ -29,7 +35,7 @@
 #' library(survHE)
 #'
 #' ## trial data
-#' data("TA174_FCR", package = "blendR")
+#' data("dat_FCR", package = "blendR")
 #'
 #' ## externally estimated data
 #' data_sim <- ext_surv_sim(t_info = 144,
@@ -83,11 +89,11 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
                     ymin = apply(obs_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(obs_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
     geom_line(aes(times, rowMeans(ext_Surv), colour = "External info"),
-              size = 1, linetype = "longdash") +
+              linewidth = 1, linetype = "longdash") +
     geom_ribbon(aes(x = times, y = rowMeans(ext_Surv),
                     ymin = apply(ext_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(ext_Surv, 1, quantile, probs = ci$high)), alpha = alpha[2]) +
-    geom_line(aes(times, rowMeans(ble_Surv), colour = "Blended curve"), size = 1.25) +
+    geom_line(aes(times, rowMeans(ble_Surv), colour = "Blended curve"), linewidth = 1.25) +
     geom_ribbon(aes(x = times, y = rowMeans(ble_Surv),
                     ymin = apply(ble_Surv, 1, quantile, probs = ci$low),
                     ymax = apply(ble_Surv, 1, quantile, probs = ci$high)), alpha = alpha[1]) +
@@ -115,6 +121,12 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 #'
 #' @return \pkg{ggplot2} object
 #' @seealso [blendsurv()]
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @importFrom stats pbeta
 #' @export
 #'

@@ -1,5 +1,5 @@
 
-#' Fit a Piecewise Exponential Survival Model using INLA
+#' Fit a Piece-wise Exponential Survival Model using INLA
 #'
 #' @description
 #' A convenience wrapper to fit a Bayesian piecewise exponential model (PEM) for
@@ -32,6 +32,12 @@
 #' @return An object of class `inla`, which contains the full results of the
 #'   fitted Bayesian model.
 #'
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
+#'
 #' @export
 #'
 #' @examples
@@ -39,7 +45,7 @@
 #' # INLA may require configuration on your system.
 #' # See: https://www.r-inla.org/download-install
 #'  if (requireNamespace("INLA", quietly = TRUE)) {
-#'   data("TA174_FCR", package = "blendR")
+#'   data("dat_FCR", package = "blendR")
 #'   head(dat_FCR)
 #'
 #'   # Fit a simple piecewise model with intervals every 5 time units

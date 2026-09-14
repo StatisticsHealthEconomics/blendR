@@ -8,9 +8,8 @@
 data_times <- function(S)
   UseMethod("data_times", S)
 
-#' @rdname data_times
-#' @keywords internal
-#'
+#' @export
+#' @noRd
 data_times.inla <- function(S) {
 
   if (!requireNamespace("INLA", quietly = TRUE)) {
@@ -27,23 +26,20 @@ data_times.inla <- function(S) {
   S[[".args"]][[".parent.frame"]]$data[[time_var]]
 }
 
-#' @rdname data_times
-#' @keywords internal
-#'
+#' @export
+#' @noRd
 data_times.survHE <- function(S) {
   S[["misc"]][["data.stan"]][[1]][["t"]]
 }
 
-#' @rdname data_times
-#' @keywords internal
-#'
+#' @export
+#' @noRd
 data_times.flexsurvreg <- function(S) {
   as.numeric(S[["data"]][["m"]][["Surv(time, event)"]])
 }
 
-#' @rdname data_times
-#' @keywords internal
-#'
+#' @export
+#' @noRd
 data_times.default <- function(S) {
   if (is.null(dim(S)))
     return(0:(length(S) - 1))

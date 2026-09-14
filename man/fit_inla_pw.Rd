@@ -54,7 +54,7 @@ flexible and smoothed estimate of the baseline hazard over time.
 # INLA may require configuration on your system.
 # See: https://www.r-inla.org/download-install
  if (requireNamespace("INLA", quietly = TRUE)) {
-  data("TA174_FCR", package = "blendR")
+  data("dat_FCR", package = "blendR")
   head(dat_FCR)
 
   # Fit a simple piecewise model with intervals every 5 time units
@@ -64,4 +64,10 @@ flexible and smoothed estimate of the baseline hazard over time.
  }
 }
 
+}
+\references{
+Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+Technology Assessment. Medical Decision Making, 43(3), 299-310.
+\url{doi:10.1177/0272989X221134545}.
 }

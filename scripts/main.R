@@ -7,7 +7,7 @@ library(INLA)
 set.seed(1996)
 
 ## load data
-data("TA174_FCR", package = "blendR")
+data("dat_FCR", package = "blendR")
 head(dat_FCR)
 
 
@@ -55,7 +55,7 @@ km <- survfit(Surv(death_t, death) ~ 1, data = dat_FCR)
 
 plot(ble_Surv2) +
   geom_line(aes(km$time, km$surv, colour = "Kaplan-Meier"),
-            size = 1.25, linetype = "dashed")
+            linewidth = 1.25, linetype = "dashed")
 
 
 #######################################

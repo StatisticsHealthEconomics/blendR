@@ -2,21 +2,9 @@
 % Please edit documentation in R/data_times.R
 \name{data_times}
 \alias{data_times}
-\alias{data_times.inla}
-\alias{data_times.survHE}
-\alias{data_times.flexsurvreg}
-\alias{data_times.default}
 \title{Get event time data}
 \usage{
 data_times(S)
-
-\method{data_times}{inla}(S)
-
-\method{data_times}{survHE}(S)
-
-\method{data_times}{flexsurvreg}(S)
-
-\method{data_times}{default}(S)
 }
 \arguments{
 \item{S}{vector of survival data}

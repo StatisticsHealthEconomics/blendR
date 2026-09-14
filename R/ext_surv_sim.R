@@ -11,17 +11,23 @@
 #'
 #' @details
 #' The simulation uses a two-step sampling process based on partitioning the time
-#' horizon from `0` to `T_max`. First, the total number of patients `n` is
-#' allocated to different time intervals `[t_i, t_{i+1}]`. The probability of an
-#' event occurring in an interval is derived from the drop in the survival curve
-#' over that interval. This allocation is done via a multinomial distribution:
+#' horizon from `0` to `T_max` into intervals \eqn{[t_{i-1}, t_i]}. First, the total
+#' number of patients `n` is allocated across these intervals (along with a final
+#' category for those who survive beyond `T_max`). The probability of an event
+#' occurring in interval `i` is derived from the drop in the survival curve:
 #' \deqn{
-#'     i \sim \text{Multinomial}(\pi)
+#'     \pi_i = S(t_{i-1}) - S(t_i)
 #' }
-#' where \eqn{\pi_i = S(t_{i-1}) - S(t_i)} is the probability of an event in interval `i`.
+#' The vector of patient counts falling into each interval, \eqn{(n_1, n_2, \dots)},
+#' is simulated via a multinomial distribution:
+#' \deqn{
+#'     (n_1, n_2, \dots) \sim \mathrm{Multinomial}(n, \pi)
+#' }
+#' where \eqn{\pi} must sum to 1 (including the probability \eqn{S(T_{max})} of
+#' surviving past the maximum time horizon).
 #'
-#' Second, for the patients assigned to each interval, a specific event time is
-#' simulated from a uniform distribution covering that interval:
+#' Second, for the \eqn{n_i} patients assigned to interval `i`, a specific event time
+#' is simulated from a uniform distribution covering that interval:
 #' \deqn{
 #'     T | i \sim U(t_{i-1}, t_i)
 #' }
@@ -39,6 +45,12 @@
 #'     \item **time**: The simulated event time for each patient.
 #'     \item **event**: The event indicator, which is always `1` as this function does not simulate censoring.
 #'   }
+#'
+#' @references
+#' Che, Z., Green, N., & Baio, G. (2022). Blended Survival Curves: A New Approach
+#' to Extrapolation for Time-to-Event Outcomes from Clinical Trials in Health
+#' Technology Assessment. Medical Decision Making, 43(3), 299-310.
+#' <doi:10.1177/0272989X221134545>.
 #'
 #' @export
 #'

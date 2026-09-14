@@ -11,7 +11,7 @@ if (requireNamespace("survHEhmc", quietly = TRUE)) {
   options("mc.cores" = 1)
   # options(cores = 1)
 
-  data("TA174_FCR", package = "blendR")
+  data("dat_FCR", package = "blendR")
 
 
   test_that("different distributions in survHE hmc", {
