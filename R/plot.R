@@ -133,7 +133,7 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 weightplot <- function(x, ...) {
   tibble(
     t = x$times,
-    t_scaled = (t - x$blend_interv$min)/(x$blend_interv$max - x$blend_interv$min),
+    t_scaled = (t - x$blend_interv$min) / (x$blend_interv$max - x$blend_interv$min),
     y = stats::pbeta(.data$t_scaled, x$beta_params$alpha, x$beta_params$beta)) |>
     mutate(
       y = case_when(t_scaled < 0 ~ 0,

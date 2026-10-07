@@ -83,8 +83,7 @@ professionals and other users of survival data.
 The *blending* idea is to consider two separate processes to describe
 the long-term horizon survival. The first one is driven exclusively by
 the observed data. Similar to a *standard* health technology assessments (HTA),
-this is used to
-determine an estimate over the entire time horizon of a survival curve,
+this is used to determine an estimate over the entire time horizon of a survival curve,
 termed $S_{obs}(t \mid \boldsymbol{\theta}_{obs})$, a function of the
 relevant parameters $\boldsymbol{\theta}_{obs}$. A simple parametric
 model could be chosen, or alternatively, some other more complex model,
@@ -147,8 +146,7 @@ obtained with $S_{obs}$.
 The blue curve, indicated as $S_{ext}$ should be used to give
 information about the expected long-term behaviour of the survival
 process. While it may be difficult to directly access hard data to
-inform this it is often
-possible and generally desirable to so. For example, experts may have
+inform this it is often possible and generally desirable to so. For example, experts may have
 individual level data from a registry based on use of a drug with a
 similar mechanism to the one they are assessing in the trial; or perhaps
 they have elicited clinical knowledge or expert opinion to identify that
@@ -164,8 +162,8 @@ fitted to the short-term data (purple Kaplan-Meier curve) within Follow-up perio
 (green curve); then gradually approaching the external estimate in the
 Blending interval (red curve); eventually consistent with the expected
 behaviour (blue curve) in the Long term. The black point in the Long
-term is an example of external information about 10% expected survival
-at the 13 years from experts.\label{fig:figure}](figure.jpeg){width="80%"}
+term is an example of external information about 20% expected survival
+at the 13 years from experts.\label{fig:figure}](figure.png){width="80%"}
 
 # Example
 
