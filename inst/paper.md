@@ -83,13 +83,13 @@ designed to be used by statisticians, health economists, healthcare
 professionals and other users of survival data.
 
 While standard parametric survival modelling packages such as flexsurv
-[@flexsurv] and survHE [@survHE] support extrapolation,
-they focus primarily on fitting single models to observed data. They do
-not natively support the method of blending short-term observed trial
-data with long-term external survival estimates. `blendR` fills this
-gap by providing a dedicated, streamlined framework to
-merge these two distinct survival curves over a specified blending
-interval, potentially allowing more plausible long-term extrapolations.
+[@flexsurv] and survHE [@survHE] support extrapolation, they focus
+primarily on fitting single models to observed data. They do not
+natively support the method of blending short-term observed trial data
+with long-term external survival estimates. `blendR` fills this gap by
+providing a dedicated, streamlined framework to merge these two distinct
+survival curves over a specified blending interval, potentially allowing
+more plausible long-term extrapolations.
 
 # Method
 
@@ -97,12 +97,13 @@ The *blending* idea is to consider two separate processes to describe
 the long-term horizon survival. The first one is driven exclusively by
 the observed data. Similar to a *standard* health technology assessments
 (HTA), this is used to determine an estimate over the entire time
-horizon of a survival curve, termed $S_{obs}(t \mid \boldsymbol{\theta}_{obs})$,
-a function of the relevant parameters $\boldsymbol{\theta}_{obs}$. A simple parametric 
-model could be chosen, or alternatively, some other more complex model,
-with the main objective to produce the *best* fit possible to the
-observed information. Unlike in a standard modelling exercise where 
-the issue of overfitting is potentially critical, achieving a very close
+horizon of a survival curve, termed
+$S_{obs}(t \mid \boldsymbol{\theta}_{obs})$, a function of the relevant
+parameters $\boldsymbol{\theta}_{obs}$. A simple parametric model could
+be chosen, or alternatively, some other more complex model, with the
+main objective to produce the *best* fit possible to the observed
+information. Unlike in a standard modelling exercise where the issue of
+overfitting is potentially critical, achieving a very close
 approximation to the observed dynamics has much less important
 implications in the case of blending, as explained further below. Common
 packages available in R for this step include `survHE` [@survHE] and
@@ -153,10 +154,10 @@ mathematical function that maps the interval $[a, b]$ to the range $[0,
 1]$ could be used as an alternative weight function. Future extensions
 of the package may allow for user-defined weight functions.
 
-\autoref{fig:figure} depicts this process graphically. In this
-case, it is assumed that the trial data span over the interval $[0,a]$,
-which is labelled in the graph as the "Follow-up". The dashed curve is
-the Kaplan-Meier (KM) estimate of the observed data (for simplicity, but
+\autoref{fig:figure} depicts this process graphically. In this case, it
+is assumed that the trial data span over the interval $[0,a]$, which is
+labelled in the graph as the "Follow-up". The dashed curve is the
+Kaplan-Meier (KM) estimate of the observed data (for simplicity, but
 without loss of generality, consider here a single arm). The curve
 labelled as $S_{obs}$ results from a suitable model fitted to the
 observed data, in order to capture the known features of the data
@@ -179,20 +180,24 @@ Figure \autoref{fig:figure}.
 ![Graphical representation of the blended curve method. The whole
 time-horizon is partitioned into three parts: Follow-up, Blending
 interval and Long term. The blended survival is equivalent to the model
-fitted to the short-term data (purple Kaplan-Meier curve) within Follow-up period
-(green curve); then gradually approaching the external estimate in the
-Blending interval (red curve); eventually consistent with the expected
-behaviour (blue curve) in the Long term. The black point in the Long
-term is an example of external information about 20% expected survival
-at the 13 years from experts.\label{fig:figure}](figure.png){width="80%"}
+fitted to the short-term data (purple Kaplan-Meier curve) within
+Follow-up period (green curve); then gradually approaching the external
+estimate in the Blending interval (red curve); eventually consistent
+with the expected behaviour (blue curve) in the Long term. The black
+point in the Long term is an example of external information about 20%
+expected survival at the 13 years from
+experts.\label{fig:figure}](figure.png){width="80%"}
 
 ## Installation
-As the package is available on CRAN, `blendR` can be easily installed using the following command
+
+As the package is available on CRAN, `blendR` can be easily installed
+using the following command
 
 ``` r
 install.packages("blendR")
 ```
->>>>>>> c94f4299fbb33e21d1cc9fb80f3a22043973fee9
+
+> > > > > > > c94f4299fbb33e21d1cc9fb80f3a22043973fee9
 
 # Example
 
@@ -241,5 +246,8 @@ plot(ble_Surv)
 
 ![](plotblend.png){width="50%"}
 
-The shaded areas around the survival curves represent the 95% credible intervals. Since `blendR` leverages a Bayesian framework via `survHE` and Stan, these intervals are estimated directly from the posterior samples of the model parameters. For full details on the estimation procedure, we refer readers to @Che2022.
-# References
+The shaded areas around the survival curves represent the 95% credible
+intervals. Since `blendR` leverages a Bayesian framework via `survHE`
+and Stan, these intervals are estimated directly from the posterior
+samples of the model parameters. For full details on the estimation
+procedure, we refer readers to @Che2022. \# References
