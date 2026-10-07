@@ -14,6 +14,8 @@
 #' @param alpha A numeric vector of length two specifying the opacity for the
 #'   credible interval ribbons. The first value (`alpha[1]`) is for the blended
 #'   curve, and the second (`alpha[2]`) is for the trial and external curves.
+#' @param km A logical indicating whether to add a Kaplan-Meier survival curve to the plot, 
+#'   if available in the `blended` object. Default is `FALSE`.
 #' @param ... Additional graphical arguments passed to the plot, such as `xlim`,
 #'   `xlab`, or `ylab`.
 #'
@@ -59,7 +61,7 @@
 #'
 #' plot(ble_Surv)
 #'
-plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
+plot.blended <- function(x, alpha = c(0.1,0.05), km = FALSE, ...) {
   dots <- list(...)
 
   obs_Surv <- x$S_obs
@@ -81,7 +83,7 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
 
   ci <- list(low = 0.025, high = 0.975)
 
-  ggplot() +
+  p <- ggplot() +
     ylim(0,1) +
     geom_line(aes(times, rowMeans(obs_Surv), colour = "Data fitting"),
               linewidth = 1, linetype = "twodash") +
@@ -111,6 +113,15 @@ plot.blended <- function(x, alpha = c(0.1,0.05), ...) {
     theme_bw() +
     theme(legend.position = c(0.9, 0.85),
           legend.background = element_rect(fill = 'transparent'))
+
+  if (km && !is.null(x$km)) {
+    p <- p + geom_line(aes(x$km$time, x$km$surv, colour = "Kaplan-Meier"),
+                       linewidth = 1.25, linetype = "dashed")
+  } else if (km && is.null(x$km)) {
+    warning("Kaplan-Meier curve cannot be plotted because it is not available in the blended object.")
+  }
+
+  p
 }
 
 #' Plots the weights for the blending procedure

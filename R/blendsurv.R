@@ -141,6 +141,17 @@ blendsurv <- function(obs_Surv, ext_Surv,
                     upp = apply(mat, 1, quantile, 0.975))
   }
 
+  # Extract Kaplan-Meier fit if possible
+  km <- tryCatch({
+    if ("survHE" %in% class(obs_Surv)) {
+      obs_Surv$misc$km
+    } else if ("flexsurvreg" %in% class(obs_Surv)) {
+      survival::survfit(formula(obs_Surv), data = eval(obs_Surv$call$data))
+    } else {
+      NULL
+    }
+  }, error = function(e) NULL)
+
   res <-
     list(S = S,
          sim = NA,
@@ -152,7 +163,8 @@ blendsurv <- function(obs_Surv, ext_Surv,
          S_obs = S_obs,
          weight = w,
          blend_interv = blend_interv,
-         beta_params = beta_params)
+         beta_params = beta_params,
+         km = km)
 
   structure(res, class = c("blended", class(res)))
 }
