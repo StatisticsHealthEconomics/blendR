@@ -29,14 +29,18 @@ jobs:
 
       - name: Set custom R repositories
         run: |
-          r <- getOption("repos")
-          r["CRAN"] <- "https://cloud.r-project.org"
-          r["INLA"] <- "https://inla.r-inla-download.org/R/stable"
-          r["giabaio"] <- "https://giabaio.r-universe.dev"
-          options(repos = r)
-          writeLines(
-            'options(repos = c(CRAN = "https://cloud.r-project.org", INLA = "https://inla.r-inla-download.org/R/stable", giabaio = "https://giabaio.r-universe.dev"))',
-            file.path(Sys.getenv("HOME"), ".Rprofile")
+          cat(
+            'local({
+              r <- getOption("repos")
+              if (is.null(r["CRAN"]) || is.na(r["CRAN"]) || r["CRAN"] == "@CRAN@") {
+                r["CRAN"] <- "https://cloud.r-project.org"
+              }
+              r["INLA"] <- "https://inla.r-inla-download.org/R/stable"
+              r["giabaio"] <- "https://giabaio.r-universe.dev"
+              options(repos = r)
+            })\n',
+            file = file.path(Sys.getenv("HOME"), ".Rprofile"),
+            append = TRUE
           )
         shell: Rscript {0}
 
@@ -44,6 +48,7 @@ jobs:
         with:
           extra-packages: |
             any::covr
+            any::xml2
             giabaio/survHEhmc
           needs: coverage
 

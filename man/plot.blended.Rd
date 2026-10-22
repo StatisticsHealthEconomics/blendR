@@ -4,7 +4,7 @@
 \alias{plot.blended}
 \title{Plot Blended Survival Curves}
 \usage{
-\method{plot}{blended}(x, alpha = c(0.1, 0.05), ...)
+\method{plot}{blended}(x, alpha = c(0.1, 0.05), km = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{blended}, typically the output of \code{\link[=blendsurv]{blendsurv()}}.}
@@ -12,6 +12,9 @@
 \item{alpha}{A numeric vector of length two specifying the opacity for the
 credible interval ribbons. The first value (\code{alpha[1]}) is for the blended
 curve, and the second (\code{alpha[2]}) is for the trial and external curves.}
+
+\item{km}{A logical indicating whether to add a Kaplan-Meier survival curve to the plot,
+if available in the \code{blended} object. Default is \code{FALSE}.}
 
 \item{...}{Additional graphical arguments passed to the plot, such as \code{xlim},
 \code{xlab}, or \code{ylab}.}

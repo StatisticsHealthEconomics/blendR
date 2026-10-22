@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_inla_pw.R
 \name{fit_inla_pw}
 \alias{fit_inla_pw}
-\title{Fit a Piecewise Exponential Survival Model using INLA}
+\title{Fit a Piece-wise Exponential Survival Model using INLA}
 \usage{
 fit_inla_pw(
   inla.formula = inla.surv(death_t, death) ~ -1,
