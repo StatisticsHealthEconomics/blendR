@@ -197,8 +197,6 @@ using the following command
 install.packages("blendR")
 ```
 
-> > > > > > > c94f4299fbb33e21d1cc9fb80f3a22043973fee9
-
 # Example
 
 We present a basic example which demonstrates how to solve a common
@@ -250,4 +248,6 @@ The shaded areas around the survival curves represent the 95% credible
 intervals. Since `blendR` leverages a Bayesian framework via `survHE`
 and Stan, these intervals are estimated directly from the posterior
 samples of the model parameters. For full details on the estimation
-procedure, we refer readers to @Che2022. \# References
+procedure, we refer readers to @Che2022. 
+
+# References
