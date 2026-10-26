@@ -12,7 +12,7 @@
 ^Meta$
 ^inst/paper\.bib$
 ^inst/paper\.html$
-^inst/figure\.jpeg$
+^inst/figure\.png$
 ^inst/paper\.md$
 ^inst/plotblend\.png$
 ^revdep$
