@@ -179,10 +179,10 @@ $S_{ext}$ can deviate substantially from the observed data, as shown in \autoref
 ![Graphical representation of the blended curve method. The whole
 time-horizon is partitioned into three parts: Follow-up, Blending
 interval and Long term. The blended survival is equivalent to the model
-fitted to the short-term data (purple Kaplan-Meier curve) within
+fitted to the short-term data (Kaplan-Meier black squares) within
 Follow-up period (green curve); then gradually approaching the external
 estimate in the Blending interval (red curve); eventually consistent
-with the expected behaviour (blue curve) in the Long term. The black
+with the expected behaviour (cyan curve) in the Long term. The black
 point in the Long term is an example of external information about 20%
 expected survival at the 13 years from
 experts.\label{fig:figure}](figure.png){width="80%"}
