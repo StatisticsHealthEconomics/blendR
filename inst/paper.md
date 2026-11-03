@@ -112,7 +112,7 @@ packages available in R for this step include `survHE` [@survHE] and
 For the second component of the blending process, consider a separate
 *external* survival curve, ${S_{ext}(t\mid\boldsymbol{\theta}_{ext})}$.
 This is a parametric model that is not informed by the observed data -
-for instance, "hard"" information could be used, e.g. derived from a
+for instance, "hard" information could be used, e.g. derived from a
 different data source (such as registries or observational studies), or
 construct a model that is purely based on subjective knowledge elicited
 from experts, or possibly a combination of the two. Either way,
@@ -174,8 +174,7 @@ use of a drug with a similar mechanism to the one they are assessing in
 the trial; or perhaps they have elicited clinical knowledge or expert
 opinion to identify that survival at a certain time point is not
 expected to exceed a certain threshold. Notice in particular that
-$S_{ext}$ can deviate substantially from the observed data, as shown in
-Figure \autoref{fig:figure}.
+$S_{ext}$ can deviate substantially from the observed data, as shown in \autoref{fig:figure}.
 
 ![Graphical representation of the blended curve method. The whole
 time-horizon is partitioned into three parts: Follow-up, Blending
@@ -205,7 +204,7 @@ package, we fit exponential distribution survival models with no
 covariates using the `fit.models()` function from the `survHE` package
 [@survHE]. This employs the Hamiltonian Monte Carlo (HMC) sampler from
 Stan behind the scenes [@stan2017]. The *external* or *long-term* data
-are obtained from an heuristic approach to simulating data consistent
+are obtained from a heuristic approach to simulating data consistent
 with user-defined constraints. The results are then blended into a
 single survival curve using the `blendsurv()` function.
 
